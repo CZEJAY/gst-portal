@@ -1,0 +1,65 @@
+import mongoose, { Schema } from "mongoose";
+
+// Define the schema
+const studentSchema = new Schema({
+    firstName: {
+        type: String,
+        lowercase: true,
+        required: [true, 'First name is required'],
+        minlength: [3, 'First name must be at least 3 characters long'],
+    },
+    surName: {
+        type: String,
+        lowercase: true,
+        required: [true, 'Surname is required'],
+        minlength: [3, 'Surname must be at least 3 characters long'],
+    },
+    otherName: {
+        type: String,
+        lowercase: true,
+        required: [true, 'Other name is required'],
+        minlength: [3, 'Other name must be at least 3 characters long'],
+    },
+    gender: {
+        type: String,
+        required: [true, 'Gender is required']
+    },
+    faculty: {
+        type: String,
+        required: [true, 'Faculty is required']
+    },
+    department: {
+        type: String,
+        required: [true, 'Department is required']
+    },
+    level: {
+        type: String,
+        required: [true, 'Level is required']
+    },
+    phone: {
+        type: String,
+        required: [true, 'Phone is required']
+    },
+    matricNumber: {
+        type: String,
+        index: true,
+        unique: true,
+        required: [true, 'Matric number is required']
+    },
+    image: {
+        type: String,
+        required: [true, 'Image URL is required']
+    },
+    fingerPrint: String,
+    registrar: {
+        type: mongoose.Types.ObjectId,
+        ref: "Registrar"
+    }
+}, { 
+    timestamps: true // This automatically handles createdAt and updatedAt fields
+});
+
+// Check if the model already exists to avoid recompilation
+const Student = mongoose.models.Student || mongoose.model("Student", studentSchema);
+
+export default Student;
