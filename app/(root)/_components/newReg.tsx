@@ -10,7 +10,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { User } from "lucide-react";
 
-export default function NewReg() {
+export default function NewReg({total}: {total: number}) {
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
@@ -31,12 +31,12 @@ export default function NewReg() {
             <User className="text-orange-900" />
             </CardDescription>
             <CardTitle className="text-4xl">
-                122
+                {total}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-xs text-muted-foreground">
-              +25% from last yesterday
+              +25% from yesterday
             </div>
           </CardContent>
           <CardFooter>
@@ -50,7 +50,7 @@ export default function NewReg() {
           </CardHeader>
           <CardContent>
             <div className="text-xs text-muted-foreground">
-              +10% from last yesterday
+              +10% from yesterday
             </div>
           </CardContent>
           <CardFooter>
