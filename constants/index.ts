@@ -1,4 +1,23 @@
-import { Fingerprint, UserSquare2 } from "lucide-react";
+import { DivideCircleIcon, Fingerprint, Info, LayoutDashboard, List, Package, UserSquare2, UsersRoundIcon } from "lucide-react";
+
+export const Links = [
+  {
+    icon: LayoutDashboard,
+    pathname: "/dashboard",
+    label: "Dashboard",
+  },
+  {
+    icon: UsersRoundIcon,
+    pathname: "/dashboard/students",
+    label: "Students",
+  },
+  {
+    icon: List,
+    pathname: "/dashboard/package",
+    label: "Packages",
+  },
+] as const;
+
 
 export const NavBarLink = [
     {

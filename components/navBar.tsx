@@ -1,27 +1,14 @@
 "use client"
 import React, { useContext, useState } from "react";
-import UserNavigationPanel from "./user-navigation.component";
-import { UserCircle } from 'lucide-react';
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import UserButton from "./UserButton";
 const NavBar = () => {
-  const [searcBoxVisible, setSearhBoxVisible] = useState(false);
-  const [isModalActive, setIsModalAtive] = useState(false);
-  const router = useRouter();
   const {
     data
   } = useSession();
 
-  const handleUserNavPanel = () => {
-    setIsModalAtive((currentVal) => !currentVal);
-  };
-
-  const handleBlur = () => {
-    setTimeout(() => {
-      setIsModalAtive(false);
-    }, 200);
-  };
+  
 
   return (
     <>
@@ -41,16 +28,7 @@ const NavBar = () => {
                 </button>
               </Link> */}
 
-              <div
-                className="relative"
-                onClick={handleUserNavPanel}
-                onBlur={handleBlur}
-              >
-                <button className="w-12 h-12 mt-1 relative">
-                  <UserCircle size={40} />
-                </button>
-                {isModalActive ? <UserNavigationPanel /> : null}
-              </div>
+              <UserButton />
             </>
           ) : (
             <>

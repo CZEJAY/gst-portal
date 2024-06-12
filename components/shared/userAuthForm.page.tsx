@@ -8,6 +8,7 @@ import InputBox from "./input.component copy";
 import { ValidationError } from "@/lib/utils";
 import useLocalStorage from "use-local-storage";
 import { signIn, useSession } from "next-auth/react";
+import Image from "next/image";
 
 interface UserAuthFormProps {
   type: "sign-in" | "sign-up";
@@ -69,13 +70,17 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
       <section className="h-screen bg-orange-500 flex items-center justify-center">
         <form
           ref={authFormRef}
-          className="w-[90%] bg-white shadow-2xl rounded-lg py-10 px-14 max-w-[600px]"
+          className="w-[90%] flex flex-col bg-white shadow-2xl rounded-lg py-10 px-14 max-w-[600px]"
           onSubmit={handleSubmit}
           id="formElement"
         >
-          <h1 className="text-4xl font-semibold capitalize mb-24 text-center">
+          <div className="mx-auto w-24">
+            <Image width={200} height={200} alt="logo" src={"/uniuyo-logo.png"}  />
+          </div>
+          <h1 className="text-4xl font-semibold capitalize  text-center">
             {type === "sign-in" ? "Welcome back" : "Join us today"}
           </h1>
+          <p className="font-semibold text-lg text-center mb-14">Please enter your credentials to continue.</p>
           {type !== "sign-in" && (
             <InputBox
               disabled={isLoading}

@@ -2,8 +2,10 @@ import "../globals.css"
 import { SessionProviderLayout } from "@/context/SessionProvider";
 
 export const metadata = {
-  title: "Authentication - Portal",
+  title: "Authentication - UNIUYO GST Portal",
   description: "Authentication page",
+  icons: "/uniuyo-logo.png"
+
 };
 
 export default function RootLayout({

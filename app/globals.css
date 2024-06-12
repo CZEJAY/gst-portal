@@ -4,26 +4,26 @@
 
   @layer base {
     :root {
-      --background: 0 0% 100%;
-      --foreground: 222.2 84% 4.9%;
+      --background: 34, 100%, 49%;
+      --foreground: 34, 100%, 49%;
 
       --card: 0 0% 100%;
-      --card-foreground: 222.2 84% 4.9%;
+      --card-foreground: 15, 75%, 28%;
 
       --popover: 0 0% 100%;
       --popover-foreground: 222.2 84% 4.9%;
 
-      --primary: 222.2 47.4% 11.2%;
+      --primary: 15, 75%, 28%;
       --primary-foreground: 210 40% 98%;
 
-      --secondary: 210 40% 96.1%;
-      --secondary-foreground: 222.2 47.4% 11.2%;
+      --secondary: 34, 100%, 49%;
+      --secondary-foreground: 34, 100%, 49%;
 
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
+      --muted: 34, 100%, 49%;
+      --muted-foreground: 16, 29%, 62%;
 
-      --accent: 210 40% 96.1%;
-      --accent-foreground: 222.2 47.4% 11.2%;
+      --accent: 34, 100%, 49%;
+      --accent-foreground: 34, 100%, 49%;
 
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 210 40% 98%;
@@ -75,6 +75,39 @@
     }
   } */
 
+  @layer components {
+    .main-container {
+      @apply flex min-h-screen flex-1 flex-col items-start bg-light-1 dark:bg-dark-1 px-6 pb-10 pt-28 max-md:pb-32 sm:px-10;
+    }
+    .input-0{
+      @apply focus:ring-transparent focus-visible:ring-offset-0 focus-visible:ring-0
+    }
+    .input-1{
+      @apply focus:ring-transparent focus-visible:ring-offset-0 focus-visible:ring-1
+    }
+  
+    .leftsidebar {
+      @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-light-3 dark:border-r-dark-4 dark:bg-dark-2 bg-orange-600 pb-5 pt-28 max-md:hidden;
+    }
+    .leftsidebar1 {
+      @apply sticky left-0 top-0 z-40 flex h-screen max-md:hidden flex-col justify-between overflow-auto border-r border-r-gray-300 dark:border-r-dark-4 dark:bg-dark-2 bg-orange-900 pb-5 pt-8 w-24 items-center overflow-x-hidden;
+    }
+  
+    .rightsidebar {
+      @apply absolute right-0 top-0  flex h-screen w-fit flex-col justify-between gap-12 overflow-auto border-l border-l-light-3 dark:border-l-dark-4  px-10 pb-6 pt-28 max-xl:hidden;
+    }
+  
+    .topbar {
+      @apply fixed top-0  flex w-full items-center justify-between bg-gray-200 px-6 py-3
+       dark:bg-dark-2 backdrop-blur-sm sm:backdrop-blur-lg text-white  border-b-light-3;
+    }
+    .topbar1 {
+      @apply fixed top-0 z-20 flex w-full items-center justify-between bg-light-1 px-6 py-3 h-24
+       dark:bg-dark-2 backdrop-blur-sm sm:backdrop-blur-lg  border md:pl-28;
+    }
+    
+  }
+  
   @layer components {
      
   
