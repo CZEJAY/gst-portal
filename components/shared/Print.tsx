@@ -32,12 +32,12 @@ export default function Print() {
               width={200}
               height={200}
               priority
-              src={formData.image}
+              src={formData?.image || ""}
               alt="user"
               className="max-w-52 self-center"
             />
             <p className="text-xl text-center font-bold">
-              {formData.matricNumber}
+              {formData?.matricNumber || "N/A"}
             </p>
           </div>
           <div className="flex flex-1 gap-4 -mt-8 items-center justify-end  shrink-0">
@@ -64,27 +64,27 @@ export default function Print() {
               <p className="text-xl font-bold w-full flex items-center border-b">
                 Name:{" "}
                 <span className="font-medium ml-auto text-sm">
-                  {formData.surName.toUpperCase()},{" "}
-                  {formData.firstName.toUpperCase()}{" "}
-                  {formData.otherName.toUpperCase()} ({formData.gender})
+                  {formData?.surName?.toUpperCase()},{" "}
+                  {formData?.firstName?.toUpperCase()}{" "}
+                  {formData?.otherName?.toUpperCase()} ({formData?.gender})
                 </span>
               </p>
               <p className="text-xl font-bold w-full flex items-center border-b">
                 Faculty:{" "}
                 <span className="font-medium ml-auto text-sm ">
-                  {formData.faculty}
+                  {formData?.faculty || "N/A"}
                 </span>
               </p>
               <p className="text-xl font-bold w-full flex items-center border-b">
                 Department:{" "}
                 <span className="font-medium ml-auto text-sm">
-                  {formData.department}
+                  {formData?.department || "N/A"}
                 </span>
               </p>
               <p className="text-xl font-bold w-full flex items-center border-b">
                 Level:{" "}
                 <span className="font-medium ml-auto text-sm">
-                  {formData.level}
+                  {formData?.level || "N/A"}
                 </span>
               </p>
             </div>

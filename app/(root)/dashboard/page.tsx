@@ -2,11 +2,12 @@
 
 import React from 'react'
 import NewReg from '../_components/newReg'
-import { getSession } from 'next-auth/react'
+import getServerSession from 'next-auth/next'
 import prismadb from '@/lib/prisma'
+import authOptions from '@/auth.config'
 
 const page = async  () => {
-  const session = await getSession()
+  // const session = await getServerSession(authOptions)
   // const user = await prismadb.registrars.findMany({
   //   where: {
   //     id: session?.user?.id
