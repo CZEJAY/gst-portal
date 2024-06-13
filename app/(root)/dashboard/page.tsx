@@ -7,6 +7,7 @@ import { auth } from '@/auth'
 import { StudentClient } from './_components/client'
 import { StudentColumn } from './_components/columns'
 import {endOfDay, format, startOfDay, subDays} from "date-fns"
+import SideComponent from '../_components/SideComponent'
 
 
 const page = async  () => {
@@ -107,7 +108,8 @@ const page = async  () => {
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
       <NewReg verified={studentsWithFingerprint.length} unverified={studentsWithoutFingerprint.length}  percentageChange={percentageChange} studentsYesterday={countYesterday} total={students.length} recent={countToday} />
-      <div className='col-span-2'>
+      <SideComponent />
+      <div className='col-span-2 -mt-[430px]'>
       <StudentClient data={formattedData} />
       </div>
     </main>

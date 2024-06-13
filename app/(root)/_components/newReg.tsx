@@ -69,9 +69,6 @@ export default function NewReg({
               Enrollments from yesterday
             </div>
           </CardContent>
-          {/*<CardFooter>
-            <Progress value={12} aria-label="12% increase" />
-          </CardFooter> */}
         </Card>
         <Card x-chunk="dashboard-05-chunk-2">
           <CardHeader className="pb-2">
@@ -83,7 +80,7 @@ export default function NewReg({
           </CardHeader>
           <CardContent>
             <div className="text-xs text-muted-foreground">
-            {percentageChange.toFixed(2)}% from yesterday
+            +{percentageChange.toFixed(2)}% from yesterday
             </div>
           </CardContent>
           <CardFooter>

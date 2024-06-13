@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
 import { StudentColumn } from './columns'
 import { toast } from 'sonner'
+import { useStudentStore } from '@/context/zustand'
+import prismadb from '@/lib/prisma'
+import { GETSTUDENT } from '@/actions'
 
 interface CellActionProps {
     data: StudentColumn
@@ -15,7 +18,7 @@ interface CellActionProps {
 const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
-    const router = useRouter()
+    const setSelectedStudent = useStudentStore((state) => state.setSelectedStudent)
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
     const onCopy = (id: string) => {
@@ -37,6 +40,19 @@ const CellAction: React.FC<CellActionProps> = ({
           setOpen(false)
         }
       }
+
+      const handleViewClick = async (matricNumber: string) => {
+        try {
+          const student = await GETSTUDENT(matricNumber)
+    
+          if (student) {
+            setSelectedStudent(student)
+          }
+        } catch (error) {
+          console.error('Failed to fetch student data:', error)
+        }
+      }
+      
   return (
     <>
     <AlertModal isOpen={open} loading={loading} onClose={() => setOpen(false)} onConfirm={() => onDelete()} />
@@ -56,9 +72,9 @@ const CellAction: React.FC<CellActionProps> = ({
                 <Copy className='mr-2 h-4 w-4' />
                 Copy Matric
             </DropdownMenuItem>
-            <DropdownMenuItem className="" onClick={() => onUpdate(data.matricNumber)}>
+            <DropdownMenuItem className="" onClick={() => handleViewClick(data.matricNumber)}>
                 <Edit className='mr-2 h-4 w-4' />
-                Update
+                View
             </DropdownMenuItem>
             <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />

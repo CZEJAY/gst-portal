@@ -101,6 +101,12 @@ export const facultiesAndDepartment = [
         ]
     },
     {
+      faculty: "Education",
+      departments: [
+        "Science Education"
+      ]
+    },
+    {
         faculty: "Allied Health Sciences",
         departments: [
             "Medical Laboratory Science",
