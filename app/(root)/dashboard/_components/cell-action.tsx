@@ -9,6 +9,7 @@ import { StudentColumn } from './columns'
 import { toast } from 'sonner'
 import { useStudentStore } from '@/context/zustand'
 import { DELETESTUDENT, GETSTUDENT } from '@/actions'
+import { useSession } from 'next-auth/react'
 
 interface CellActionProps {
     data: StudentColumn
@@ -17,6 +18,7 @@ interface CellActionProps {
 const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
+    const {data: session, status} = useSession()
     const setSelectedStudent = useStudentStore((state) => state.setSelectedStudent)
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
@@ -73,10 +75,14 @@ const CellAction: React.FC<CellActionProps> = ({
                 <View className='mr-2 h-4 w-4' />
                 View
             </DropdownMenuItem>
-            <DropdownMenuItem className="" onClick={() => setOpen(true)}>
+            {
+              status === "authenticated" && session.user?.name === "caleb" && (
+                <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />
                 Delete
             </DropdownMenuItem>
+              )
+            }
         </DropdownMenuContent>
        </DropdownMenu>
     </>
