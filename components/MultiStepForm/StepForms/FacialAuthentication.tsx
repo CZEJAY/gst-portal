@@ -121,12 +121,12 @@ export default function FacialAuthentication() {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      <form className="px-12 py-4 min-h-[550px] flex w-full flex-col" onSubmit={handleSubmit(processData)}>
+      <form className="md:px-12 py-4 min-h-[550px] flex w-full flex-col" onSubmit={handleSubmit(processData)}>
         <div className="mb-8">
-          <h5 className="text-xl md:text-3xl font-bold text-gray-900">
+          <h5 className="text-lg md:text-3xl font-bold text-gray-900">
             Facial Authentication
           </h5>
-          <p className="font-semibold text-lg">Please look into the camera.</p>
+          <p className="font-semibold text-sm md:text-lg">Please look into the camera.</p>
         </div>
         <canvas ref={canvasRef} className="hidden bg-current" width={200} height={200} />
         {!imageURL && (

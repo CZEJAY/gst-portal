@@ -7,6 +7,7 @@ import { SessionProviderLayout } from "@/context/SessionProvider";
 import Siderbar from "../_components/Siderbar";
 import Header from "../_components/header";
 import { Toaster } from "sonner";
+import SideComponent from "../_components/SideComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
                   <div className="w-full ">{children}</div>
                 </section>
                 {/* <RightSideBar /> */}
+                <SideComponent />
               </main>
             </Providers>
           </DeviceProvider>

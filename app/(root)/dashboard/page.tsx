@@ -151,10 +151,12 @@ const page = async  () => {
     createdAt: format(item.createdAt, "MMMM do, yyyy")
   }))
   return (
-    <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
+    <main className="grid relative flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 ">
       <NewReg verified={studentsWithFingerprint.length} unverified={studentsWithoutFingerprint.length}  percentageChange={percentageChange} studentsYesterday={countYesterday} total={students.length} recent={countToday} />
-      <SideComponent />
-      <div className='col-span-2 -mt-[430px]'>
+      <div className="static top-0 right-0">
+      {/* <SideComponent /> */}
+      </div>
+      <div className='col-span-2 '>
       <StudentClient data={formattedData} />
       </div>
     </main>

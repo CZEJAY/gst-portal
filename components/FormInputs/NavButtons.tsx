@@ -29,7 +29,7 @@ export default function NavButtons({ loading = false }: NavButtonsProps) {
       )}
       <button
         type="submit"
-        className="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-orange-900 rounded-lg focus:ring-4 focus:ring-orange-200 dark:focus:ring-orange-900 hover:bg-orange-800"
+        className="inline-flex items-center px-5 py-2 mt-4 sm:mt-6 text-xs line-clamp-1 mdtext-sm font-medium text-center text-white bg-orange-900 rounded-lg focus:ring-4 focus:ring-orange-200 dark:focus:ring-orange-900 hover:bg-orange-800"
       >
         <span>
           {currentStep === 4 ? "Confirm and Submit" : "Save and Continue"}

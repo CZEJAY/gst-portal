@@ -22,9 +22,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <SessionProviderLayout>
-          <DeviceProvider>
             <Providers>{children}</Providers>
-          </DeviceProvider>
         </SessionProviderLayout>
       </body>
     </html>

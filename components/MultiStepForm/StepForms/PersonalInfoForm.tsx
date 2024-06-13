@@ -185,12 +185,12 @@ const PersonalInfoForm: React.FC = () => {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      <form className="px-12 py-4" onSubmit={handleSubmit(processData)}>
+      <form className=" md:px-12 py-4" onSubmit={handleSubmit(processData)}>
         <div className="mb-8">
-          <h5 className="text-xl md:text-3xl font-bold text-gray-900">
+          <h5 className="text-md md:text-3xl font-bold text-gray-900">
             Personal info
           </h5>
-          <p className="text-lg font-semibold">
+          <p className="text-sm md:text-lg font-semibold">
             Please fill every field in the form below.
           </p>
         </div>
@@ -257,11 +257,11 @@ const PersonalInfoForm: React.FC = () => {
             label="Matric Number"
             type="text"
             name="matricNumber"
-            placeholder="Enter matriculation number (e.g. 23/AB/CD/123)"
+            placeholder="Enter matriculation number"
             register={register}
             isRequired="Matric Number is required"
             errors={errors}
-            className="col-span-1 sm:col-span-2"
+            className="col-span-2"
           />
         </div>
         <NavButtons loading={loading} />

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Info from '../shared/info';
 import { useForm, UseFormRegister, FieldErrors } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
+import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 interface TextInputProps {
   label: string;
@@ -27,7 +29,7 @@ const TextInput: React.FC<TextInputProps> = ({
   errors,
   isRequired = '',
   type = 'text',
-  className = 'col-span-2 sm:col-span-1',
+  className = 'col-span-1 sm:col-span-2',
   defaultValue = '',
   isPhone = false,
   isPass = false,
@@ -40,7 +42,7 @@ const TextInput: React.FC<TextInputProps> = ({
   const maxCharacter = 11;
 
   return (
-    <div className={className}>
+    <div className={"col-span-1 sm:col-span-2"}>
       <div className="flex items-center justify-between w-full">
         <label
           htmlFor={name}
@@ -73,7 +75,7 @@ const TextInput: React.FC<TextInputProps> = ({
           defaultValue={defaultValue}
           autoComplete={name}
           className={
-            "block w-full  py-2 text-gray-900 placeholder:pl-2 shadow-sm ring-1 ring-inset ring-slate-500 placeholder:text-gray-400 focus:ring-inset focus:ring-orange-700 dark:focus:ring-orange-500 sm:text-sm sm:leading-6 dark:bg-transparent pl-1 placeholder:capitalize placeholder:pr-2 " +
+            "block w-full rounded-sm py-2 text-gray-900 placeholder:pl-2 shadow-sm ring-1 ring-inset ring-slate-500 placeholder:text-gray-400 line-clamp-1 focus:ring-inset focus:ring-orange-700 dark:focus:ring-orange-500 sm:text-sm sm:leading-6 dark:bg-transparent placeholder:text-xs text-clip pl-1 placeholder:capitalize placeholder:pr-2 " +
             (isUpper && 'uppercase')
           }
           placeholder={
@@ -81,7 +83,7 @@ const TextInput: React.FC<TextInputProps> = ({
           }
         />
         {isPhone && (
-          <div className="absolute top-5 right-5 -translate-y-1/2 text-gray-400">
+          <div className="absolute top-5 hidden md:block right-5 -translate-y-1/2 text-gray-400">
             {maxCharacter - (formValues?.phone?.length ?? 0)} / {maxCharacter}
           </div>
         )}
