@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "UNIUYO GST Dashboard - BIOMETRIC",
   description: "BIOMETRIC PORTAL",
-  icons: "/uniuyo-logo.png"
+  icons: "/uniuyo-logo.png",
 };
 
 export default function RootLayout({
@@ -27,8 +27,10 @@ export default function RootLayout({
         <SessionProviderLayout>
           <DeviceProvider>
             <Providers>
-              <Toaster />
-            <main className="flex flex-row">
+              <div className="absolute">
+                <Toaster />
+              </div>
+              <main className="flex flex-row">
                 {/* <LeftSidebar /> */}
                 <Siderbar />
                 <Header />

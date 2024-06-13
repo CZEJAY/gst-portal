@@ -61,6 +61,28 @@ const page = async  () => {
     }
   })
 
+  const studentsWithoutFingerprint = await prismadb.students.findMany({
+    where: {
+      fingerPrint: null,
+      registrar: session?.user?.id // Assuming you want to filter by registrar as well
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  })
+  const studentsWithFingerprint = await prismadb.students.findMany({
+    where: {
+      fingerPrint: {
+        not: null
+      },
+      registrar: session?.user?.id // Assuming you want to filter by registrar as well
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  })
+  
+
   // Calculate the counts
   const countToday = studentsToday.length
   const countYesterday = studentsYesterday.length
@@ -84,7 +106,7 @@ const page = async  () => {
   }))
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-      <NewReg percentageChange={percentageChange} studentsYesterday={countYesterday} total={students.length} recent={countToday} />
+      <NewReg verified={studentsWithFingerprint.length} unverified={studentsWithoutFingerprint.length}  percentageChange={percentageChange} studentsYesterday={countYesterday} total={students.length} recent={countToday} />
       <div className='col-span-2'>
       <StudentClient data={formattedData} />
       </div>

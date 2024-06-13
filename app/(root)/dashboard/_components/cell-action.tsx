@@ -52,15 +52,15 @@ const CellAction: React.FC<CellActionProps> = ({
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end' >
             <DropdownMenuLabel>Action</DropdownMenuLabel>
-            <DropdownMenuItem className="hover:bg-gray-400/15 bg-gray-200" onClick={() => onCopy(data.matricNumber)}>
+            <DropdownMenuItem className="" onClick={() => onCopy(data.matricNumber)}>
                 <Copy className='mr-2 h-4 w-4' />
                 Copy Matric
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-gray-400/15" onClick={() => onUpdate(data.matricNumber)}>
+            <DropdownMenuItem className="" onClick={() => onUpdate(data.matricNumber)}>
                 <Edit className='mr-2 h-4 w-4' />
                 Update
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-gray-400/15" onClick={() => setOpen(true)}>
+            <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />
                 Delete
             </DropdownMenuItem>

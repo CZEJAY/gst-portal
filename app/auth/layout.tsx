@@ -18,7 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SessionProviderLayout>{children}</SessionProviderLayout>
+        <div className="absolute">
         <Toaster />
+        </div>
       </body>
     </html>
   );

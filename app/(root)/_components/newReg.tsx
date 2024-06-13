@@ -8,16 +8,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { AreaChart, BarChartHorizontal, User } from "lucide-react";
+import { AreaChart, BarChartHorizontal, User, UserCheck2, UserX2 } from "lucide-react";
 import Link from "next/link";
 
 export default function NewReg({
   total,
   recent,
   studentsYesterday,
-  percentageChange
+  percentageChange,
+  verified,
+  unverified,
 }: {
   total: number;
+  verified: number;
+  unverified: number;
   recent: number;
   studentsYesterday: number;
   percentageChange: number;
@@ -28,7 +32,7 @@ export default function NewReg({
         <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
           <CardHeader className="pb-3">
             <CardTitle>Your Registrations</CardTitle>
-            <CardDescription className="max-w-lg text-balance text-sm  font-semibold leading-relaxed">
+            <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
               Register a student to populate and have an amazing metric values.
             </CardDescription>
           </CardHeader>
@@ -85,6 +89,34 @@ export default function NewReg({
           <CardFooter>
             <Progress value={percentageChange > 0 ? percentageChange : 0} aria-label={`${percentageChange.toFixed(2)}% increase`} />
           </CardFooter>
+        </Card>
+        <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
+          <CardHeader className="pb-3">
+            <CardTitle className="w-full flex items-center justify-between">
+            Unverified Enrollments
+            <UserX2 />
+            </CardTitle>
+            <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
+              Students pending fingerprint enrollment and verification.
+            </CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <p className="text-4xl text-orange-900">{unverified}</p>
+          </CardFooter>
+        </Card>
+        <Card x-chunk="dashboard-05-chunk-2">
+          <CardHeader className="pb-2">
+            <CardDescription className="w-full flex items-center justify-between">
+              Verified Enrollments
+              <UserCheck2 className="text-orange-900" />
+            </CardDescription>
+            <CardTitle className="text-4xl">{verified}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-xs text-muted-foreground">
+            Successfully enrolled and verified students
+            </div>
+          </CardContent>
         </Card>
       </div>
     </div>
