@@ -27,7 +27,19 @@ const page = async  () => {
   const startOfYesterday = startOfDay(yesterdayDate)
   const endOfYesterday = endOfDay(yesterdayDate)
 
-  const studentsToday = await prismadb.students.findMany({
+  const studentsToday = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    where: {
+      createdAt: {
+        gte: startOfCurrentDay,
+        lt: endOfCurrentDay
+      }
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) 
+  :
+  await prismadb.students.findMany({
     where: {
       registrar: session?.user?.id,
       createdAt: {
@@ -38,9 +50,20 @@ const page = async  () => {
     orderBy: {
       createdAt: "desc"
     }
-  })
+  });
 
-  const studentsYesterday = await prismadb.students.findMany({
+  const studentsYesterday = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    where: {
+      createdAt: {
+        gte: startOfYesterday,
+        lt: endOfYesterday
+      }
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) :
+  await prismadb.students.findMany({
     where: {
       registrar: session?.user?.id,
       createdAt: {
@@ -51,16 +74,21 @@ const page = async  () => {
     orderBy: {
       createdAt: "desc"
     }
-  })
+  });
   
-  const students = await prismadb.students.findMany({
+  const students = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) :
+  await prismadb.students.findMany({
     where: {
       registrar: session?.user?.id
     },
     orderBy: {
       createdAt: "desc"
     }
-  })
+  });
 
   const studentsWithoutFingerprint = await prismadb.students.findMany({
     where: {
