@@ -90,7 +90,15 @@ const page = async  () => {
     }
   });
 
-  const studentsWithoutFingerprint = await prismadb.students.findMany({
+  const studentsWithoutFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    where: {
+      fingerPrint: null,
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) :
+  await prismadb.students.findMany({
     where: {
       fingerPrint: null,
       registrar: session?.user?.id // Assuming you want to filter by registrar as well
@@ -98,8 +106,17 @@ const page = async  () => {
     orderBy: {
       createdAt: "desc"
     }
-  })
-  const studentsWithFingerprint = await prismadb.students.findMany({
+  });
+  const studentsWithFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    where: {
+      fingerPrint: {
+        not: null
+      },
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) : await prismadb.students.findMany({
     where: {
       fingerPrint: {
         not: null
