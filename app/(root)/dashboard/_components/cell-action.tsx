@@ -76,12 +76,12 @@ const CellAction: React.FC<CellActionProps> = ({
                 View
             </DropdownMenuItem>
             {
-              status === "authenticated" && session.user?.name === "caleb" && (
+              status === "authenticated" && session.user?.name === "caleb" ? (
                 <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />
                 Delete
             </DropdownMenuItem>
-              )
+              ) : null
             }
         </DropdownMenuContent>
        </DropdownMenu>
