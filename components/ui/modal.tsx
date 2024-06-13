@@ -30,8 +30,8 @@ export const Modal: React.FC<ModalProps> = ({
     };
 
     return (
-        <Dialog open={isOpen} onOpenChange={onChange}>
-            <DialogContent>
+        <Dialog  open={isOpen} onOpenChange={onChange}>
+            <DialogContent className="bg-white">
                 <DialogHeader>
                     <DialogTitle>
                         {tittle}

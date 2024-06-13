@@ -76,7 +76,7 @@ export const encodeToBase64 = (input: any) => {
   }
 };
 
-function extractPublicId(url: string): string | null {
+export function extractPublicId(url: string): string | null {
   const regex = /\/v\d+\/([^\/]+\/[^\/]+)\./;
   const match = url.match(regex);
   return match ? match[1] : null;

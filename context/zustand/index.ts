@@ -15,7 +15,7 @@ export const useTrigger = create<IStore>((set) => ({
 
 interface StudentStore {
   selectedStudent: students | null
-  setSelectedStudent: (student: students) => void
+  setSelectedStudent: (student: students | null) => void
   clearSelectedStudent: () => void
 }
 

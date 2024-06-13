@@ -2,14 +2,13 @@
 import React, { use, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react'
+import { Copy, Edit, MoreHorizontal, Trash, View } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
 import { StudentColumn } from './columns'
 import { toast } from 'sonner'
 import { useStudentStore } from '@/context/zustand'
-import prismadb from '@/lib/prisma'
-import { GETSTUDENT } from '@/actions'
+import { DELETESTUDENT, GETSTUDENT } from '@/actions'
 
 interface CellActionProps {
     data: StudentColumn
@@ -25,14 +24,12 @@ const CellAction: React.FC<CellActionProps> = ({
         navigator.clipboard.writeText(id);
         toast.success("Matric Number Copied!");
       };
-      const onUpdate = (id: string) => {
-        
-      }
       const onDelete = async () => {
         try {
           setLoading(true)
-          
+          const res = await DELETESTUDENT(data.matricNumber)
           toast.success("Student deleted")
+          setSelectedStudent(null)
         } catch (error) {
           toast.error("Something went wrong!")
         } finally{
@@ -73,7 +70,7 @@ const CellAction: React.FC<CellActionProps> = ({
                 Copy Matric
             </DropdownMenuItem>
             <DropdownMenuItem className="" onClick={() => handleViewClick(data.matricNumber)}>
-                <Edit className='mr-2 h-4 w-4' />
+                <View className='mr-2 h-4 w-4' />
                 View
             </DropdownMenuItem>
             <DropdownMenuItem className="" onClick={() => setOpen(true)}>

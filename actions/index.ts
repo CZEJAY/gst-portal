@@ -4,7 +4,7 @@ import { signIn, signOut } from "@/auth";
 import { FormData } from "@/components/MultiStepForm/StepForms/PersonalInfoForm";
 import cloudinary from "@/lib/cloudinary";
 import prismadb from "@/lib/prisma";
-import { ValidationError, hashPassword } from "@/lib/utils";
+import { ValidationError, extractPublicId, hashPassword } from "@/lib/utils";
 import Registrar from "@/models/Registrar";
 import Student from "@/models/Students";
 import { students } from "@prisma/client";
@@ -221,9 +221,24 @@ export const GETSTUDENT = async (matricNumber: string) => {
     });
 
     if (student) {
-      return student;
+      return JSON.parse(JSON.stringify(student));
     }
   } catch (error) {
     console.error("Failed to fetch student data:", error);
   }
 };
+
+export const DELETESTUDENT = async (matricNumber: string) => {
+  try {
+    const student = await prismadb.students.delete({
+      where: { matricNumber },
+    })
+    const publicId = extractPublicId(student.image)
+    const deletedImage = await CLOUDINARYDELETE(publicId as string)
+    console.log("Image deleted => ", deletedImage?.message)
+    revalidatePath("/dashboard")
+  } catch (error: any) {
+    console.log("Could not delete Student", error)
+    throw error
+  }
+}
