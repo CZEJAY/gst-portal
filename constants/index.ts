@@ -6,16 +6,6 @@ export const Links = [
     pathname: "/dashboard",
     label: "Dashboard",
   },
-  {
-    icon: UsersRoundIcon,
-    pathname: "/dashboard/students",
-    label: "Students",
-  },
-  {
-    icon: List,
-    pathname: "/dashboard/package",
-    label: "Packages",
-  },
 ] as const;
 
 
