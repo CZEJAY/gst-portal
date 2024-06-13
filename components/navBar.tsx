@@ -1,15 +1,9 @@
-"use client"
-import React, { useContext, useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import UserButton from "./UserButton";
-const NavBar = () => {
-  const {
-    data
-  } = useSession();
-
-  
-
+import { auth } from "@/auth";
+const NavBar = async () => {
+  const session = await auth()
   return (
     <>
       <nav className="navbar">
@@ -20,7 +14,7 @@ const NavBar = () => {
 
         <div className="flex items-center gap-3 md:gap-6 ml-auto">
 
-          {data?.user?.name ? (
+          {session?.user ? (
             <>
               {/* <Link to={"/dashboard/notification"}>
                 <button className="w-12 h-12 flex items-center justify-center rounded-full bg-grey relative hover:bg-black/10">

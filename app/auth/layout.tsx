@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import "../globals.css"
 import { SessionProviderLayout } from "@/context/SessionProvider";
 
@@ -17,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <SessionProviderLayout>{children}</SessionProviderLayout>
+        <Toaster />
       </body>
     </html>
   );

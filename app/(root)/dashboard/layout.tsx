@@ -6,6 +6,7 @@ import { DeviceProvider } from "@/context/deviceContext";
 import { SessionProviderLayout } from "@/context/SessionProvider";
 import Siderbar from "../_components/Siderbar";
 import Header from "../_components/header";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <SessionProviderLayout>
           <DeviceProvider>
             <Providers>
+              <Toaster />
             <main className="flex flex-row">
                 {/* <LeftSidebar /> */}
                 <Siderbar />

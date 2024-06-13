@@ -1,3 +1,4 @@
+"use client"
 import { UserCircle } from "lucide-react";
 import React, { useState } from "react";
 import UserNavigationPanel from "./user-navigation.component";

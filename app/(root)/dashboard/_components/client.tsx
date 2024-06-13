@@ -18,7 +18,7 @@ export const StudentClient: FC<StudentClientProps> = ({ data }) => {
   return (
     <>
       <Separator />
-      <DataTable searchKey="surName" columns={columns} data={data} />
+      <DataTable searchKey="matricNumber" columns={columns} data={data} />
     </>
   );
 };

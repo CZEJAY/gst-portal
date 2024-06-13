@@ -1,6 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table";
+import CellAction from "./cell-action";
 
 export type StudentColumn = {
     surName: string;
@@ -22,11 +23,11 @@ export const columns: ColumnDef<StudentColumn>[] = [
     },
     {
         accessorKey: "firstName",
-        header: "First Name"
+        header: "Firstname"
     },
     {
         accessorKey: "otherName",
-        header: "Other Name"
+        header: "Othername"
     },
     {
         accessorKey: "faculty",
@@ -38,7 +39,7 @@ export const columns: ColumnDef<StudentColumn>[] = [
     },
     {
         accessorKey: "matricNumber",
-        header: "Matric Number"
+        header: "Matric"
     },
     {
         accessorKey: "level",
@@ -51,5 +52,9 @@ export const columns: ColumnDef<StudentColumn>[] = [
     {
         accessorKey: "createdAt",
         header: "Date"
-    }
+    },
+    {
+        id: "action",
+        cell: ({ row }) => <CellAction data={row.original}/>
+      }
 ]
