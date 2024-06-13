@@ -80,7 +80,7 @@ export default function NewReg({
           </CardHeader>
           <CardContent>
             <div className="text-xs text-muted-foreground">
-            +{percentageChange.toFixed(2)}% from yesterday
+            {percentageChange.toFixed(2)}% from yesterday
             </div>
           </CardContent>
           <CardFooter>
