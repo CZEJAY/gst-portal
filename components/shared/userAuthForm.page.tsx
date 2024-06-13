@@ -29,14 +29,11 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
         callbackUrl: "/register",
         // redirect: false,
       });
-      if (res?.error) {
-        toast.error("Invalid username or password!");
-      }
       if (res?.status === 200) {
         router.push("/");
       }
     } catch (err: any) {
-      toast.error(err.message);
+      toast.error("Invalid username or password!");
     } finally {
       setIsLoading(false);
     }
@@ -75,12 +72,19 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
           id="formElement"
         >
           <div className="mx-auto w-24">
-            <Image width={200} height={200} alt="logo" src={"/uniuyo-logo.png"}  />
+            <Image
+              width={200}
+              height={200}
+              alt="logo"
+              src={"/uniuyo-logo.png"}
+            />
           </div>
           <h1 className="text-4xl font-semibold capitalize  text-center">
             {type === "sign-in" ? "Welcome back" : "Join us today"}
           </h1>
-          <p className="font-semibold text-lg text-center mb-14">Please enter your credentials to continue.</p>
+          <p className="font-semibold text-lg text-center mb-14">
+            Please enter your credentials to continue.
+          </p>
           {type !== "sign-in" && (
             <InputBox
               disabled={isLoading}
