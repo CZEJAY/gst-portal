@@ -1,11 +1,13 @@
-
-import Print from '@/components/shared/Print'
-import React from 'react'
+import Print from "@/components/shared/Print";
+import { DeviceProvider } from "@/context/deviceContext";
+import React from "react";
 
 const page = () => {
   return (
-    <Print />
-  )
-}
+    <DeviceProvider>
+      <Print />
+    </DeviceProvider>
+  );
+};
 
-export default page
+export default page;
