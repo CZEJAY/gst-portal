@@ -21,7 +21,7 @@ const SelectInputCourse: React.FC<SelectInputCourseProps> = ({
   label,
   name,
   register,
-  className = "col-span-1 sm:col-span-2 md:min-w-full",
+  className = "col-span-1  md:min-w-full",
   options = [],
   multiple = false,
 }) => {

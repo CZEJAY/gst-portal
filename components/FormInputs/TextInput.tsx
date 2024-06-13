@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Info from '../shared/info';
 import { useForm, UseFormRegister, FieldErrors } from 'react-hook-form';
 import { Toaster, toast } from 'sonner';
-import clsx from 'clsx';
-import { cn } from '@/lib/utils';
 
 interface TextInputProps {
   label: string;
@@ -29,7 +27,7 @@ const TextInput: React.FC<TextInputProps> = ({
   errors,
   isRequired = '',
   type = 'text',
-  className = 'col-span-1 sm:col-span-2',
+  className = 'col-span-1',
   defaultValue = '',
   isPhone = false,
   isPass = false,
@@ -42,7 +40,7 @@ const TextInput: React.FC<TextInputProps> = ({
   const maxCharacter = 11;
 
   return (
-    <div className={"col-span-1 sm:col-span-2"}>
+    <div className={className}>
       <div className="flex items-center justify-between w-full">
         <label
           htmlFor={name}

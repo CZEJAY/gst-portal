@@ -14,7 +14,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
   label,
   name,
   register,
-  className = "col-span-1 sm:col-span-2 overflow-hidden",
+  className = "col-span-1 overflow-hidden",
   options = [],
   multiple = false,
 }) => {
