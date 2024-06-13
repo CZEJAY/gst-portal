@@ -9,6 +9,7 @@ import Registrar from "@/models/Registrar";
 import Student from "@/models/Students";
 import { students } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
 
 
 export async function SignInSVA(){
@@ -196,7 +197,7 @@ export const CLOUDINARYDELETE = async (data: string) => {
           registrar: userId,
         },
       });
-  
+      revalidatePath("/dashboard")
       return student;
     } catch (error: any) {
       if (error instanceof ValidationError) {
