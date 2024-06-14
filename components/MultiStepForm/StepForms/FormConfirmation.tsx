@@ -15,7 +15,7 @@ import { students } from "@prisma/client";
 export default function FormConfirmation() {
   const formData: students = useSelector((store: any) => store.onboarding.formData); // Adjust the type as per your RootState
   const [loading, setLoading] = useState<boolean>(false);
-  const [success, setSuccess] = useState<boolean>(true);
+  const [success, setSuccess] = useState<boolean>(false);
   const router = useRouter()
   const {data} = useSession()
   
@@ -83,7 +83,7 @@ export default function FormConfirmation() {
           surname={formData.surName}
         />
       )}
-      <form className="md:px-12 py-4" onSubmit={processData}>
+      <form className="md:px-12 px-2 py-4" onSubmit={processData}>
         <div className="mb-8 relative">
           <h5 className="text-lg md:text-3xl font-bold text-gray-900">
             Confirm and Submit Data

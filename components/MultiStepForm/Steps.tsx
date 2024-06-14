@@ -23,7 +23,7 @@ export default function Steps({ steps }: Props) {
   }
 
   return (
-    <div className="rounded-lg relative col-span-full lg:col-span-4 bg-orange-600 p-10 flex flex-row justify-between md:flex-col md:justify-start gap-6 flex-wrap ">
+    <div className="rounded-lg hidden  relative col-span-full lg:col-span-4 bg-orange-600 p-10 md:flex flex-row justify-between md:flex-col md:justify-start gap-6 flex-wrap ">
       {steps.map((step, i) => {
         return <Step key={i} step={step} />;
       })}

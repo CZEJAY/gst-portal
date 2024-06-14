@@ -73,7 +73,7 @@ const TextInput: React.FC<TextInputProps> = ({
           defaultValue={defaultValue}
           autoComplete={name}
           className={
-            "block w-full rounded-sm py-2 text-gray-900 placeholder:pl-2 shadow-sm ring-1 ring-inset ring-slate-500 placeholder:text-gray-400 line-clamp-1 focus:ring-inset focus:ring-orange-700 dark:focus:ring-orange-500 sm:text-sm sm:leading-6 dark:bg-transparent placeholder:text-xs text-clip pl-1 placeholder:capitalize placeholder:pr-2 " +
+            "block w-full rounded-sm py-2 text-gray-900 placeholder:pl-2 shadow-sm ring-1 ring-inset ring-slate-500 placeholder:text-gray-400 line-clamp-1 focus:ring-inset focus:ring-orange-700 dark:focus:ring-orange-500 sm:text-sm sm:leading-6 dark:bg-transparent md:placeholder:text-sm placeholder:text-xs pl-1 placeholder:capitalize placeholder:pr-2 " +
             (isUpper && 'uppercase')
           }
           placeholder={

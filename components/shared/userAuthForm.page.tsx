@@ -26,8 +26,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
       const res = await signIn("credentials", {
         username: formData.username,
         password: formData.password,
-        callbackUrl: "/register",
-        // redirect: false,
+        redirect: false,
       });
       if (res?.status === 200) {
         router.push("/");
@@ -67,7 +66,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
       <section className="h-screen bg-orange-500 flex items-center justify-center">
         <form
           ref={authFormRef}
-          className="w-[90%] flex flex-col bg-white shadow-2xl rounded-lg py-10 px-14 max-w-[600px]"
+          className="md:w-[90%] flex flex-col bg-white shadow-2xl rounded-lg p-5 md:py-10 md:px-14 md:max-w-[600px]"
           onSubmit={handleSubmit}
           id="formElement"
         >
@@ -79,10 +78,10 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
               src={"/uniuyo-logo.png"}
             />
           </div>
-          <h1 className="text-4xl font-semibold capitalize  text-center">
+          <h1 className="text-xl md:text-4xl font-bold capitalize  text-center">
             {type === "sign-in" ? "Welcome back" : "Join us today"}
           </h1>
-          <p className="font-semibold text-lg text-center mb-14">
+          <p className="font-semibold text-sm md:text-lg text-center mb-14">
             Please enter your credentials to continue.
           </p>
           {type !== "sign-in" && (
@@ -115,7 +114,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
 
           <button
             disabled={isLoading}
-            className="btn-dark center relative disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-opacity-100 flex items-center justify-center gap-3 mt-14 w-full"
+            className="btn-dark bg-orange-700 center relative disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-opacity-100 flex items-center justify-center gap-3 mt-14 w-full"
             type="submit"
           >
             {isLoading && (

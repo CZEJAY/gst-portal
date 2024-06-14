@@ -47,7 +47,7 @@ const SelectInputCourse: React.FC<SelectInputCourseProps> = ({
           id={name}
           multiple={multiple} 
           name={name}
-          className="block min-w-full rounded-md h-10 border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-slate-500 focus:ring-inset sm:max-w-xs text-sm sm:leading-6"
+          className="block min-w-full rounded-md h-10 border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-slate-500 focus:ring-inset sm:max-w-xs text-xs md:text-sm sm:leading-6"
           onChange={handleChange}
         >
           {options.map((option, i) => (

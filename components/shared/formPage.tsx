@@ -21,8 +21,8 @@ export default function FormPage() {
   return (
     <>
     <NavBar />
-    <div className="p-4 relative overflow-hidden min-h-[700px] bg-orange-600 " >
-      <div className="mx-auto w-full max-w-7xl  p-1 bg-white border border-gray-200 rounded-lg shadow sm:p-4 md:p-6 grid grid-cols-12 gap-4">
+    <div className="md:p-4 py-5 relative overflow-hidden min-h-[700px] bg-orange-600 " >
+      <div className="mx-auto w-full max-w-7xl  p-1 bg-white border border-gray-200 rounded-lg shadow md:p-6 grid grid-cols-12 gap-4">
         {/* Steps */}
         <Steps steps={steps} />
         {/* Form */}

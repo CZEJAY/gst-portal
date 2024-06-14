@@ -185,7 +185,7 @@ const PersonalInfoForm: React.FC = () => {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      <form className=" md:px-12 py-4" onSubmit={handleSubmit(processData)}>
+      <form className=" md:px-12 px-2 py-4" onSubmit={handleSubmit(processData)}>
         <div className="mb-8">
           <h5 className="text-md md:text-3xl font-bold text-gray-900">
             Personal info
