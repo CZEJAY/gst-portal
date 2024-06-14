@@ -93,6 +93,15 @@ export const facultiesAndDepartment = [
       ]
     },
     {
+      faculty: "Art",
+      departments: [
+        "English",
+        "History and International Relation",
+        "Philosophy",
+        "Linguistics and Foreign Languages",
+      ],
+    },
+    {
       faculty: "Law",
       departments: [
         "Public Law",
