@@ -129,12 +129,10 @@ export default function FacialAuthentication() {
           <p className="font-semibold text-sm md:text-lg">Please look into the camera.</p>
         </div>
         <canvas ref={canvasRef} className="hidden bg-current" width={200} height={200} />
-        {!imageURL && (
-          <video ref={videoRef} autoPlay className="h-[200px] w-[200px] p-0 mx-auto bg-black" />
-        )}
-        {imageURL && (
-          <Image width={200} height={200} src={imageURL} alt="CaptImage" className="h-[200px] w-[200px] mx-auto object-cover bg-center" />
-        )}
+          <video ref={videoRef} autoPlay className="h-[200px] w-[200px] p-0 mx-auto " />
+        {/* {imageURL && (
+          <Image width={200} height={200} src={imageURL} alt="CaptImage" className="h-[150px] w-[200px] mt-9 mx-auto object-cover bg-center" />
+        )} */}
         <button
           onClick={isCapturing ? handleCapture : handleClick}
           type="button"
