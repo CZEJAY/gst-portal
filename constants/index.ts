@@ -93,6 +93,14 @@ export const facultiesAndDepartment = [
       ]
     },
     {
+      faculty: "Law",
+      departments: [
+        "Public Law",
+        "Private Law",
+        "International Law",
+      ]
+    },
+    {
         faculty: "Allied Health Sciences",
         departments: [
             "Medical Laboratory Science",
