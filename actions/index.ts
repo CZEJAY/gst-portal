@@ -215,6 +215,20 @@ export const CREATESTUDENT = async ({
   }
 };
 
+export const GETSTUDENTBYID = async (id: string) => {
+  try {
+    const student = await prismadb.students.findUnique({
+      where: {
+        id,
+      }
+    })
+    return JSON.parse(JSON.stringify(student))
+  } catch (error: any) {
+    console.log("ERROR GETTING STUDENT ==> ", error)
+    return null
+  }
+}
+
 export const GETSTUDENT = async (matricNumber: string) => {
   try {
     const session = await auth()

@@ -32,6 +32,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 import AlertModal from "@/components/modals/AlertModal";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SideComponent() {
   const selectedStudent = useStudentStore((state) => state.selectedStudent);
@@ -56,10 +57,21 @@ export default function SideComponent() {
             </CardTitle>
             <CardDescription>
               {selectedStudent
-                ? `Date: ${format(String(selectedStudent?.student?.createdAt), "MMMM do, yyyy")}`
+                ? `Date: ${format(
+                    String(selectedStudent?.student?.createdAt),
+                    "MMMM do, yyyy"
+                  )}`
                 : "Select a student."}
             </CardDescription>
           </div>
+          {selectedStudent ? (
+            <Link
+              className="bg-orange-900 text-white ml-auto p-2 px-3 rounded-md"
+              href={`/print/${selectedStudent?.student?.id}`}
+            >
+              Print
+            </Link>
+          ) : null}
         </CardHeader>
         {selectedStudent ? (
           <CardContent className="p-6 text-sm">
@@ -130,7 +142,10 @@ export default function SideComponent() {
         )}
         <div className="text-xs text-muted-foreground">
           {selectedStudent
-            ? `Updated: ${format(String(selectedStudent?.student?.updatedAt), "MMMM do yyy")}`
+            ? `Updated: ${format(
+                String(selectedStudent?.student?.updatedAt),
+                "MMMM do yyy"
+              )}`
             : "Please select a student."}
         </div>
         <CardFooter className="flex flex-col items-start border-t bg-muted/50 px-6 py-3">
