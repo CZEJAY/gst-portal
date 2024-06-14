@@ -16,16 +16,16 @@ export default function Print() {
   };
 
   return (
-    <div className="w-screen justify-center h-screen flex items-start relative">
+    <div className="w-screen justify-center h-screen flex items-start">
       <button
         hidden={isPrinting}
         type="button"
         onClick={handlePrint}
-        className="bg-orange-900 absolute bottom-5 right-5 text-orange-500 font-bold py-2 px-4 rounded"
+        className="bg-orange-900 fixed bottom-1/3 text-orange-500 font-bold py-2 px-4 rounded"
       >
         Print
       </button>
-      <form className="w-full relative px-5 py-3 max-w-[900px] max-h-[400px] border-[4px] border-orange-500">
+      <form className="w-fit  relative px-5 py-3  min-w-[700px] min-h-[400px] border-[4px] border-orange-500">
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
             <Image
