@@ -62,10 +62,6 @@ export const gender = [
       title: "Level 200",
     },
     {
-      id: "Level 200 (DE)",
-      title: "Level 200 (DE)",
-    },
-    {
       id: "Level 300",
       title: "Level 300",
     },
