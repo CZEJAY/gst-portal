@@ -25,7 +25,7 @@ export default function Print() {
       >
         Print
       </button>
-      <form className="w-full relative overflow-hidden px-5 py-3 max-w-[900px] max-h-[400px] border-[4px] border-orange-500">
+      <form className="w-full relative px-5 py-3 max-w-[900px] max-h-[400px] border-[4px] border-orange-500">
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
             <Image
