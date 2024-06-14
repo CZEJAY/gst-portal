@@ -1,12 +1,21 @@
 "use client"
 import { students } from "@prisma/client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Print({StudentData}: {StudentData?: students }) {
-  const formData = StudentData ? StudentData : useSelector((store: any) => store.onboarding.formData);
+  const reduxFormData = useSelector((store: any) => store.onboarding.formData);
   const [isPrinting, setIsPrinting] = useState(false);
+  const [formData, setFormData] = useState<any>(null)
+
+  useEffect(() => {
+    if(StudentData){
+      setFormData(StudentData)
+    }else {
+      setFormData(reduxFormData)
+    }
+  }, [formData, StudentData])
 
   const handlePrint = () => {
     setIsPrinting(true);
