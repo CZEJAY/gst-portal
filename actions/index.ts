@@ -1,7 +1,8 @@
 "use server";
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { FormData } from "@/components/MultiStepForm/StepForms/PersonalInfoForm";
+import { FormattedStudent } from "@/context/zustand";
 import cloudinary from "@/lib/cloudinary";
 import prismadb from "@/lib/prisma";
 import { ValidationError, extractPublicId, hashPassword } from "@/lib/utils";
@@ -216,15 +217,35 @@ export const CREATESTUDENT = async ({
 
 export const GETSTUDENT = async (matricNumber: string) => {
   try {
-    const student = await prismadb.students.findUnique({
+    const session = await auth()
+    
+    const student = session?.user?.name === "caleb" ? await prismadb.students.findUnique({
+      where: { matricNumber },
+      include: {
+        registrarRel: true
+      }
+    }) : await prismadb.students.findUnique({
       where: { matricNumber },
     });
-
-    if (student) {
-      return JSON.parse(JSON.stringify(student));
+    let studentsCount;
+    if(student?.registrar){
+      const registrar = await prismadb.students.findMany({
+        where: {
+          registrar: student.registrar
+        }
+      })
+      studentsCount = registrar.length
     }
+
+    const formattedStudent: FormattedStudent = {
+      student,
+      studentsCount
+    }
+    
+      return JSON.parse(JSON.stringify(formattedStudent))
   } catch (error) {
     console.error("Failed to fetch student data:", error);
+    return null
   }
 };
 

@@ -35,7 +35,7 @@ import { useState } from "react";
 
 export default function SideComponent() {
   const selectedStudent = useStudentStore((state) => state.selectedStudent);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -46,17 +46,17 @@ export default function SideComponent() {
         onConfirm={() => onDelete()}
       /> */}
 
-      <Card className="overflow-hidden max-h-[750px] mr-5 mt-28 min-w-[500px]">
+      <Card className="overflow-hidden max-h-[840px] mr-5 mt-28 min-w-[500px]">
         <CardHeader className="flex flex-row items-start bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
               {selectedStudent
-                ? `${selectedStudent.surName.toUpperCase()}'s Detail`
+                ? `${selectedStudent?.student?.surName.toUpperCase()}'s Detail`
                 : "Student Details"}
             </CardTitle>
             <CardDescription>
               {selectedStudent
-                ? `Date: ${format(selectedStudent.createdAt, "MMMM do, yyyy")}`
+                ? `Date: ${format(String(selectedStudent?.student?.createdAt), "MMMM do, yyyy")}`
                 : "Select a student."}
             </CardDescription>
           </div>
@@ -67,7 +67,7 @@ export default function SideComponent() {
               <ul className="grid gap-3">
                 <div className="">
                   <Image
-                    src={selectedStudent.image}
+                    src={selectedStudent?.student?.image as string}
                     alt="student"
                     width={200}
                     height={200}
@@ -75,7 +75,7 @@ export default function SideComponent() {
                 </div>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Matric Number</span>
-                  <span>{selectedStudent.matricNumber}</span>
+                  <span>{selectedStudent?.student?.matricNumber}</span>
                 </li>
               </ul>
               <Separator className="my-2" />
@@ -83,23 +83,23 @@ export default function SideComponent() {
               <ul className="grid gap-3">
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Surname</span>
-                  <span>{selectedStudent.surName}</span>
+                  <span>{selectedStudent?.student?.surName}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Firstname</span>
-                  <span>{selectedStudent.firstName}</span>
+                  <span>{selectedStudent?.student?.firstName}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Othername</span>
-                  <span>{selectedStudent.otherName}</span>
+                  <span>{selectedStudent?.student?.otherName}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Gender</span>
-                  <span>{selectedStudent.gender}</span>
+                  <span>{selectedStudent?.student?.gender}</span>
                 </li>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Phone Number</span>
-                  <span>{selectedStudent.phone}</span>
+                  <span>{selectedStudent?.student?.phone}</span>
                 </li>
               </ul>
             </div>
@@ -109,15 +109,15 @@ export default function SideComponent() {
               <dl className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Faculty</dt>
-                  <dd>{selectedStudent.faculty}</dd>
+                  <dd>{selectedStudent?.student?.faculty}</dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Department</dt>
-                  <dd>{selectedStudent.department}</dd>
+                  <dd>{selectedStudent?.student?.department}</dd>
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Level</dt>
-                  <dd>{selectedStudent.level}</dd>
+                  <dd>{selectedStudent?.student?.level}</dd>
                 </div>
               </dl>
             </div>
@@ -128,12 +128,27 @@ export default function SideComponent() {
             <p>Please select a student to view details</p>
           </CardContent>
         )}
-        <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-          <div className="text-xs text-muted-foreground">
-            {selectedStudent
-              ? `Updated: ${format(selectedStudent.updatedAt, "MMMM do yyy")}`
-              : "Please select a student."}
-          </div>
+        <div className="text-xs text-muted-foreground">
+          {selectedStudent
+            ? `Updated: ${format(String(selectedStudent?.student?.updatedAt), "MMMM do yyy")}`
+            : "Please select a student."}
+        </div>
+        <CardFooter className="flex flex-col items-start border-t bg-muted/50 px-6 py-3">
+          {selectedStudent?.student?.registrarRel && (
+            <div className="grid gap-3">
+              <div className="font-semibold">Registrar Details</div>
+              <dl className="grid gap-3">
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Name</dt>
+                  <dd>{selectedStudent?.student?.registrarRel?.name}</dd>
+                </div>
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Total</dt>
+                  <dd>{selectedStudent.studentsCount}</dd>
+                </div>
+              </dl>
+            </div>
+          )}
         </CardFooter>
       </Card>
     </>

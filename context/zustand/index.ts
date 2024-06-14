@@ -1,5 +1,15 @@
-import { students } from "@prisma/client";
-import { create} from "zustand"
+import { registrars, students } from "@prisma/client";
+import { create } from "zustand";
+
+export type StudentWithRegistrar = students & {
+  registrarRel?: registrars;
+  studentCounts?: number;
+};
+
+export type FormattedStudent = {
+  student: StudentWithRegistrar | null;
+  studentsCount?: number;
+};
 interface IStore {
   isOpen: boolean;
   setIsOpen: () => void;
@@ -8,19 +18,18 @@ interface IStore {
 
 export const useTrigger = create<IStore>((set) => ({
   isOpen: false,
-  setIsOpen: () => set((state) => ({ isOpen: true })),
+  setIsOpen: () => set({ isOpen: true }),
   toggleIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
 }));
 
-
 interface StudentStore {
-  selectedStudent: students | null
-  setSelectedStudent: (student: students | null) => void
-  clearSelectedStudent: () => void
+  selectedStudent: FormattedStudent | null;
+  setSelectedStudent: (student: FormattedStudent | null) => void;
+  clearSelectedStudent: () => void;
 }
 
 export const useStudentStore = create<StudentStore>((set) => ({
   selectedStudent: null,
   setSelectedStudent: (student) => set({ selectedStudent: student }),
-  clearSelectedStudent: () => set({ selectedStudent: null })
-}))
+  clearSelectedStudent: () => set({ selectedStudent: null }),
+}));
