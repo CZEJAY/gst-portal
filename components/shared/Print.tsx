@@ -99,7 +99,7 @@ export default function Print() {
           </div>
           <div className="flex justify-center gap-4 mt-4 border-b border-orange-500">
             <p className="italic font-bold text-xl">
-              Congratulations! See you on exam day.
+              Congratulations! See you on exams day.
             </p>
           </div>
         </div>

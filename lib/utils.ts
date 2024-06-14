@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-const pattern = /^\d{2}\/[A-Z]{2,4}\/[A-Z]{2,4}(\/[A-Z]{2,4})?\/\d*$/;
+const pattern = /^\d{2}\/[A-Z]{2,4}(\/[A-Z]{2,4})?(\/[A-Z]{2,4})?\/\d*$/;
 
 export function validateMatricNumber(input: string) {
     return pattern.test(input);
