@@ -1,14 +1,20 @@
 "use client"
+import { setCurrentStep, updateFormData } from "@/redux/slices/onboardingStudentsSlice";
 import { students } from "@prisma/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Print({StudentData}: {StudentData?: students }) {
   const reduxFormData = useSelector((store: any) => store.onboarding.formData);
   const [isPrinting, setIsPrinting] = useState(false);
   const [formData, setFormData] = useState<any>(null)
 
+  const router = useRouter()
+
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     if(StudentData){
       setFormData(StudentData)
@@ -24,17 +30,34 @@ export default function Print({StudentData}: {StudentData?: students }) {
       setIsPrinting(false);
     }, 300);
   };
+  const handleClose = () => {
+    dispatch(updateFormData({}));
+    dispatch(setCurrentStep(1))
+    router.back()
+  };
 
   return (
     <div className="w-screen justify-center h-screen flex items-start">
+      <div className="fixed bottom-1/3 flex items-center justify-between gap-4">
       <button
         hidden={isPrinting}
         type="button"
         onClick={handlePrint}
-        className="bg-orange-900 fixed bottom-1/3 text-orange-500 font-bold py-2 px-4 rounded"
+        className="bg-orange-900   font-bold py-2 px-4 rounded text-white"
       >
         Print
       </button>
+      <button
+        hidden={isPrinting}
+        type="button"
+        onClick={handleClose}
+        className="bg-orange-900   font-bold py-2 px-4 rounded text-white"
+      >
+        Close
+      </button>
+      
+
+      </div>
       <form className="w-fit  relative px-5 py-3  min-w-[700px] min-h-[400px] border-[4px] border-orange-500">
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
