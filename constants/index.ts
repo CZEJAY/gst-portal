@@ -98,7 +98,11 @@ export const facultiesAndDepartment = [
         "English",
         "History and International Relation",
         "Philosophy",
-        "Linguistics and Foreign Languages",
+        "Linguistics and Nigerian Languages",
+        "Foreign Languages",
+        "Music",
+        "Region and Cultural Studies",
+        "Theatre Artsc"
       ],
     },
     {
