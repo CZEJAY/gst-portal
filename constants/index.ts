@@ -191,7 +191,12 @@ export const facultiesAndDepartment = [
     {
       faculty: "Environmental Studies",
       departments: [
-        "Estate Management"
+        "Estate Management",
+        "Geo-Informatics & Surveying",
+        "Building",
+        "Architecture",
+        "Urban & Regional Planning",
+        "Quantity Surveying",
       ]
     }
 ]
