@@ -10,8 +10,13 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { AreaChart, BarChartHorizontal, User, UserCheck2, UserX2 } from "lucide-react";
 import Link from "next/link";
+import UnverifiedCard from "./unverifiedCard";
+import prismadb from "@/lib/prisma";
+import { auth } from "@/auth";
+import { StudentColumn } from "../dashboard/_components/columns";
+import { format } from "date-fns";
 
-export default function NewReg({
+export default async function NewReg({
   total,
   recent,
   studentsYesterday,
@@ -26,6 +31,40 @@ export default function NewReg({
   studentsYesterday: number;
   percentageChange: number;
 }) {
+
+  const session = await auth()
+  
+  const studentsWithoutFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+    where: {
+      fingerPrint: null,
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  }) :
+  await prismadb.students.findMany({
+    where: {
+      fingerPrint: null,
+      registrar: session?.user?.id // Assuming you want to filter by registrar as well
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  });
+  
+  const formattedData: StudentColumn[] = studentsWithoutFingerprint.map((item) => ({
+    surName: item.surName,
+    firstName: item.firstName,
+    otherName: item.otherName as string,
+    gender: item.gender,
+    faculty: item.faculty,
+    department: item.department,
+    level: item.level,
+    matricNumber: item.matricNumber,
+    phone: item.phone as string,
+    createdAt: format(item.createdAt, "MMMM do, yyyy")
+  }))
+  
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
@@ -87,20 +126,7 @@ export default function NewReg({
             <Progress value={percentageChange > 0 ? percentageChange : 0} aria-label={`${percentageChange.toFixed(2)}% increase`} />
           </CardFooter>
         </Card>
-        <Card className="sm:col-span-2" x-chunk="dashboard-05-chunk-0">
-          <CardHeader className="pb-3">
-            <CardTitle className="w-full flex items-center justify-between">
-            Unverified Enrollments
-            <UserX2 />
-            </CardTitle>
-            <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
-              Students pending fingerprint enrollment and verification.
-            </CardDescription>
-          </CardHeader>
-          <CardFooter>
-            <p className="text-4xl text-orange-900">{unverified}</p>
-          </CardFooter>
-        </Card>
+        <UnverifiedCard unverified={unverified} data={formattedData} />
         <Card x-chunk="dashboard-05-chunk-2">
           <CardHeader className="pb-2">
             <CardDescription className="w-full flex items-center justify-between">

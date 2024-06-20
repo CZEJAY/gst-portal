@@ -34,6 +34,7 @@ export default function Print({StudentData}: {StudentData?: students }) {
     dispatch(updateFormData({}));
     dispatch(setCurrentStep(1))
     router.back()
+    window.location.reload()
   };
 
   return (

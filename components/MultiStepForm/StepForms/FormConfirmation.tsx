@@ -91,7 +91,7 @@ export default function FormConfirmation() {
           <p className="text-sm md:text-lg italic font-bold text-orange-700 ">
             Confirm if this is the data that you filled
           </p>
-          {!success && (
+          {/* {!success && (
             <button
               type="button"
               onClick={handlePrint}
@@ -99,7 +99,7 @@ export default function FormConfirmation() {
             >
               Print
             </button>
-          )}
+          )} */}
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
