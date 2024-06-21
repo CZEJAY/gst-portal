@@ -149,6 +149,14 @@ export const facultiesAndDepartment = [
         ]
     },
     {
+      faculty: "Basic Medical Sciences",
+      departments: [
+        "Human Anatomy",
+        "Medical Pysiology",
+        "Medical Biochemistry",
+      ]
+    },
+    {
         faculty: "Social Sciences",
         departments: [
             "Economics",
