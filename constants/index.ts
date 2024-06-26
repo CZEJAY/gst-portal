@@ -133,6 +133,12 @@ export const facultiesAndDepartment = [
         ]
     },
     {
+      faculty: "Clinical Sciences",
+      departments: [
+        "Medicine and Surgery",
+      ]
+    },
+    {
         faculty: "Computing",
         departments: [
             "Computer Science",
