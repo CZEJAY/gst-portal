@@ -6,7 +6,7 @@ interface OnboardingState {
 }
 
 const initialState: OnboardingState = {
-  currentStep:  2,
+  currentStep:  1,
   formData: {},
 };
 
