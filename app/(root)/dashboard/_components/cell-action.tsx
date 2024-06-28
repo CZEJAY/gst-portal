@@ -78,14 +78,6 @@ const CellAction: React.FC<CellActionProps> = ({
             {
               status === "authenticated" && session.user?.name === "caleb" ? (
                 <DropdownMenuItem className="" onClick={() => setOpen(true)}>
-                <PenSquare className='mr-2 h-4 w-4' />
-                Update
-            </DropdownMenuItem>
-              ) : null
-            }
-            {
-              status === "authenticated" && session.user?.name === "caleb" ? (
-                <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />
                 Delete
             </DropdownMenuItem>

@@ -277,3 +277,17 @@ export const DELETESTUDENT = async (matricNumber: string) => {
     throw error
   }
 }
+
+export const UPDATESTUDENT = async ({id, updatedStudent}: {id: string, updatedStudent: Partial<students>}) => {
+  try {
+    const updated = await prismadb.students.update({
+      where: {id},
+      data: updatedStudent
+    })
+    revalidatePath("/dashboard")
+    return JSON.parse(JSON.stringify(updated))
+  } catch (error: any) {
+    console.log("Could not update Student", error)
+    throw error
+  }
+}
