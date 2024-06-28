@@ -129,7 +129,9 @@ export default function FacialAuthentication() {
           <p className="font-semibold text-sm md:text-lg">Please look into the camera.</p>
         </div>
         <canvas ref={canvasRef} className="hidden bg-current" width={200} height={200} />
-          <video ref={videoRef} autoPlay className="h-[200px] w-[200px] p-0 mx-auto " />
+        <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
+          <video ref={videoRef} autoPlay className="object-cover w-full h-full transform scale-125" />
+        </div>
         {/* {imageURL && (
           <Image width={200} height={200} src={imageURL} alt="CaptImage" className="h-[150px] w-[200px] mt-9 mx-auto object-cover bg-center" />
         )} */}

@@ -75,52 +75,36 @@ export const gender = [
     },
   ];
 
-export const facultiesAndDepartment = [
-    {
-        faculty: "Physical Sciences",
-        departments: [
-            "Physics",
-            "Mathematics",
-            "Statistics",
-            "Geoscience",
-            "Chemistry", 
-        ]
-    },
-    {
-      faculty: "Education",
-      departments: [
-        "Science Education"
-      ]
-    },
-    {
-      faculty: "Art",
-      departments: [
-        "English",
-        "History and International Relation",
-        "Philosophy",
-        "Linguistics and Nigerian Languages",
-        "Foreign Languages",
-        "Music",
-        "Region and Cultural Studies",
-        "Theatre Artsc"
-      ],
-    },
-    {
-      faculty: "Law",
-      departments: [
-        "Public Law",
-        "Private Law",
-        "International Law",
-      ]
-    },
+  export const facultiesAndDepartment = [
     {
         faculty: "Allied Health Sciences",
         departments: [
             "Medical Laboratory Science",
             "Nursing Science",
-            "Physiotheraphy",
+            "Physiotherapy",
             "Radiography and Radiation Science",
             "Human Nutrition and Dietetics",
+        ]
+    },
+    {
+        faculty: "Arts",
+        departments: [
+            "English",
+            "History and International Relation",
+            "Philosophy",
+            "Linguistics and Nigerian Languages",
+            "Foreign Languages",
+            "Music",
+            "Region and Cultural Studies",
+            "Theatre Arts"
+        ]
+    },
+    {
+        faculty: "Basic Medical Sciences",
+        departments: [
+            "Human Anatomy",
+            "Medical Physiology",
+            "Medical Biochemistry",
         ]
     },
     {
@@ -133,43 +117,9 @@ export const facultiesAndDepartment = [
         ]
     },
     {
-      faculty: "Clinical Sciences",
-      departments: [
-        "Medicine and Surgery",
-      ]
-    },
-    {
-        faculty: "Computing",
+        faculty: "Clinical Sciences",
         departments: [
-            "Computer Science",
-        ]
-    },
-    {
-        faculty: "Vocational Education, Library and Information Science",
-        departments: [
-            "Agricultural Education",
-            "Business Education",
-            "Home Economics Education",
-            "Industrial Technology Education",
-            "Library and Information Science",
-        ]
-    },
-    {
-      faculty: "Basic Medical Sciences",
-      departments: [
-        "Human Anatomy",
-        "Medical Pysiology",
-        "Medical Biochemistry",
-      ]
-    },
-    {
-        faculty: "Social Sciences",
-        departments: [
-            "Economics",
-            "Geography and Natural Resources Management",
-            "Political Science and Public Administration",
-            "Phychology",
-            "Sociology and Anthropology"
+            "Medicine and Surgery",
         ]
     },
     {
@@ -179,19 +129,21 @@ export const facultiesAndDepartment = [
         ]
     },
     {
+        faculty: "Computing",
+        departments: [
+            "Computer Science",
+        ]
+    },
+    {
         faculty: "Dentistry",
         departments: [
             "Dentistry"
         ]
     },
     {
-        faculty: "Management Science",
+        faculty: "Education",
         departments: [
-            "Marketing",
-            "Accounting",
-            "Banking and Finance",
-            "Insurance and Risk Management",
-            "Business Management",
+            "Science Education"
         ]
     },
     {
@@ -207,14 +159,62 @@ export const facultiesAndDepartment = [
         ]
     },
     {
-      faculty: "Environmental Studies",
-      departments: [
-        "Estate Management",
-        "Geo-Informatics & Surveying",
-        "Building",
-        "Architecture",
-        "Urban & Regional Planning",
-        "Quantity Surveying",
-      ]
+        faculty: "Environmental Studies",
+        departments: [
+            "Estate Management",
+            "Geo-Informatics & Surveying",
+            "Building",
+            "Architecture",
+            "Urban & Regional Planning",
+            "Quantity Surveying",
+        ]
+    },
+    {
+        faculty: "Law",
+        departments: [
+            "Public Law",
+            "Private Law",
+            "International Law",
+        ]
+    },
+    {
+        faculty: "Management Science",
+        departments: [
+            "Marketing",
+            "Accounting",
+            "Banking and Finance",
+            "Insurance and Risk Management",
+            "Business Management",
+        ]
+    },
+    {
+        faculty: "Physical Sciences",
+        departments: [
+            "Physics",
+            "Mathematics",
+            "Statistics",
+            "Geoscience",
+            "Chemistry", 
+        ]
+    },
+    {
+        faculty: "Social Sciences",
+        departments: [
+            "Economics",
+            "Geography and Natural Resources Management",
+            "Political Science and Public Administration",
+            "Psychology",
+            "Sociology and Anthropology"
+        ]
+    },
+    {
+        faculty: "Vocational Education, Library and Information Science",
+        departments: [
+            "Agricultural Education",
+            "Business Education",
+            "Home Economics Education",
+            "Industrial Technology Education",
+            "Library and Information Science",
+        ]
     }
-]
+];
