@@ -62,14 +62,16 @@ export default function Print({StudentData}: {StudentData?: students }) {
       <form className="w-fit  relative px-5 py-3  min-w-[700px] min-h-[400px] border-[4px] border-orange-500">
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
+          <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
             <Image
+              src={formData?.image || ""}
               width={200}
               height={200}
-              priority
-              src={formData?.image || ""}
+              loading="eager"
               alt="user"
-              className="max-w-52 self-center"
+              className="object-cover w-full h-full transform scale-105 "
             />
+          </div>
             <p className="text-xl text-center font-bold">
               {formData?.matricNumber || "N/A"}
             </p>

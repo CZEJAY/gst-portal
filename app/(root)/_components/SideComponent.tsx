@@ -47,7 +47,7 @@ export default function SideComponent() {
         onConfirm={() => onDelete()}
       /> */}
 
-      <Card className="overflow-hidden max-h-[840px] mr-5 mt-28 min-w-[500px]">
+      <Card className="overflow-hidden max-h-[890px] mr-5 mt-28 min-w-[500px]">
         <CardHeader className="flex flex-row items-start bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
@@ -77,14 +77,16 @@ export default function SideComponent() {
           <CardContent className="p-6 text-sm">
             <div className="grid gap-3">
               <ul className="grid gap-3">
-                <div className="">
-                  <Image
-                    src={selectedStudent?.student?.image as string}
-                    alt="student"
-                    width={200}
-                    height={200}
-                  />
-                </div>
+              <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
+            <Image
+              src={selectedStudent?.student?.image as string}
+              width={200}
+              height={200}
+              loading="eager"
+              alt="user"
+              className="object-cover w-full h-full transform scale-105 "
+            />
+          </div>
                 <li className="flex items-center justify-between">
                   <span className="text-muted-foreground">Matric Number</span>
                   <span>{selectedStudent?.student?.matricNumber}</span>

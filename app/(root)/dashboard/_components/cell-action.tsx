@@ -2,7 +2,7 @@
 import React, { use, useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
-import { Copy, Edit, MoreHorizontal, Trash, View } from 'lucide-react'
+import { Copy, Edit, MoreHorizontal, PenSquare, Trash, View } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import AlertModal from '@/components/modals/AlertModal'
 import { StudentColumn } from './columns'
@@ -75,6 +75,14 @@ const CellAction: React.FC<CellActionProps> = ({
                 <View className='mr-2 h-4 w-4' />
                 View
             </DropdownMenuItem>
+            {
+              status === "authenticated" && session.user?.name === "caleb" ? (
+                <DropdownMenuItem className="" onClick={() => setOpen(true)}>
+                <PenSquare className='mr-2 h-4 w-4' />
+                Update
+            </DropdownMenuItem>
+              ) : null
+            }
             {
               status === "authenticated" && session.user?.name === "caleb" ? (
                 <DropdownMenuItem className="" onClick={() => setOpen(true)}>

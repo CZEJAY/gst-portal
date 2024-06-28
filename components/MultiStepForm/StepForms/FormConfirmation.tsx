@@ -102,14 +102,14 @@ export default function FormConfirmation() {
           )} */}
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div>
+        <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
             <Image
               src={formData.image}
               width={200}
               height={200}
               loading="eager"
               alt="user"
-              className=""
+              className="object-cover w-full h-full transform scale-105 "
             />
           </div>
           <div className="flex flex-col gap-1">

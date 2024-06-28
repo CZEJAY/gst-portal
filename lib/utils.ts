@@ -81,3 +81,36 @@ export function extractPublicId(url: string): string | null {
   const match = url.match(regex);
   return match ? match[1] : null;
 }
+
+const clamp = (num: number, min: number, max: number): number => {
+  return Math.min(Math.max(num, min), max);
+};
+
+const smoothPercentageChange = (currentValue: number, newValue: number, smoothingFactor: number): number => {
+  return currentValue + smoothingFactor * (newValue - currentValue);
+};
+
+export const calculatePercentageChange = (
+  countToday: number,
+  countYesterday: number,
+  previousPercentage: number = 0,
+  smoothingFactor: number = 0.1
+): number => {
+  let percentageChange: number;
+
+  if (countYesterday === 0) {
+    percentageChange = 100;
+  } else {
+    percentageChange = ((countToday - countYesterday) / countYesterday) * 100;
+  }
+
+  // Clamp the value between 0 and 100
+  percentageChange = clamp(percentageChange, 0, 100);
+
+  // Smooth the change
+  percentageChange = smoothPercentageChange(previousPercentage, percentageChange, smoothingFactor);
+
+  return percentageChange;
+};
+
+
