@@ -31,7 +31,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   const router = useRouter();
 
   const handlePrint = () => {
-    router.push(`/print${id}`);
+    router.push(`/print/${id}`);
   };
 
   return (
