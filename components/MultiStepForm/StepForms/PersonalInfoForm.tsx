@@ -235,6 +235,15 @@ const PersonalInfoForm: React.FC = () => {
             formValues={formValues}
             isPhone
           />
+          <TextInput
+            label="Email Adress"
+            name="email"
+            register={register}
+            type="email"
+            isRequired="Email Adress is required"
+            errors={errors}
+            formValues={formValues}
+          />
           <SelectInput
             label="Faculty"
             name="faculty"
@@ -261,7 +270,7 @@ const PersonalInfoForm: React.FC = () => {
             register={register}
             isRequired="Matric Number is required"
             errors={errors}
-            className="col-span-2"
+            // className="col-span-2"
           />
         </div>
         <NavButtons loading={loading} />

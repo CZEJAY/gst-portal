@@ -21,7 +21,7 @@ export async function SignOutSVA() {
 
 export const CHECKPHONE = async (phone: string) => {
   try {
-    const existingPhone = await prismadb.students.findUnique({
+    const existingPhone = await prismadb.students.findFirst({
       where: {
         phone,
       },

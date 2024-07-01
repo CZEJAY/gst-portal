@@ -26,7 +26,8 @@ model students {
   gender       Gender
   image        String
   fingerPrint  Bytes? 
-  phone        String     @unique
+  phone        String     
+  email        String?    
   faculty      String
   department   String
   level        String
@@ -48,10 +49,3 @@ model registrars {
   createdAt DateTime @default(now())
 }
 
-model admin {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String
-  password  String
-  updatedAt DateTime @updatedAt()
-  createdAt DateTime @default(now())
-}
