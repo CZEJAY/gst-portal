@@ -86,6 +86,7 @@ export const gender = [
             "Forest & Wildlife",
             "Food Science & Technology",
             "Home Economics",
+            "Soil Science & Land Resources Management"
         ]
     },
     {
