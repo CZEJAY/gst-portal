@@ -77,6 +77,18 @@ export const gender = [
 
   export const facultiesAndDepartment = [
     {
+        faculty: "Agricultural & Economics & Extension", 
+        departments: [
+            "Animal Science",
+            "Crop Science",
+            "Environmental Management",
+            "Fishries & Aqua culture",
+            "Forest & Wildlife",
+            "Food Science & Technology",
+            "Home Economics",
+        ]
+    },
+    {
         faculty: "Allied Health Sciences",
         departments: [
             "Medical Laboratory Science",
