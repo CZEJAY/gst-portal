@@ -49,6 +49,7 @@ export type Student = {
   otherName: string;
   gender: string;
   phone: string;
+  email: string;
   faculty: string;
   department: string;
   level: string;
@@ -244,8 +245,23 @@ export default function SideComponent() {
                       onBlur={() => setIsEditing((prev) => ({ ...prev, phone: false }))}
                     />
                   ) : (
-                    <span onClick={() => handleEdit('phone')}>
+                    <span onClick={() => handleEdit('email')}>
                       {selectedStudent?.student?.phone}
+                    </span>
+                  )}
+                </li>
+                <li className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Email Address</span>
+                  {isEditing.email ? (
+                    <input
+                      type="text"
+                      value={updatedStudent.email || selectedStudent?.student?.email}
+                      onChange={(e) => handleChange(e, 'email')}
+                      onBlur={() => setIsEditing((prev) => ({ ...prev, email: false }))}
+                    />
+                  ) : (
+                    <span onClick={() => handleEdit('email')}>
+                      {selectedStudent?.student?.email || "N/A"}
                     </span>
                   )}
                 </li>

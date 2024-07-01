@@ -123,6 +123,7 @@ export default function FormConfirmation() {
               { label: "Level", value: formData.level },
               { label: "Matric Number", value: formData.matricNumber },
               { label: "Phone Number", value: formData.phone },
+              { label: "Email Address", value: formData.email },
             ].map((item, index) => (
               <p
                 key={index}
