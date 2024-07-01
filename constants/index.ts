@@ -160,6 +160,7 @@ export const gender = [
             "Science Education",
             "Curriculum Studies",
             "Education Management and Planning",
+            "Social Studies & Citizenship Education"
         ]
     },
     {

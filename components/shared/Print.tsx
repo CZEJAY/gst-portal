@@ -31,10 +31,7 @@ export default function Print({StudentData}: {StudentData?: students }) {
     }, 300);
   };
   const handleClose = () => {
-    dispatch(updateFormData({}));
-    dispatch(setCurrentStep(1))
-    router.back()
-    window.location.reload()
+    window.location.assign("/register")
   };
 
   return (
