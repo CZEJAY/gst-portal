@@ -16,6 +16,7 @@ export default function FormConfirmation() {
   const formData: students = useSelector((store: any) => store.onboarding.formData); // Adjust the type as per your RootState
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [studentId, setStudentId] = useState<string | null>(null)
   const router = useRouter()
   const {data} = useSession()
   
@@ -52,6 +53,7 @@ export default function FormConfirmation() {
       const response = await CREATESTUDENT({data:updatedData, userId:data?.user?.id as string})
       if (response) {
         console.log(response);
+        setStudentId(response.id)
         setSuccess(true);
       }
     } catch (error: any) {
@@ -75,6 +77,7 @@ export default function FormConfirmation() {
       </div>
       {success && (
         <SuccessModal
+          id={studentId as string}
           onChange={() => setSuccess(!success)}
           isOpen={success}
           firstname={formData.firstName}

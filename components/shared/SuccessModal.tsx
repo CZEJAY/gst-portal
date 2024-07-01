@@ -14,6 +14,7 @@ interface SuccessModalProps {
   firstname: string;
   surname: string;
   othername: string;
+  id: string;
   isOpen: boolean;
   onChange: () => void;
 }
@@ -24,12 +25,13 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   surname,
   othername,
   isOpen,
-  onChange
+  onChange,
+  id
 }) => {
   const router = useRouter();
 
   const handlePrint = () => {
-    router.push("/print");
+    router.push(`/print${id}`);
   };
 
   return (
