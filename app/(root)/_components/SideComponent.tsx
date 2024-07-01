@@ -116,7 +116,7 @@ export default function SideComponent() {
         onConfirm={() => onDelete()}
       /> */}
 
-      <Card className="overflow-hidden max-h-[890px] mr-5 mt-28 min-w-[500px]">
+      <Card className="overflow-hidden max-h-[920px] mr-5 mt-28 min-w-[500px]">
         <CardHeader className="flex flex-row items-start bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
