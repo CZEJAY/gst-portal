@@ -157,10 +157,11 @@ export const gender = [
     {
         faculty: "Education",
         departments: [
+            "Education Management and Planning",
+            "Curriculum Studies",
+            "Psychological Foundation of Education",
             "Sociological Foundation of Education",
             "Science Education",
-            "Curriculum Studies",
-            "Education Management and Planning",
             "Social Studies & Citizenship Education",
             "History",
         ]

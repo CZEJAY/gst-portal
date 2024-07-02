@@ -200,6 +200,7 @@ export const CREATESTUDENT = async ({
         ...data,
         fingerPrint: null,
         registrar: userId,
+        email: data.email?.toLocaleLowerCase()
       },
     });
     revalidatePath("/dashboard");

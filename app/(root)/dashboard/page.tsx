@@ -143,6 +143,7 @@ const page = async  () => {
     otherName: item.otherName as string,
     gender: item.gender,
     faculty: item.faculty,
+    email: item.email?.toLocaleLowerCase(),
     department: item.department,
     level: item.level,
     matricNumber: item.matricNumber,
