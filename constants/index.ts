@@ -157,6 +157,7 @@ export const gender = [
     {
         faculty: "Education",
         departments: [
+            "Sociological Foundation of Education",
             "Science Education",
             "Curriculum Studies",
             "Education Management and Planning",
@@ -216,6 +217,16 @@ export const gender = [
         ]
     },
     {
+        faculty: "Pharmacy",
+        departments: [
+            "Clinical Pharmacy and Biopharmacy",
+            "Pharmaceutical and Medicinal chemistry",
+            "Pharmaceutical Microbiology and Biotechnology",
+            "Pharmacognosy and Naturak Medicine",
+            "Pharmacology and Toxicology",
+        ]
+    },
+    {
         faculty: "Social Sciences",
         departments: [
             "Economics",
@@ -234,5 +245,5 @@ export const gender = [
             "Industrial Technology Education",
             "Library and Information Science",
         ]
-    }
+    },
 ];
