@@ -1,5 +1,5 @@
 import { updateFormData } from "@/redux/slices/onboardingStudentsSlice";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -32,6 +32,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
   const [inputValue, setInputValue] = useState(defaultValue);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const suggestionRefs = useRef<(HTMLLIElement | null)[]>([]);
   const formData = useSelector((store: any) => store.onboarding.formData);
   const dispatch = useDispatch();
 
@@ -61,6 +62,14 @@ const EmailInput: React.FC<EmailInputProps> = ({
     setSuggestions([]);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Tab" && suggestions.length > 0) {
+      e.preventDefault();
+      const firstSuggestion = suggestions[0];
+      handleSuggestionClick(firstSuggestion);
+    }
+  };
+
   return (
     <div className={className}>
       <div className="mt-2 relative">
@@ -74,6 +83,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
           value={inputValue.toLocaleLowerCase()}
           {...register(name, { required: isRequired })}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           type="email"
           name={name}
           style={{ textTransform: "lowercase" }}
@@ -92,6 +102,8 @@ const EmailInput: React.FC<EmailInputProps> = ({
             {suggestions.map((suggestion, index) => (
               <li
                 key={index}
+                //@ts-ignore
+                ref={(el) => (suggestionRefs.current[index] = el)}
                 className="cursor-pointer select-none relative py-2 pl-3 pr-9"
                 onClick={() => handleSuggestionClick(suggestion)}
               >
