@@ -32,6 +32,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
   const [inputValue, setInputValue] = useState(defaultValue);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1);
   const suggestionRefs = useRef<(HTMLLIElement | null)[]>([]);
   const formData = useSelector((store: any) => store.onboarding.formData);
   const dispatch = useDispatch();
@@ -46,9 +47,16 @@ const EmailInput: React.FC<EmailInputProps> = ({
     }
   }, [inputValue, isTyping]);
 
+  useEffect(() => {
+    if (suggestions.length > 0 && focusedSuggestionIndex >= 0) {
+      suggestionRefs.current[focusedSuggestionIndex]?.focus();
+    }
+  }, [focusedSuggestionIndex, suggestions]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     setIsTyping(true);
+    setFocusedSuggestionIndex(-1);
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -63,10 +71,36 @@ const EmailInput: React.FC<EmailInputProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Tab" && suggestions.length > 0) {
-      e.preventDefault();
-      const firstSuggestion = suggestions[0];
-      handleSuggestionClick(firstSuggestion);
+    if (suggestions.length > 0) {
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          setFocusedSuggestionIndex((prevIndex) =>
+            prevIndex < suggestions.length - 1 ? prevIndex + 1 : 0
+          );
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setFocusedSuggestionIndex((prevIndex) =>
+            prevIndex > 0 ? prevIndex - 1 : suggestions.length - 1
+          );
+          break;
+        case "Tab":
+          e.preventDefault();
+          setFocusedSuggestionIndex((prevIndex) =>
+            prevIndex < suggestions.length - 1 ? prevIndex + 1 : 0
+          );
+          break;
+        case " ":
+        case "Enter":
+          if (focusedSuggestionIndex >= 0) {
+            e.preventDefault();
+            handleSuggestionClick(suggestions[focusedSuggestionIndex]);
+          }
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -104,8 +138,17 @@ const EmailInput: React.FC<EmailInputProps> = ({
                 key={index}
                 //@ts-ignore
                 ref={(el) => (suggestionRefs.current[index] = el)}
-                className="cursor-pointer select-none relative py-2 pl-3 pr-9"
+                tabIndex={-1}
+                className={`cursor-pointer select-none relative py-2 pl-3 pr-9 ${
+                  index === focusedSuggestionIndex ? "bg-gray-200" : ""
+                }`}
                 onClick={() => handleSuggestionClick(suggestion)}
+                onKeyDown={(e) => {
+                  if (e.key === " " || e.key === "Enter") {
+                    e.preventDefault();
+                    handleSuggestionClick(suggestion);
+                  }
+                }}
               >
                 {suggestion.toLocaleLowerCase()}
               </li>
