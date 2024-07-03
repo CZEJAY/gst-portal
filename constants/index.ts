@@ -111,7 +111,6 @@ export const gender = [
             "Music",
             "Region and Cultural Studies",
             "Theatre Arts",
-            "Communication Arts & Media Studies"
         ]
     },
     {
@@ -135,6 +134,12 @@ export const gender = [
         faculty: "Clinical Sciences",
         departments: [
             "Medicine and Surgery",
+        ]
+    },
+    {
+        faculty: "Communication Arts",
+        departments: [
+            "Communication Arts"
         ]
     },
     {
