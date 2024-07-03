@@ -14,6 +14,7 @@ import { ValidationError, validateEmail, validateMatricNumber } from "../../../l
 import TextInput from "@/components/FormInputs/TextInput";
 import NavButtons from "@/components/FormInputs/NavButtons";
 import { CHECKEXISTENCE, CHECKMATRICNUMBER, CHECKPHONE } from "@/actions";
+import EmailInput from "@/components/FormInputs/emailInput";
 
 export interface FormData {
   surName?: string;
@@ -43,8 +44,8 @@ export type FormDataType = {
 const PersonalInfoForm: React.FC = () => {
   const currentStep = useSelector((store: any) => store.onboarding.currentStep);
   const formData = useSelector((store: any) => store.onboarding.formData);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -235,14 +236,11 @@ const PersonalInfoForm: React.FC = () => {
             formValues={formValues}
             isPhone
           />
-          <TextInput
-            label="Email Adress"
+          <EmailInput
             name="email"
             register={register}
-            type="email"
             isRequired="Email Adress is required"
             errors={errors}
-            formValues={formValues}
           />
           <SelectInput
             label="Faculty"
