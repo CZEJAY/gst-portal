@@ -110,7 +110,8 @@ export const gender = [
             "Foreign Languages",
             "Music",
             "Region and Cultural Studies",
-            "Theatre Arts"
+            "Theatre Arts",
+            "Communication Arts & Media Studies"
         ]
     },
     {
