@@ -229,8 +229,9 @@ export const gender = [
             "Clinical Pharmacy and Biopharmacy",
             "Pharmaceutical and Medicinal chemistry",
             "Pharmaceutical Microbiology and Biotechnology",
-            "Pharmacognosy and Naturak Medicine",
+            "Pharmacognosy and Natural Medicine",
             "Pharmacology and Toxicology",
+            "Pharmaceutics and Pharmaceutical Technology"
         ]
     },
     {
