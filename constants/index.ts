@@ -194,8 +194,8 @@ export const gender = [
             "Estate Management",
             "Geo-Informatics & Surveying",
             "Building",
-            "Fine and industrial Arts",
             "Architecture",
+            "Fine and industrial Arts",
             "Urban & Regional Planning",
             "Quantity Surveying",
         ]
