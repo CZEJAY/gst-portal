@@ -172,6 +172,7 @@ export const gender = [
             "Early childhood and Special Education",
             "Social Studies & Citizenship Education",
             "Guidance and counselling",
+            "Human Kinetics and Health Education",
             "History",
         ]
     },
