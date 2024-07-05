@@ -169,6 +169,7 @@ export const gender = [
             "Psychological Foundation of Education",
             "Sociological Foundation of Education",
             "Science Education",
+            "Early childhood and Special Education",
             "Social Studies & Citizenship Education",
             "History",
         ]
