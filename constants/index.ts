@@ -54,24 +54,24 @@ export const gender = [
       title: "Select Level",
     },
     {
-      id: "Level 100",
-      title: "Level 100",
+      id: "100 Level",
+      title: "100 Level",
     },
     {
-      id: "Level 200",
-      title: "Level 200",
+      id: "200 Level",
+      title: "200 Level",
     },
     {
-      id: "Level 300",
-      title: "Level 300",
+      id: "300 Level",
+      title: "300 Level",
     },
     {
-      id: "Level 400",
-      title: "Level 400",
+      id: "400 Level",
+      title: "400 Level",
     },
     {
-      id: "Level 500",
-      title: "Level 500",
+      id: "500 Level",
+      title: "500 Level",
     },
   ];
 
