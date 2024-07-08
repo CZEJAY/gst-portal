@@ -109,7 +109,7 @@ export const gender = [
             "Linguistics and Nigerian Languages",
             "Foreign Languages",
             "Music",
-            "Region and Cultural Studies",
+            "Regious and Cultural Studies",
             "Theatre Arts",
         ]
     },
