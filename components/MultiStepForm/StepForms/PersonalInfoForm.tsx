@@ -216,7 +216,6 @@ const PersonalInfoForm: React.FC = () => {
             label="Other Name?"
             name="otherName"
             register={register}
-            isRequired="Other Name is required"
             errors={errors}
             isUpper
           />
