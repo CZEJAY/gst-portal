@@ -1,4 +1,5 @@
 import { updateFormData } from "@/redux/slices/onboardingStudentsSlice";
+import { CheckCircle2, LoaderPinwheel, XCircle } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,16 +33,19 @@ const EmailInput: React.FC<EmailInputProps> = ({
   const [inputValue, setInputValue] = useState(defaultValue);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [status, setStatus] = useState("");
+  const [checkEmail, setCheckEmail] = useState(false);
   const [focusedSuggestionIndex, setFocusedSuggestionIndex] = useState(-1);
   const suggestionRefs = useRef<(HTMLLIElement | null)[]>([]);
   const formData = useSelector((store: any) => store.onboarding.formData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isTyping && inputValue) {
+    if (isTyping && inputValue && !inputValue.includes("@")) {
       setSuggestions(
         popularEmailDomains.map((domain) => `${inputValue}@${domain}`)
       );
+      setCheckEmail(false);
     } else {
       setSuggestions([]);
     }
@@ -64,10 +68,31 @@ const EmailInput: React.FC<EmailInputProps> = ({
       ...formData,
       [name]: suggestion,
     };
+    handleCheckEmail(suggestion)
     dispatch(updateFormData(FData));
     setInputValue(suggestion);
     setIsTyping(false);
     setSuggestions([]);
+  };
+
+      const handleCheckEmail = async (email: string) => {
+    setCheckEmail(true);
+    setStatus("Checking email...");
+    try {
+      const response = await fetch(`https://emailvalidation.abstractapi.com/v1/?api_key=8811796a68044c3c8b613875e9a9021a&email=${email}`);
+
+      const data = await response.json();
+      console.log(data)
+      if (data.deliverability === "DELIVERABLE") {
+        setStatus(data.deliverability);
+
+      } else {
+        setStatus(data.deliverability);
+      }
+    } catch (error) {
+      setStatus("Error checking email");
+    }
+    setCheckEmail(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -113,6 +138,20 @@ const EmailInput: React.FC<EmailInputProps> = ({
         >
           Email address
         </label>
+        <div className="absolute right-1 text-xs top-0">
+            <div className="flex items-center justify-between gap-2">
+              {status}
+              {
+                status === "DELIVERABLE" ? (
+                    <CheckCircle2 size={17} className="text-emerald-500" />
+                ) : status === "UNDELIVERABLE" ? (
+                    <XCircle size={17} className="text-red-500" />
+                ) : checkEmail && (
+                    <LoaderPinwheel size={17} className="text-gray-500 animate-spin" />
+                )
+              }
+            </div>
+        </div>
         <input
           value={inputValue.toLocaleLowerCase()}
           {...register(name, { required: isRequired })}

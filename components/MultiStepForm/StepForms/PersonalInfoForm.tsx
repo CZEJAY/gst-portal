@@ -134,7 +134,7 @@ const PersonalInfoForm: React.FC = () => {
         try {
           const {message} = await CHECKPHONE(formValues.phone)
           if (message) {
-            toast.message(message);
+            toast.success(message);
             clearErrors("phone");
           }
         } catch (error: any) {
