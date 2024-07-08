@@ -77,7 +77,6 @@ const PersonalInfoForm: React.FC = () => {
         !formValues.firstName ||
         !formValues.surName ||
         !formValues.gender ||
-        !formValues.otherName ||
         !formValues.level ||
         !formValues.faculty ||
         !formValues.phone ||
