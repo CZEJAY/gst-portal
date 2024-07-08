@@ -154,7 +154,7 @@ const PersonalInfoForm: React.FC = () => {
     const timeOut = setTimeout(async () => {
       if (formValues.matricNumber) {
         try {
-          if (!validateMatricNumber(formValues.matricNumber)) {
+          if (!validateMatricNumber(formValues.matricNumber.toUpperCase())) {
             toast.error("Please enter a valid matric number.");
             return;
           }
