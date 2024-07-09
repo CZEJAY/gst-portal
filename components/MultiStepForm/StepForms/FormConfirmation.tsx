@@ -34,7 +34,6 @@ export default function FormConfirmation() {
         !formData.firstName ||
         !formData.surName ||
         !formData.gender ||
-        !formData.otherName ||
         !formData.faculty ||
         !formData.department ||
         !formData.level ||
@@ -48,7 +47,7 @@ export default function FormConfirmation() {
         ...formData,
         surName: formData.surName.toUpperCase(),
         firstName: formData.firstName.toUpperCase(),
-        otherName: formData.otherName.toUpperCase(),
+        otherName: formData?.otherName?.toUpperCase() as string,
       };
       const response = await CREATESTUDENT({data:updatedData, userId:data?.user?.id as string})
       if (response) {

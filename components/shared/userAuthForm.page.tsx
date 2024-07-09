@@ -9,6 +9,7 @@ import { ValidationError } from "@/lib/utils";
 import useLocalStorage from "use-local-storage";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import { SIGNUP } from "@/actions";
 
 interface UserAuthFormProps {
   type: "sign-in" | "sign-up";
@@ -23,16 +24,25 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
     try {
       setIsLoading(true);
       // const res = await LOGIN({password: formData.password, username: formData.username})
-      const res = await signIn("credentials", {
-        username: formData.username,
-        password: formData.password,
-        redirect: false,
-      });
-      if (res?.status === 200) {
-        router.push("/");
-      }
+
+      // if(serverRoute === "sign-in"){
+        const res = await signIn("credentials", {
+          username: formData.username,
+          password: formData.password,
+          redirect: false,
+        });
+        
+        if (res?.error) {
+          toast.error("Invalid credentials!")
+        }
+      // } else {
+      //   const res = await SIGNUP(formData)
+      //   if (res?.name) {
+      //     toast.success(`${res.name} Registered Successfull`)
+      //   }
+      // }
     } catch (err: any) {
-      toast.error("Invalid username or password!");
+      toast.error(err.message);
     } finally {
       setIsLoading(false);
     }
@@ -60,9 +70,6 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
 
   return (
     <>
-      <div className="absolute">
-        <Toaster position="top-center" />
-      </div>
       <section className="h-screen bg-orange-500 flex items-center justify-center">
         <form
           ref={authFormRef}
@@ -84,7 +91,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
           <p className="font-semibold text-sm md:text-lg text-center mb-14">
             Please enter your credentials to continue.
           </p>
-          {type !== "sign-in" && (
+          {/* {type !== "sign-in" && (
             <InputBox
               disabled={isLoading}
               id="fullname"
@@ -93,7 +100,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
               placeholder="Full Name"
               icon="user"
             />
-          )}
+          )} */}
 
           <InputBox
             disabled={isLoading}
