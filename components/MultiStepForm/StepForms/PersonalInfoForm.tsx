@@ -267,7 +267,6 @@ const PersonalInfoForm: React.FC = () => {
             isRequired="Matric Number is required"
             errors={errors}
             // className="col-span-2"
-            isUpper
           />
         </div>
         <NavButtons loading={loading} />
