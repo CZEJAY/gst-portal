@@ -26,7 +26,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <SessionProviderLayout>
-          <DeviceProvider>
             <Providers>
               <div className="absolute">
                 <Toaster />
@@ -42,7 +41,6 @@ export default function RootLayout({
                 <SideComponent />
               </main>
             </Providers>
-          </DeviceProvider>
         </SessionProviderLayout>
       </body>
     </html>
