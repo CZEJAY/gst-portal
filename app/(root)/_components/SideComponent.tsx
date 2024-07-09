@@ -128,7 +128,7 @@ export default function SideComponent() {
               {selectedStudent
                 ? `Date: ${format(
                     new Date(selectedStudent?.student?.createdAt),
-                    "yyyy-MM-dd, hh:mm:ss a"
+                    "MMMM do, yyyy, hh:mm:ss a"
                   )}`
                 : null}
             </CardDescription>
@@ -334,7 +334,7 @@ export default function SideComponent() {
           {selectedStudent
             ? `Updated: ${format(
                 new Date(selectedStudent?.student?.updatedAt),
-                "yyyy-MM-dd, hh:mm:ss a"
+                "MMMM do, yyyy, hh:mm:ss a"
               )}`
             : null}
         </div>
