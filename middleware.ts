@@ -7,6 +7,7 @@ import {
     authRoutes,
     blockedRoute,
     publicRoutes,
+    closedRoute,
   } from "@/routes";
 
   //@ts-ignore
@@ -21,6 +22,7 @@ export default auth((req) => {
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
     const blocked = blockedRoute.includes(nextUrl.pathname)
+    const isOpen = closedRoute.includes(nextUrl.pathname)
 
     if(isPublicRoute){
         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
@@ -33,6 +35,12 @@ export default auth((req) => {
     if(blocked){
         return Response.redirect(new URL("/closed", nextUrl))
     }
+
+    // if(isOpen){
+    //     if(isLoggedIn){
+    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    //     }
+    // }
 
     if(isAuthRoute){
         if(isLoggedIn){

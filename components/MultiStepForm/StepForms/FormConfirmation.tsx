@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import axios from "axios";
 import NavButtons from "../../FormInputs/NavButtons";
 import React, { useState } from "react";
@@ -8,21 +8,37 @@ import { useRouter } from "next/navigation";
 import { ValidationError } from "@/lib/utils";
 import Image from "next/image";
 import { CREATESTUDENT } from "@/actions";
-import SuccessModal from "@/components/shared/SuccessModal"
+import SuccessModal from "@/components/shared/SuccessModal";
 import { useSession } from "next-auth/react";
 import { students } from "@prisma/client";
 
+import { useMutation } from "@tanstack/react-query";
+
 export default function FormConfirmation() {
-  const formData: students = useSelector((store: any) => store.onboarding.formData); // Adjust the type as per your RootState
+  const formData: students = useSelector(
+    (store: any) => store.onboarding.formData
+  ); // Adjust the type as per your RootState
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [studentId, setStudentId] = useState<string | null>(null)
-  const router = useRouter()
-  const {data} = useSession()
-  
-  
-  
-  
+  const [studentId, setStudentId] = useState<string | null>(null);
+  const router = useRouter();
+  const { data } = useSession();
+
+  const {
+    mutateAsync: server_createStudent,
+    data: studentData,
+    isPending,
+  } = useMutation({
+    mutationFn: CREATESTUDENT,
+    onSuccess: (data) => {
+      setSuccess(true);
+      setStudentId(data?.id);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   const processData = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(formData);
@@ -39,9 +55,12 @@ export default function FormConfirmation() {
         !formData.level ||
         !formData.phone
       ) {
-        return toast.error("Please make sure to fill in all the fields in step one.", {
-          position: "top-center",
-        });
+        return toast.error(
+          "Please make sure to fill in all the fields in step one.",
+          {
+            position: "top-center",
+          }
+        );
       }
       const updatedData: students = {
         ...formData,
@@ -49,12 +68,12 @@ export default function FormConfirmation() {
         firstName: formData.firstName.toUpperCase(),
         otherName: formData?.otherName?.toUpperCase() as string,
       };
-      const response = await CREATESTUDENT({data:updatedData, userId:data?.user?.id as string})
-      if (response) {
-        console.log(response);
-        // setStudentId(response.id)
-        setSuccess(true);
-      }
+      const response = server_createStudent({
+        data: updatedData,
+        userId: data?.user?.id?.toString() as string,
+      });
+      console.log(response);
+      // setStudentId(response.id)
     } catch (error: any) {
       if (error) {
         toast.error(error.message);
@@ -104,7 +123,7 @@ export default function FormConfirmation() {
           )} */}
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-        <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
+          <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
             <img
               src={formData.image}
               width={200}
@@ -124,7 +143,10 @@ export default function FormConfirmation() {
               { label: "Level", value: formData.level },
               { label: "Matric Number", value: formData.matricNumber },
               { label: "Phone Number", value: formData.phone },
-              { label: "Email Address", value: formData.email?.toLocaleLowerCase() },
+              {
+                label: "Email Address",
+                value: formData.email?.toLocaleLowerCase(),
+              },
             ].map((item, index) => (
               <p
                 key={index}
@@ -148,7 +170,7 @@ export default function FormConfirmation() {
             </p>
           </div>
         </div>
-        <NavButtons loading={loading} />
+        <NavButtons loading={isPending} />
       </form>
     </>
   );

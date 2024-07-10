@@ -31,7 +31,7 @@ export const CHECKPHONE = async (phone: string) => {
 
     if (existingPhone) {
       error = "Phone number already exists";
-      return { error };
+      return {error}
     }
     return {
       message: "Phone number is available",
@@ -57,16 +57,17 @@ export const CHECKMATRICNUMBER = async (matricNumber: string) => {
     console.log(existingMatricNumber);
     let error;
     if (existingMatricNumber) {
-      error = "Matric number already exists";
-      return { error };
+      error = "Matric number already exists"
+      return {error}
     }
     return {
       message: "Matric number is available",
     };
   } catch (error: any) {
-    console.log(`Internal server error: ${error.message}`);
-    throw new Error("Internal server error"); // Throw a generic error to avoid exposing internal details
-  }
+    
+      console.log(`Internal server error: ${error.message}`);
+      throw new Error("Internal server error"); // Throw a generic error to avoid exposing internal details
+   }
 };
 
 export const SIGNUP = async (data: { username: string; password: string }) => {
@@ -182,10 +183,9 @@ export const CREATESTUDENT = async ({
     const existingMatricNumber = await prismadb.students.findUnique({
       where: { matricNumber: data.matricNumber },
     });
-    let error = "";
+    // throw new ValidationError("Matric number already exists");
     if (existingMatricNumber) {
-      error = "Matric number already exists";
-      return { error };
+      throw new ValidationError("Matric number already exists");
     }
 
     // Find registrar by userId
@@ -193,8 +193,7 @@ export const CREATESTUDENT = async ({
       where: { id: userId },
     });
     if (!registrar) {
-      error = "Registrar user not found";
-      return {error};
+      throw new ValidationError("Registrar user not found");
     }
 
     // Create a new student
@@ -203,13 +202,19 @@ export const CREATESTUDENT = async ({
         ...data,
         fingerPrint: null,
         registrar: userId,
-        email: data.email?.toLocaleLowerCase(),
+        email: data.email?.toLocaleLowerCase()
       },
     });
     revalidatePath("/dashboard");
     return student;
   } catch (error: any) {
-    console.log(`Internal server error: ${error.message}`);
+    if (error instanceof ValidationError) {
+      console.log(`Validation error: ${error.message}`);
+      throw error;
+    } else {
+      console.log(`Internal server error: ${error.message}`);
+      throw new Error("Internal server error");
+    }
   }
 };
 
@@ -218,49 +223,46 @@ export const GETSTUDENTBYID = async (id: string) => {
     const student = await prismadb.students.findUnique({
       where: {
         id,
-      },
-    });
-    return JSON.parse(JSON.stringify(student));
+      }
+    })
+    return JSON.parse(JSON.stringify(student))
   } catch (error: any) {
-    console.log("ERROR GETTING STUDENT ==> ", error);
-    return null;
+    console.log("ERROR GETTING STUDENT ==> ", error)
+    return null
   }
-};
+}
 
 export const GETSTUDENT = async (matricNumber: string) => {
   try {
-    const session = await auth();
-
-    const student =
-      session?.user?.name === "caleb"
-        ? await prismadb.students.findUnique({
-            where: { matricNumber },
-            include: {
-              registrarRel: true,
-            },
-          })
-        : await prismadb.students.findUnique({
-            where: { matricNumber },
-          });
+    const session = await auth()
+    
+    const student = session?.user?.name === "caleb" ? await prismadb.students.findUnique({
+      where: { matricNumber },
+      include: {
+        registrarRel: true
+      }
+    }) : await prismadb.students.findUnique({
+      where: { matricNumber },
+    });
     let studentsCount;
-    if (student?.registrar) {
+    if(student?.registrar){
       const registrar = await prismadb.students.findMany({
         where: {
-          registrar: student.registrar,
-        },
-      });
-      studentsCount = registrar.length;
+          registrar: student.registrar
+        }
+      })
+      studentsCount = registrar.length
     }
 
     const formattedStudent: FormattedStudent = {
       student,
-      studentsCount,
-    };
-
-    return JSON.parse(JSON.stringify(formattedStudent));
+      studentsCount
+    }
+    
+      return JSON.parse(JSON.stringify(formattedStudent))
   } catch (error) {
     console.error("Failed to fetch student data:", error);
-    return null;
+    return null
   }
 };
 
@@ -268,33 +270,27 @@ export const DELETESTUDENT = async (matricNumber: string) => {
   try {
     const student = await prismadb.students.delete({
       where: { matricNumber },
-    });
-    const publicId = extractPublicId(student.image);
-    const deletedImage = await CLOUDINARYDELETE(publicId as string);
-    console.log("Image deleted => ", deletedImage?.message);
-    revalidatePath("/dashboard");
+    })
+    const publicId = extractPublicId(student.image)
+    const deletedImage = await CLOUDINARYDELETE(publicId as string)
+    console.log("Image deleted => ", deletedImage?.message)
+    revalidatePath("/dashboard")
   } catch (error: any) {
-    console.log("Could not delete Student", error);
-    throw error;
+    console.log("Could not delete Student", error)
+    throw error
   }
-};
+}
 
-export const UPDATESTUDENT = async ({
-  id,
-  updatedStudent,
-}: {
-  id: string;
-  updatedStudent: Partial<students>;
-}) => {
+export const UPDATESTUDENT = async ({id, updatedStudent}: {id: string, updatedStudent: Partial<students>}) => {
   try {
     const updated = await prismadb.students.update({
-      where: { id },
-      data: updatedStudent,
-    });
-    revalidatePath("/dashboard");
-    return JSON.parse(JSON.stringify(updated));
+      where: {id},
+      data: updatedStudent
+    })
+    revalidatePath("/dashboard")
+    return JSON.parse(JSON.stringify(updated))
   } catch (error: any) {
-    console.log("Could not update Student", error);
-    throw error;
+    console.log("Could not update Student", error)
+    throw error
   }
-};
+}

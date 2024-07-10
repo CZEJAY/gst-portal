@@ -24,6 +24,9 @@ export const authRoutes = [
 export const blockedRoute = [
   "/register"
 ]
+export const closedRoute = [
+  "/closed"
+]
 
 /**
  * The prefix for API authentication routes
