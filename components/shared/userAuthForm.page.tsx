@@ -34,6 +34,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
         
         if(res?.ok){
           router.push("/")
+          window.location.reload()
         }
         
         if (res?.error) {

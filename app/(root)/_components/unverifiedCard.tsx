@@ -30,7 +30,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Card
-          className="sm:col-span-2 hover:scale-105 cursor-pointer duration-200 transition-all"
+          className="sm:col-span-2  hover:scale-105 cursor-pointer duration-200 transition-all"
           x-chunk="dashboard-05-chunk-0"
         >
           <CardHeader className="pb-3">
@@ -48,7 +48,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
         </Card>
       </AlertDialogTrigger>
 
-      <AlertDialogContent className="bg-light-2 min-w-[950px]">
+      <AlertDialogContent className="bg-light-2 max-h-[500px] overflow-auto min-w-[980px]">
       <DataTable searchKey="matricNumber" columns={columns} data={data} />
       <AlertDialogFooter>
           <AlertDialogCancel className="bg-orange-900 border-none text-white">Cancel</AlertDialogCancel>
