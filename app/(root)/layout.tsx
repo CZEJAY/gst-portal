@@ -21,11 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Analytics />
       <body className={inter.className}>
         <SessionProviderLayout>
             <Providers>{children}</Providers>
         </SessionProviderLayout>
+      <Analytics />
       </body>
     </html>
   );

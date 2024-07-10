@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react"
+// import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "sonner";
 import "../globals.css"
 import { SessionProviderLayout } from "@/context/SessionProvider";
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Analytics />
+      {/* <Analytics /> */}
         <SessionProviderLayout>{children}</SessionProviderLayout>
         <div className="absolute">
         <Toaster />
