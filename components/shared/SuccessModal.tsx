@@ -10,7 +10,7 @@ import {
 } from "../ui/dialog";
 
 interface SuccessModalProps {
-  image: string;
+  matricNumber: string;
   firstname: string;
   surname: string;
   othername: string;
@@ -20,7 +20,7 @@ interface SuccessModalProps {
 }
 
 const SuccessModal: React.FC<SuccessModalProps> = ({
-  image,
+  matricNumber,
   firstname,
   surname,
   othername,
@@ -53,23 +53,27 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                   <div className="text-center ">
                     <CheckCircle className="text-emerald-500 text-2xl md:text-4xl" />
                   </div>
-                  <div className="text-lg md:text-2xl text-black font-semibold capitalize">
+                  <div className="text-lg text-black font-semibold capitalize">
                     {surname.toUpperCase()} {firstname.toUpperCase()},{" "}
                     {othername.toUpperCase()}
                   </div>
+                  <div className="text-lg text-orange-900 font-semibold capitalize">
+                    {matricNumber}
+                  </div>
+                  
                   <div className="">
                     <LucideThumbsUp size={40} className="text-emerald-500" />
                   </div>
                   <div className="md:mt-2 flex items-center mt-auto flex-col">
                     <p className="font-bold text-sm text-black leading-6 ml-2">
-                      Please proceed with the print button to get a printout.
+                      Please proceed with this page to the GST office to enroll your fingerprint.
                     </p>
                     <button
                       type="button"
-                      onClick={handlePrint}
+                      onClick={onChange}
                       className="bg-orange-900 text-white font-bold py-2 px-4 rounded"
                     >
-                      Print
+                      Close
                     </button>
                   </div>
                 </div>

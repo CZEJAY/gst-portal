@@ -80,7 +80,7 @@ export default function FormConfirmation() {
           onChange={() => setSuccess(!success)}
           isOpen={success}
           firstname={formData.firstName}
-          image={formData.image}
+          matricNumber={formData.matricNumber}
           othername={formData.otherName!}
           surname={formData.surName}
         />
@@ -109,7 +109,6 @@ export default function FormConfirmation() {
               src={formData.image}
               width={200}
               height={200}
-              loading="eager"
               alt="user"
               className="object-cover w-full h-full transform scale-105 "
             />

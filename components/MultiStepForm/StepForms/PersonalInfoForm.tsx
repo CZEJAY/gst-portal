@@ -131,17 +131,18 @@ const PersonalInfoForm: React.FC = () => {
     const timeOut = setTimeout(async () => {
       if (formValues.phone && formValues.phone.length === 11) {
         try {
-          const {message} = await CHECKPHONE(formValues.phone)
+          const {message, error} = await CHECKPHONE(formValues.phone)
           if (message) {
             toast.success(message);
             clearErrors("phone");
           }
-        } catch (error: any) {
-          if (error) {
+          if(error){
             setError("phone", {
-              message: error.message,
+              message: error,
             });
           }
+        } catch (error: any) {
+          toast.error("Something went wrong");
         }
       }
     }, 3000);
@@ -157,17 +158,18 @@ const PersonalInfoForm: React.FC = () => {
             toast.error("Please enter a valid matric number.");
             return;
           }
-          const {message} = await CHECKMATRICNUMBER(formValues.matricNumber)
+          const {message, error} = await CHECKMATRICNUMBER(formValues.matricNumber)
           if (message) {
             toast.success(message);
             clearErrors("matricNumber");
           }
-        } catch (error: any) {
-          if (error) {
+          if(error){
             setError("matricNumber", {
-              message: error.message,
+              message: error,
             });
           }
+        } catch (error: any) {
+          toast.error("Something went wrong!")
         }
       }
     }, 3000);

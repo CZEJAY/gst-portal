@@ -27,8 +27,11 @@ export const CHECKPHONE = async (phone: string) => {
       },
     });
 
+    let error;
+
     if (existingPhone) {
-      throw new ValidationError("Phone number already exists");
+      error = "Phone number already exists";
+      return {error}
     }
     return {
       message: "Phone number is available",
@@ -52,21 +55,19 @@ export const CHECKMATRICNUMBER = async (matricNumber: string) => {
       },
     });
     console.log(existingMatricNumber);
+    let error;
     if (existingMatricNumber) {
-      throw new ValidationError("Matric number already exists");
+      error = "Matric number already exists"
+      return {error}
     }
     return {
       message: "Matric number is available",
     };
   } catch (error: any) {
-    if (error instanceof ValidationError) {
-      console.log(`Validation error: ${error.message}`);
-      throw error; // Re-throw the validation error to be handled by the frontend
-    } else {
+    
       console.log(`Internal server error: ${error.message}`);
       throw new Error("Internal server error"); // Throw a generic error to avoid exposing internal details
-    }
-  }
+   }
 };
 
 export const SIGNUP = async (data: { username: string; password: string }) => {
