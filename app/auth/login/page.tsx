@@ -4,7 +4,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <UserAuthForm type='sign-up' />
+    <UserAuthForm type='sign-in' />
   )
 }
 
