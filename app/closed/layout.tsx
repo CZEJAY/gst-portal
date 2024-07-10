@@ -1,6 +1,10 @@
+import "../globals.css"
+
 export const metadata = {
   title: 'UNIUYO BIOMETRIC',
   description: 'PORTAL CLOSED',
+  icons: "/uniuyo-logo.png",
+
 }
 
 export default function RootLayout({
@@ -10,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="">{children}</body>
+      <body className="bg-orange-500">{children}</body>
     </html>
   )
 }
