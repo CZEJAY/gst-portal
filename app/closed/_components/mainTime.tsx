@@ -6,8 +6,8 @@ const Modal: React.FC = () => {
   
   const MAINTENANCE_PERIOD = 5 * 3600 * 1000; // 10 hours in milliseconds
 
+  const [savedEndTime, setSavedEndTime] = useLocalStorage("maintenanceEndTime", "");
   const getMaintenanceEndTime = () => {
-    const [savedEndTime, setSavedEndTime] = useLocalStorage("maintenanceEndTime", "");
     if (savedEndTime) {
       return parseInt(savedEndTime, 10);
     } else {
@@ -74,7 +74,7 @@ const Modal: React.FC = () => {
           Maintenance ends in:{" "}
         </p>
         <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
-        {timerComponents.length ? timerComponents : <span className="">Time's up!</span>}
+        {timerComponents.length ? timerComponents : <span className="">Time&apos;s up!</span>}
         </p>
         <button className="px-4 tracking-wider py-2 bg-orange-900 text-white rounded hover:bg-orange-600">
           Thank You!
