@@ -49,7 +49,7 @@ export default auth((req) => {
         return null
     }
 
-    if(!isLoggedIn && !isPublicRoute){
+    if(!isLoggedIn && !isPublicRoute && blocked){
         let callbackUrl = nextUrl.pathname;
         if(nextUrl.search){
             callbackUrl += nextUrl.search
