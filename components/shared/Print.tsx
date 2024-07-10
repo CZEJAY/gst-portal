@@ -60,7 +60,7 @@ export default function Print({StudentData}: {StudentData?: students }) {
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
           <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
-            <Image
+            <img
               src={formData?.image || ""}
               width={200}
               height={200}

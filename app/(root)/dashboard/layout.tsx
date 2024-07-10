@@ -8,7 +8,7 @@ import Siderbar from "../_components/Siderbar";
 import Header from "../_components/header";
 import { Toaster } from "sonner";
 import SideComponent from "../_components/SideComponent";
-// import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* <Analytics /> */}
       <body className={inter.className}>
         <SessionProviderLayout>
             <Providers>
@@ -44,6 +43,7 @@ export default function RootLayout({
               </main>
             </Providers>
         </SessionProviderLayout>
+      <Analytics />
       </body>
     </html>
   );
