@@ -53,6 +53,8 @@ const authOptions = {
   },
   session: {
     strategy: "jwt",
+    // MAX AGE 1 HOUR
+    maxAge: 60 * 60,
   },
   secret: process.env.AUTH_SECRET,
   callbacks: {
@@ -84,6 +86,7 @@ const authOptions = {
     },
   },
   debug: process.env.NODE_ENV === "development",
+
 } satisfies NextAuthConfig;
 
 export default authOptions;

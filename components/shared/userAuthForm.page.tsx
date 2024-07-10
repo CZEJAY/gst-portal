@@ -32,6 +32,10 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
           redirect: false,
         });
         
+        if(res?.ok){
+          router.push("/")
+        }
+        
         if (res?.error) {
           toast.error("Invalid credentials!")
         }
