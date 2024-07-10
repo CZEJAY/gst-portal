@@ -1,11 +1,7 @@
 import React from 'react';
 
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const Modal = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center  ">
