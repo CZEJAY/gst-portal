@@ -4,7 +4,7 @@ import useLocalStorage from "use-local-storage";
 
 const Modal: React.FC = () => {
   
-  const MAINTENANCE_PERIOD = 5 * 3600 * 1000; // 10 hours in milliseconds
+  const MAINTENANCE_PERIOD = 9 * 3600 * 1000; // 10 hours in milliseconds
 
   const [savedEndTime, setSavedEndTime] = useLocalStorage("maintenanceEndTime", "");
   const getMaintenanceEndTime = () => {
