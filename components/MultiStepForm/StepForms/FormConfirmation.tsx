@@ -52,7 +52,7 @@ export default function FormConfirmation() {
       const response = await CREATESTUDENT({data:updatedData, userId:data?.user?.id as string})
       if (response) {
         console.log(response);
-        setStudentId(response.id)
+        // setStudentId(response.id)
         setSuccess(true);
       }
     } catch (error: any) {
@@ -105,7 +105,7 @@ export default function FormConfirmation() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
         <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
-            <Image
+            <img
               src={formData.image}
               width={200}
               height={200}

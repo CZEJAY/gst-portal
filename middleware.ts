@@ -5,6 +5,7 @@ import {
     DEFAULT_LOGIN_REDIRECT,
     apiAuthPrefix,
     authRoutes,
+    blockedRoute,
     publicRoutes,
   } from "@/routes";
 
@@ -19,6 +20,7 @@ export default auth((req) => {
     const isApiRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const blocked = blockedRoute.includes(nextUrl.pathname)
 
     if(isPublicRoute){
         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
@@ -26,6 +28,10 @@ export default auth((req) => {
     
     if (isApiRoute) {
         return null
+    }
+
+    if(blocked){
+        return Response.redirect(new URL("/closed", nextUrl))
     }
 
     if(isAuthRoute){

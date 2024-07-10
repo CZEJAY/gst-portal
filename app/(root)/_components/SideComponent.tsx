@@ -147,7 +147,7 @@ export default function SideComponent() {
             <div className="grid gap-3">
               <ul className="grid gap-3">
                 <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
-                  <Image
+                  <img
                     src={selectedStudent?.student?.image as string}
                     width={200}
                     height={200}
