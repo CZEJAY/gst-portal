@@ -24,7 +24,7 @@ export const NavBarLink = [
 
 export const gender = [
     {
-      id: "non",
+      id: null,
       title: "Gender",
     },
     {
@@ -50,7 +50,7 @@ export const gender = [
 
   export const YOS = [
     {
-      id: "non",
+      id: null,
       title: "Select Level",
     },
     {

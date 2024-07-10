@@ -4,7 +4,7 @@ import { updateFormData } from "../../redux/slices/onboardingStudentsSlice";
 import { UseFormRegister } from "react-hook-form";
 
 interface Option {
-  id: string;
+  id: string | null;
   title: string;
 }
 
@@ -51,7 +51,7 @@ const SelectInputCourse: React.FC<SelectInputCourseProps> = ({
           onChange={handleChange}
         >
           {options.map((option, i) => (
-            <option key={i} value={option.id} disabled={i === 0} defaultValue={i === 0 ? option.title : ""} selected={i === 0}>
+            <option key={i} value={option.id as string} disabled={i === 0} defaultValue={i === 0 ? option.title : ""} selected={i === 0}>
               {option.title}
             </option>
           ))}

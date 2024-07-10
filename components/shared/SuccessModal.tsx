@@ -65,7 +65,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                     <LucideThumbsUp size={40} className="text-emerald-500" />
                   </div>
                   <div className="md:mt-2 flex items-center mt-auto flex-col">
-                    <p className="font-bold text-sm text-black leading-6 ml-2">
+                    <p className="font-bold text-sm text-center text-black leading-6 ml-2">
                       Please proceed with this page to the GST office to enroll your fingerprint.
                     </p>
                     <button
