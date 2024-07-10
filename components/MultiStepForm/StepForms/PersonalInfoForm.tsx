@@ -239,6 +239,7 @@ const PersonalInfoForm: React.FC = () => {
             register={register}
             isRequired="Email Adress is required"
             errors={errors}
+            defaultValue={formData.email}
           />
           <SelectInput
             label="Faculty"
