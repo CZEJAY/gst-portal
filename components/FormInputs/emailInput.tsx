@@ -68,7 +68,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
       ...formData,
       [name]: suggestion,
     };
-    handleCheckEmail(suggestion);
+    // handleCheckEmail(suggestion);
     dispatch(updateFormData(FData));
     setInputValue(suggestion);
     setIsTyping(false);
