@@ -32,15 +32,15 @@ export default auth((req) => {
         return null
     }
 
-    // if(blocked){
-    //     return Response.redirect(new URL("/closed", nextUrl))
-    // }
-
-    if(isOpen){
-        if(isLoggedIn){
-            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-        }
+    if(blocked){
+        return Response.redirect(new URL("/closed", nextUrl))
     }
+
+    // if(isOpen){
+    //     if(isLoggedIn){
+    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    //     }
+    // }
 
     if(isAuthRoute){
         if(isLoggedIn){
