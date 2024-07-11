@@ -183,7 +183,7 @@ export const CREATESTUDENT = async ({
     const existingMatricNumber = await prismadb.students.findUnique({
       where: { matricNumber: data.matricNumber },
     });
-    // throw new ValidationError("Matric number already exists");
+    throw new ValidationError("Matric number already exists");
     if (existingMatricNumber) {
       throw new ValidationError("Matric number already exists");
     }
