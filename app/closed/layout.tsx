@@ -19,6 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="ahrefs-site-verification" content="fba97623bebe80a4473a0af978b643e63f0bed20260ee92d5f4e607ed7a10b58"></meta>
       <body className="bg-orange-500">
         {children}
       <Analytics />
