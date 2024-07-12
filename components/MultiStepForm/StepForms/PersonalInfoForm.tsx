@@ -71,6 +71,7 @@ const PersonalInfoForm: React.FC = () => {
         });
         return;
       }
+      
 
       if (
         !formValues.matricNumber ||
