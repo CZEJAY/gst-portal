@@ -174,6 +174,7 @@ export default function FacialAuthentication() {
         <div className="mb-4 p-2 text-center text-white bg-orange-900 rounded-md">
           <p>Ensure to capture a clear picture with a white background.</p>
           <p>Failure to comply will result to data deletion.</p>
+
         </div>
         <canvas
           ref={canvasRef}
