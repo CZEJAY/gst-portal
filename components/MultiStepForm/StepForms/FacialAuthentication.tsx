@@ -1,4 +1,7 @@
-import { setCurrentStep, updateFormData } from "../../../redux/slices/onboardingStudentsSlice";
+import {
+  setCurrentStep,
+  updateFormData,
+} from "../../../redux/slices/onboardingStudentsSlice";
 import { Camera } from "lucide-react";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -31,7 +34,8 @@ export default function FacialAuthentication() {
     },
   });
   const dispatch = useDispatch();
-  let loadingToast: string | number | undefined
+  let loadingToast: string | number | undefined;
+
   async function processData(data: FormData) {
     setLoading(true);
     try {
@@ -42,7 +46,7 @@ export default function FacialAuthentication() {
       if (!formData?.image) {
         loadingToast = toast.loading("Uploading image...");
 
-        const value = await CLOUDINARYUPLOAD(imageURL)
+        const value = await CLOUDINARYUPLOAD(imageURL);
         if (value?.data) {
           toast.success(value?.message);
           setImageURL(value?.data?.secure_url);
@@ -60,7 +64,7 @@ export default function FacialAuthentication() {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
-      toast.dismiss(loadingToast)
+      toast.dismiss(loadingToast);
     }
   }
 
@@ -83,7 +87,40 @@ export default function FacialAuthentication() {
     }
   };
 
-  const handleCapture = () => {
+  // const analyzeImage = async (
+  //   imageData: ImageBitmapSource | string
+  // ): Promise<boolean> => {
+  //   // const img = await createImageBitmap(imageData as ImageBitmapSource);
+  //   const canvas = document.createElement("canvas");
+  //   const ctx = canvas.getContext("2d");
+
+  //   if (ctx) {
+  //     canvas.width = img.width;
+  //     canvas.height = img.height;
+  //     ctx.drawImage(img, 0, 0);
+  //     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  //     const data = imageData.data;
+  //     let whitePixelCount = 0;
+  //     const threshold = 200;
+  //     const whiteThreshold = 0.8; // 80% white background requirement
+
+  //     for (let i = 0; i < data.length; i += 4) {
+  //       if (
+  //         data[i] > threshold &&
+  //         data[i + 1] > threshold &&
+  //         data[i + 2] > threshold
+  //       ) {
+  //         whitePixelCount++;
+  //       }
+  //     }
+
+  //     const whiteRatio = whitePixelCount / (data.length / 4);
+  //     return whiteRatio > whiteThreshold;
+  //   }
+  //   return false;
+  // };
+
+  const handleCapture = async () => {
     if (videoRef.current && canvasRef.current) {
       videoRef.current.pause();
       const ctx = canvasRef.current.getContext("2d");
@@ -93,7 +130,7 @@ export default function FacialAuthentication() {
         const videoHeight = videoRef.current.videoHeight;
         canvasRef.current.width = videoWidth;
         canvasRef.current.height = videoHeight;
-        
+
         const x = (canvasRef.current.width - videoWidth) / 2;
         const y = (canvasRef.current.height - videoHeight) / 2;
 
@@ -101,8 +138,8 @@ export default function FacialAuthentication() {
         ctx.drawImage(videoRef.current, x, y, videoWidth, videoHeight);
 
         const image = canvasRef.current.toDataURL("image/png");
-        setImageURL(image);
 
+        setImageURL(image);
         handleCloseCamera();
         setIsCapturing(false);
       }
@@ -121,16 +158,34 @@ export default function FacialAuthentication() {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      <form className="md:px-12 py-4 min-h-[550px] flex w-full flex-col" onSubmit={handleSubmit(processData)}>
+      <form
+        className="md:px-12 py-4 min-h-[550px] flex w-full flex-col"
+        onSubmit={handleSubmit(processData)}
+      >
         <div className="mb-8">
           <h5 className="text-lg md:text-3xl font-bold text-gray-900">
             Facial Authentication
           </h5>
-          <p className="font-semibold text-sm md:text-lg">Please look into the camera.</p>
+          <p className="font-semibold text-sm md:text-lg">
+            Please look into the camera.
+          </p>
         </div>
-        <canvas ref={canvasRef} className="hidden bg-current" width={200} height={200} />
+        {/* Add notice here */}
+        <div className="mb-4 p-4 text-white bg-orange-900 rounded-md">
+          <p>Ensure to capture a clear picture with a white background.</p>
+        </div>
+        <canvas
+          ref={canvasRef}
+          className="hidden bg-current"
+          width={200}
+          height={200}
+        />
         <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
-          <video ref={videoRef} autoPlay className="object-cover w-full h-full transform scale-125" />
+          <video
+            ref={videoRef}
+            autoPlay
+            className="object-cover w-full h-full transform scale-125"
+          />
         </div>
         {/* {imageURL && (
           <Image width={200} height={200} src={imageURL} alt="CaptImage" className="h-[150px] w-[200px] mt-9 mx-auto object-cover bg-center" />
