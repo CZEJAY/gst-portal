@@ -183,9 +183,13 @@ export const CREATESTUDENT = async ({
     const existingMatricNumber = await prismadb.students.findUnique({
       where: { matricNumber: data.matricNumber },
     });
+    let error = "";
     // throw new ValidationError("Matric number already exists");
     if (existingMatricNumber) {
-      throw new ValidationError("Matric number already exists");
+      error = "Matric number already exists";
+      return {
+        error
+      }
     }
 
     // Find registrar by userId
@@ -193,7 +197,10 @@ export const CREATESTUDENT = async ({
       where: { id: userId },
     });
     if (!registrar) {
-      throw new ValidationError("Registrar user not found");
+      error = "Registrar user not found";
+      return {
+        error
+      }
     }
 
     // Create a new student
@@ -206,7 +213,9 @@ export const CREATESTUDENT = async ({
       },
     });
     revalidatePath("/dashboard");
-    return student;
+    return {
+      student
+    };
   } catch (error: any) {
     if (error instanceof ValidationError) {
       console.log(`Validation error: ${error.message}`);
