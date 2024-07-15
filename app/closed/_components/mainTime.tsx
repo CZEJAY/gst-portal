@@ -74,7 +74,7 @@ const Modal: React.FC = () => {
         <h2 className="text-lg font-semibold text-center mb-2">
          Finger Print Biometric Portal
         </h2>
-        <p className="p-2 text-balance font-semibold text-md">
+        <p className="p-2 text-center font-semibold text-md">
           Only students who have done their online registration with their image capture will be contacted to come for their finger print capture through the email address and phone number they provided on the online registration portal.
         </p>
         {/* <p className="mb-2 text-center font-mono font-semibold text-md">
