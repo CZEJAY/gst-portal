@@ -71,20 +71,19 @@ const Modal: React.FC = () => {
         <div>
           <img src="/uniuyo-logo.png" alt="logo" className="mx-auto w-28" />
         </div>
-        <h2 className="text-xl font-semibold text-center mb-10">
-          Biometric Portal Maintenance
+        <h2 className="text-lg font-semibold text-center mb-2">
+         Finger Print Biometric Porta
         </h2>
-        <p className="mb-4 text-center font-semibold text-md">
-          The Biometric portal is currently under maintenance. Please check back
-          later. We apologize for any inconvenience caused.
+        <p className="p-2 text-balance font-semibold text-md">
+          Only students who have done their online registration with their image capture will be contacted to come for their finger print capture through the email address and phone number they provided on the online registration portal.
         </p>
-        <p className="mb-2 text-center font-mono font-semibold text-md">
+        {/* <p className="mb-2 text-center font-mono font-semibold text-md">
           Maintenance ends in:{" "}
-        </p>
-        <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
+        </p> */}
+        {/* <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
           {timerComponents.length ? timerComponents : <span className="">Time&apos;s up!</span>}
-        </p>
-        <button className="px-4 tracking-wider py-2 bg-orange-900 text-white rounded hover:bg-orange-600">
+        </p> */}
+        <button className="px-4 tracking-wider py-2 bg-blue-900 text-white rounded hover:bg-blue-600">
           Thank You!
         </button>
       </div>

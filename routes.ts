@@ -26,7 +26,8 @@ export const blockedRoute = [
   "/register"
 ]
 export const closedRoute = [
-  "/closed"
+  "/closed",
+  "/auth/login",
 ]
 
 /**

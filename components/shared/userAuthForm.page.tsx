@@ -75,7 +75,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
 
   return (
     <>
-      <section className="h-screen bg-orange-500 flex items-center justify-center">
+      <section className="h-screen bg-blue-400 flex items-center justify-center">
         <form
           ref={authFormRef}
           className="md:w-[90%] flex flex-col bg-white shadow-2xl rounded-lg p-5 md:py-10 md:px-14 md:max-w-[600px]"
@@ -126,7 +126,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
 
           <button
             disabled={isLoading}
-            className="btn-dark bg-orange-700 center relative disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-opacity-100 flex items-center justify-center gap-3 mt-14 w-full"
+            className="btn-dark bg-blue-700 center relative disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-opacity-100 flex items-center justify-center gap-3 mt-14 w-full"
             type="submit"
           >
             {isLoading && (

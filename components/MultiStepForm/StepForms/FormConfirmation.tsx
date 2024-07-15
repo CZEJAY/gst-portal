@@ -28,15 +28,15 @@ export default function FormConfirmation() {
     try {
       setLoading(true);
       if (
-        !formData.image ||
-        !formData.matricNumber ||
-        !formData.firstName ||
-        !formData.surName ||
-        !formData.gender ||
-        !formData.faculty ||
-        !formData.department ||
-        !formData.level ||
-        !formData.phone
+        !formData?.image ||
+        !formData?.matricNumber ||
+        !formData?.firstName ||
+        !formData?.surName ||
+        !formData?.gender ||
+        !formData?.faculty ||
+        !formData?.department ||
+        !formData?.level ||
+        !formData?.phone
       ) {
         return toast.error(
           "Please make sure to fill in all the fields in step one.",
@@ -47,8 +47,8 @@ export default function FormConfirmation() {
       }
       const updatedData: students = {
         ...formData,
-        surName: formData.surName.toUpperCase(),
-        firstName: formData.firstName.toUpperCase(),
+        surName: formData?.surName.toUpperCase(),
+        firstName: formData?.firstName.toUpperCase(),
         otherName: formData?.otherName?.toUpperCase() as string,
       };
       const { error, student } = await CREATESTUDENT({
@@ -85,9 +85,9 @@ export default function FormConfirmation() {
           onChange={() => setSuccess(!success)}
           isOpen={success}
           firstname={formData.firstName}
-          matricNumber={formData.matricNumber}
-          othername={formData.otherName!}
-          surname={formData.surName}
+          matricNumber={formData?.matricNumber}
+          othername={formData?.otherName!}
+          surname={formData?.surName}
         />
       )}
       <form className="md:px-12 px-2 py-4" onSubmit={processData}>
@@ -111,7 +111,7 @@ export default function FormConfirmation() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
             <img
-              src={formData.image}
+              src={formData?.image}
               width={200}
               height={200}
               loading="eager"
@@ -121,18 +121,18 @@ export default function FormConfirmation() {
           </div>
           <div className="flex flex-col gap-1">
             {[
-              { label: "Surname", value: formData.surName.toUpperCase() },
-              { label: "Firstname", value: formData.firstName.toUpperCase() },
-              { label: "Othername", value: formData.otherName!.toUpperCase() },
-              { label: "Gender", value: formData.gender },
-              { label: "Faculty", value: formData.faculty },
-              { label: "Department", value: formData.department },
-              { label: "Level", value: formData.level },
-              { label: "Matric Number", value: formData.matricNumber },
-              { label: "Phone Number", value: formData.phone },
+              { label: "Surname", value: formData?.surName?.toUpperCase() },
+              { label: "Firstname", value: formData.firstName?.toUpperCase() },
+              { label: "Othername", value: formData?.otherName?.toUpperCase() },
+              { label: "Gender", value: formData?.gender },
+              { label: "Faculty", value: formData?.faculty },
+              { label: "Department", value: formData?.department },
+              { label: "Level", value: formData?.level },
+              { label: "Matric Number", value: formData?.matricNumber },
+              { label: "Phone Number", value: formData?.phone },
               {
                 label: "Email Address",
-                value: formData.email?.toLocaleLowerCase(),
+                value: formData?.email?.toLocaleLowerCase(),
               },
             ].map((item, index) => (
               <p
