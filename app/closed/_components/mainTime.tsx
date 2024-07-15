@@ -72,7 +72,7 @@ const Modal: React.FC = () => {
           <img src="/uniuyo-logo.png" alt="logo" className="mx-auto w-28" />
         </div>
         <h2 className="text-lg font-semibold text-center mb-2">
-         Finger Print Biometric Porta
+         Finger Print Biometric Portal
         </h2>
         <p className="p-2 text-balance font-semibold text-md">
           Only students who have done their online registration with their image capture will be contacted to come for their finger print capture through the email address and phone number they provided on the online registration portal.
