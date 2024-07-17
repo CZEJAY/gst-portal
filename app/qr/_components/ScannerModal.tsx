@@ -93,7 +93,7 @@ export function ScannerModal() {
       <TabsContent value="student">
         <Card>
           <CardHeader>
-            <CardTitle className="text-blue-400">Student's Detail</CardTitle>
+            <CardTitle className="text-blue-400">Student&aposs Detail</CardTitle>
             <CardDescription className="text-blue-400">
               Please confirm the students details.
             </CardDescription>
