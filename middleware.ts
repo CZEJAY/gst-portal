@@ -8,66 +8,65 @@ import {
     blockedRoute,
     publicRoutes,
     closedRoute,
-  } from "@/routes";
+} from "@/routes";
 
-  //@ts-ignore
+// @ts-ignore
 const { auth } = NextAuth(authConfig)
 
-//@ts-ignore
+// @ts-ignore
 export default auth((req) => {
     const { nextUrl } = req;
     const isLoggedIn = !!req.auth;
-    
+    const userName = req.auth?.user?.name;
+
     const isApiRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
     const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const blocked = blockedRoute.includes(nextUrl.pathname)
-    const isOpen = closedRoute.includes(nextUrl.pathname)
+    const blocked = blockedRoute.includes(nextUrl.pathname);
+    const isOpen = closedRoute.includes(nextUrl.pathname);
 
-    if(isPublicRoute){
-        // return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-        return Response.redirect(new URL("/closed", nextUrl))
+    const isAdmin = userName === process.env.ADMIN_NAME;
+
+    if (isPublicRoute) {
+        // return Response.redirect(new URL("/closed", nextUrl));
+        return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    
+
     if (isApiRoute) {
-        return null
+        return null;
     }
 
-    if(blocked){
-        return Response.redirect(new URL("/closed", nextUrl))
-    }
-    
-    // if(isOpen){
-    //     if(isLoggedIn){
-        //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    // if (isOpen) {
+    //     if (isLoggedIn) {
+    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     //     }
+    //     return null
     // }
 
-    if(isAuthRoute){
-        if(isLoggedIn){
-            return Response.redirect(new URL("/closed", nextUrl))
-            // return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    if (isAuthRoute) {
+        if (isLoggedIn) {
+            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
         }
-        // return null
-        return Response.redirect(new URL("/closed", nextUrl))
+        return null;
     }
 
-    // if(!isLoggedIn && !isPublicRoute){
-    //     let callbackUrl = nextUrl.pathname;
-    //     if(nextUrl.search){
-    //         callbackUrl += nextUrl.search
-    //     }
-    //     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+    if (!isLoggedIn && !isPublicRoute) {
+        let callbackUrl = nextUrl.pathname;
+        if (nextUrl.search) {
+            callbackUrl += nextUrl.search;
+        }
+        const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-    //     return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
-    // }
+        return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
+    }
 
-    return null
+    if (!isLoggedIn && !isAdmin) {
+        return Response.redirect(new URL("/closed", nextUrl));
+    }
 
-})
-
-
+    return null;
+});
 
 export const config = {
     matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
-  }
+}

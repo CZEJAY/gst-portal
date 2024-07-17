@@ -50,19 +50,12 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
               </div>
               <DialogDescription>
                 <div className="flex justify-center flex-col items-center mt-1">
-                  <div className="text-center ">
-                    <CheckCircle className="text-emerald-500 text-2xl md:text-4xl" />
-                  </div>
                   <div className="text-lg text-black font-semibold capitalize">
                     {surname.toUpperCase()} {firstname.toUpperCase()},{" "}
                     {othername.toUpperCase()}
                   </div>
-                  <div className="text-lg text-orange-900 font-semibold capitalize">
+                  <div className="text-lg text-blue-900 font-semibold capitalize">
                     {matricNumber}
-                  </div>
-                  
-                  <div className="">
-                    <LucideThumbsUp size={40} className="text-emerald-500" />
                   </div>
                   <div className="md:mt-2 flex items-center mt-auto flex-col">
                     <p className="font-bold text-sm text-center text-black leading-6 ml-2">
@@ -71,7 +64,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
                     <button
                       type="button"
                       onClick={onChange}
-                      className="bg-orange-900 text-white font-bold py-2 px-4 rounded"
+                      className="bg-blue-900 text-white font-bold py-2 px-4 rounded"
                     >
                       Close
                     </button>

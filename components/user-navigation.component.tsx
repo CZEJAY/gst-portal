@@ -5,6 +5,14 @@ import { useSession } from "next-auth/react";
 import { SignOutSVA } from "@/actions";
 import Link from "next/link";
 // import { setAppElement } from "react-modal";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 // setAppElement("#root");
 
@@ -14,7 +22,7 @@ const UserNavigationPanel = () => {
     SignOutSVA();
   };
   const { data, status } = useSession();
-  const allowedUSers = ["caleb", "cudoh", "uekwere"];
+  const allowedUSers = ["admin@roxxon", "cudoh", "uekwere"];
   return (
     <div className="bg-white flex flex-col  absolute right-0 border border-grey w-60 overflow-hidden duration-200">
       {allowedUSers.includes(data?.user?.name as string) && (
@@ -25,6 +33,12 @@ const UserNavigationPanel = () => {
           Dashboard
         </Link>
       )}
+      <Link href={"/qr"} className="text-left font-semibold  hover:underline pl-6 ">
+        Scan QR Code
+      </Link>
+      <Link href={"/register"} className="text-left font-semibold  hover:underline pl-6 ">
+        Register
+      </Link>
       <button
         className="text-left p-4 border-t hover:bg-grey w-full pl-8 py-4"
         onClick={signOutUser}

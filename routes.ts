@@ -6,7 +6,7 @@
 export const publicRoutes = [
   "/auth/new-verification",
   "/",
-   
+  "/closed",
 ];
 
 /**
@@ -27,7 +27,6 @@ export const blockedRoute = [
 ]
 export const closedRoute = [
   "/closed",
-  "/auth/login",
 ]
 
 /**

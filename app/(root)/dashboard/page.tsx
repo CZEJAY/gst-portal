@@ -13,7 +13,7 @@ import { calculatePercentageChange } from '@/lib/utils'
 
 const page = async  () => {
   const session = await auth()
-
+  const isAdmin = session?.user?.name === process.env.ADMIN_NAME;
   const specificDate = new Date() // You can replace this with any specific date
   const startDate = startOfDay(specificDate)
   const endDate = endOfDay(specificDate)
@@ -28,7 +28,7 @@ const page = async  () => {
   const startOfYesterday = startOfDay(yesterdayDate)
   const endOfYesterday = endOfDay(yesterdayDate)
 
-  const studentsToday = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const studentsToday = isAdmin ? await prismadb.students.findMany({
     where: {
       createdAt: {
         gte: startOfCurrentDay,
@@ -53,7 +53,7 @@ const page = async  () => {
     }
   });
 
-  const studentsYesterday = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const studentsYesterday = isAdmin ? await prismadb.students.findMany({
     where: {
       createdAt: {
         gte: startOfYesterday,
@@ -77,7 +77,7 @@ const page = async  () => {
     }
   });
   
-  const students = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const students = isAdmin ? await prismadb.students.findMany({
     orderBy: {
       createdAt: "desc"
     }
@@ -91,7 +91,7 @@ const page = async  () => {
     }
   });
 
-  const studentsWithoutFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const studentsWithoutFingerprint = isAdmin ? await prismadb.students.findMany({
     where: {
       fingerPrint: null,
     },
@@ -108,7 +108,7 @@ const page = async  () => {
       createdAt: "desc"
     }
   });
-  const studentsWithFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const studentsWithFingerprint = isAdmin ? await prismadb.students.findMany({
     where: {
       fingerPrint: {
         not: null

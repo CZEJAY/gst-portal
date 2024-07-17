@@ -10,7 +10,7 @@ export default function Step({ step }: {step: {stepNumber: number, title: string
     <div className="flex flex-col md:flex-row items-center gap-3  p-1 ">
       <div
         className={`w-8  h-8  text-slate-50 border border-slate-50 rounded-full flex items-center justify-center font-bold flex-shrink-0 ${
-          stepNumber === currentStep ? "bg-orange-900 border-0" : ""
+          stepNumber === currentStep ? "bg-blue-900 border-0" : ""
         }`}
       >
         {stepNumber}

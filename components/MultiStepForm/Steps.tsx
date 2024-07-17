@@ -23,7 +23,7 @@ export default function Steps({ steps }: Props) {
   }
 
   return (
-    <div className="rounded-lg hidden  relative col-span-full lg:col-span-4 bg-orange-600 p-10 md:flex flex-row justify-between md:flex-col md:justify-start gap-6 flex-wrap ">
+    <div className="rounded-lg hidden  relative col-span-full lg:col-span-4 bg-blue-600 p-10 md:flex flex-row justify-between md:flex-col md:justify-start gap-6 flex-wrap ">
       {steps.map((step, i) => {
         return <Step key={i} step={step} />;
       })}
@@ -31,7 +31,7 @@ export default function Steps({ steps }: Props) {
       <button
           type="button"
           onClick={() => handleReset()}
-          className="inline-flex w-full items-center justify-center p-1 px-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-orange-900 rounded-lg hover:bg-orange-800"
+          className="inline-flex w-full items-center justify-center p-1 px-2 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-blue-900 rounded-lg hover:bg-blue-800"
         >
           <ListRestart className="" />
         </button>

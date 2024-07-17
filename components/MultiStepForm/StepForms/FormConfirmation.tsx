@@ -79,23 +79,23 @@ export default function FormConfirmation() {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      {success && (
+      {/* {!success && ( */}
         <SuccessModal
-          id={studentId as string}
+          id={studentId as string || "N/A"}
           onChange={() => setSuccess(!success)}
           isOpen={success}
-          firstname={formData.firstName}
-          matricNumber={formData?.matricNumber}
-          othername={formData?.otherName!}
-          surname={formData?.surName}
+          firstname={formData.firstName || "N/A"}
+          matricNumber={formData?.matricNumber || "N/A"}
+          othername={formData?.otherName!  || "N/A"}
+          surname={formData?.surName  || "N/A"}
         />
-      )}
+      {/* )} */}
       <form className="md:px-12 px-2 py-4" onSubmit={processData}>
         <div className="mb-8 relative">
           <h5 className="text-lg md:text-3xl font-bold text-gray-900">
             Confirm and Submit Data
           </h5>
-          <p className="text-sm md:text-lg italic font-bold text-orange-700 ">
+          <p className="text-sm md:text-lg italic font-bold text-blue-700 ">
             Confirm if this is the data that you filled
           </p>
           {/* {!success && (

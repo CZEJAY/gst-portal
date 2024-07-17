@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 
-const Modal: React.FC = () => {
+type Props = {
+  onClick: () => void
+}
+
+const Modal: React.FC<Props> = ({
+  onClick
+}) => {
   const INITIAL_MAINTENANCE_PERIOD = 9 * 3600 * 1000; // 9 hours in milliseconds
   const RESET_MAINTENANCE_PERIOD = 5 * 3600 * 1000; // 2 hours in milliseconds
 
@@ -66,12 +72,12 @@ const Modal: React.FC = () => {
   });
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg flex flex-col shadow-lg max-w-lg w-full p-6">
-        <div>
+    <div className=" flex items-center justify-center w-[600px] ">
+      <div className="bg-white rounded-lg flex flex-col shadow-lg max-w-[600px]  w-full p-6">
+        {/* <div>
           <img src="/uniuyo-logo.png" alt="logo" className="mx-auto w-28" />
-        </div>
-        <h2 className="text-lg font-semibold text-center mb-2">
+        </div> */}
+        <h2 className="text-blue-600 text-xl font-bold capitalize  text-center mb-3">
          Finger Print Biometric Portal
         </h2>
         <p className="p-2 text-center font-semibold text-md">
@@ -83,7 +89,7 @@ const Modal: React.FC = () => {
         {/* <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
           {timerComponents.length ? timerComponents : <span className="">Time&apos;s up!</span>}
         </p> */}
-        <button className="px-4 tracking-wider py-2 bg-blue-900 text-white rounded hover:bg-blue-600">
+        <button onClick={onClick} className="px-4 tracking-wider py-2 bg-blue-900 text-white rounded hover:bg-blue-600">
           Thank You!
         </button>
       </div>

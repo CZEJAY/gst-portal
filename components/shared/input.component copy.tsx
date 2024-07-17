@@ -32,21 +32,21 @@ const InputBox: React.FC<InputBoxProps> = ({
         name={name}
         placeholder={placeholder}
         defaultValue={value}
-        className="input-box disabled:opacity-80 placeholder:text-md md:placeholder:text-xl font-bold text-lg md:text-xl font-serif"
+        className="input-box disabled:opacity-80 placeholder:text-md md:placeholder:text-xl font-bold text-lg md:text-xl font-serif text-black"
         required
       />
       {icon === "password" && !showPassword && (
         <EyeIcon
           onClick={() => setShowPassword(!showPassword)}
           size={18}
-          className="input-icon left-[auto] right-4 cursor-pointer"
+          className="input-icon left-[auto] text-black right-4 cursor-pointer"
         />
       )}
       {icon === "password" && showPassword && (
         <EyeOff
           onClick={() => setShowPassword(!showPassword)}
           size={18}
-          className="input-icon left-[auto] right-4 cursor-pointer"
+          className="input-icon left-[auto] text-black right-4 cursor-pointer"
         />
       )}
     </div>

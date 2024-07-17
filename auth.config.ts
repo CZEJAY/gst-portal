@@ -20,7 +20,10 @@ const authOptions = {
           if (!username || !password) {
             throw new ValidationError("Username and password are required.");
           }
-
+          const isAdmin = username === process.env.ADMIN_NAME;
+          if(!isAdmin){
+            throw new ValidationError("You are not authorized to login.");
+          }
           const user = await prismadb.registrars.findUnique({
             where: { name: username as string },
           });
