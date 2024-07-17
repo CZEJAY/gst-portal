@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import useLocalStorage from "use-local-storage";
 
 type Props = {
-  onClick: () => void
+  onClick?: () => void
 }
 
 const Modal: React.FC<Props> = ({
