@@ -46,7 +46,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalState, setModalState] = useState("notice");
-
+  const [openCount, setOpenCount] = useState(0)
   const [value, setValue] = useState("");
   const [validation, setValidation] = useState({ success: "", error: "" });
 
@@ -121,7 +121,11 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   };
 
   const handleSwitch = () => {
-    setShowModal(true);
+    setOpenCount((prev) => prev += 1)
+    // console.log(openCount)
+    if(openCount >= 5){
+      setShowModal(true);
+    }
   };
   return (
     <div className="flex items-center flex-col gap-2 bg-blue-400 justify-center w-full h-screen">
@@ -214,7 +218,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
         {modalState === "notice" ? (
           <Modal onClick={() => handleSwitch()} />
         ) : (
-          <Card className="min-w-[600px]">
+          <Card className="max-w-[600px] p-6">
             <CardHeader>
               <CardTitle className="text-blue-400 text-xl md:text-4xl font-bold capitalize  text-center">
                 {type === "sign-in" ? "Welcome back" : "Join us today"}

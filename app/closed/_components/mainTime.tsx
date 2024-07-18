@@ -72,7 +72,7 @@ const Modal: React.FC<Props> = ({
   });
 
   return (
-    <div className=" flex items-center justify-center w-[600px] ">
+    <div className=" flex items-center justify-center max-w-[600px] ">
       <div className="bg-white rounded-lg flex flex-col shadow-lg max-w-[600px]  w-full p-6">
         {/* <div>
           <img src="/uniuyo-logo.png" alt="logo" className="mx-auto w-28" />

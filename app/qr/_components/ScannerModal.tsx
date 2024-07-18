@@ -34,10 +34,26 @@ export function ScannerModal() {
       stream.getTracks().forEach((track) => track.stop());
     }
   };
+
+  const handleScan = () => {
+    const scanner = new Html5QrcodeScanner("reader", config, false);
+    scanner.render(successHandler, errorHandler);
+    function successHandler(success: any) {
+      console.log("success");
+      scanner.clear();
+      console.log(success);
+      setScannerResult(success);
+      handleCloseCamera()
+      window.open(String(success), "_blank")
+    }
+    function errorHandler(err: any) {
+      // console.log("Error");
+      // console.warn(err);
+    }
+  }
   
   useEffect(() => {
     const scanner = new Html5QrcodeScanner("reader", config, false);
-
     scanner.render(successHandler, errorHandler);
     function successHandler(success: any) {
       console.log("success");
@@ -85,8 +101,8 @@ export function ScannerModal() {
               )}
             </div>
           </CardContent>
-          <CardFooter>
-            {/* <Button>Save changes</Button> */}
+          <CardFooter className="pt-5">
+          <Button className="bg-blue-800 hover:bg-blue-600" onClick={() => handleScan()}>Open Modal</Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -107,7 +123,7 @@ export function ScannerModal() {
             </div>
           </CardContent>
           <CardFooter>
-            {/* <Button>Save password</Button> */}
+            {/* <Button className="bg-blue-800" onClick={() => handleScan()}>Open Modal</Button> */}
           </CardFooter>
         </Card>
       </TabsContent>
