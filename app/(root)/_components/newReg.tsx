@@ -34,7 +34,7 @@ export default async function NewReg({
 
   const session = await auth()
   
-  const studentsWithoutFingerprint = session?.user?.name === "caleb" ? await prismadb.students.findMany({
+  const studentsWithoutFingerprint = session?.user?.name === process.env.ADMIN_NAME ? await prismadb.students.findMany({
     where: {
       fingerPrint: null,
     },
