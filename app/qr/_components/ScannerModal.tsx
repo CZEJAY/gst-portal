@@ -71,7 +71,7 @@ export function ScannerModal() {
 
 
   return (
-    <Tabs defaultValue="scanQR" className="w-[600px] ">
+    <Tabs defaultValue="scanQR" className="max-w-[600px] ">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="scanQR" className="text-blue-500">Scan Code</TabsTrigger>
         <TabsTrigger value="student" className="text-blue-500">Student Details</TabsTrigger>
