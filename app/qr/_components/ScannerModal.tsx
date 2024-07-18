@@ -71,7 +71,7 @@ export function ScannerModal() {
 
 
   return (
-    <Tabs defaultValue="scanQR" className="max-w-[600px] ">
+    <Tabs defaultValue="scanQR" className="max-w-[600px] overflow-hidden">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="scanQR" className="text-blue-500">Scan Code</TabsTrigger>
         <TabsTrigger value="student" className="text-blue-500">Student Details</TabsTrigger>
@@ -92,7 +92,7 @@ export function ScannerModal() {
               {scannerResult ? (
                 <div className="text-blue-800">
                   Success:{" "}
-                  <a href={scannerResult}>
+                  <a href={scannerResult} className={`text-xs`}>
                     {scannerResult}
                   </a>
                 </div>
@@ -109,7 +109,7 @@ export function ScannerModal() {
       <TabsContent value="student">
         <Card>
           <CardHeader>
-            <CardTitle className="text-blue-400">Student&aposs Detail</CardTitle>
+            <CardTitle className="text-blue-400">Student&apos;s Detail</CardTitle>
             <CardDescription className="text-blue-400">
               Please confirm the students details.
             </CardDescription>
