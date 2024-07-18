@@ -37,6 +37,7 @@ export function ScannerModal() {
 
   const handleScan = () => {
     const scanner = new Html5QrcodeScanner("reader", config, false);
+    scanner.clear()
     scanner.render(successHandler, errorHandler);
     function successHandler(success: any) {
       console.log("success");

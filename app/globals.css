@@ -4,67 +4,68 @@
 
   @layer base {
     :root {
-      --background: 34, 100%, 49%;
-      --foreground: 34, 100%, 49%;
-
-      --card: 0 0% 100%;
-      --card-foreground: 15, 75%, 28%;
-
-      --popover: 0 0% 100%;
-      --popover-foreground: 222.2 84% 4.9%;
-
-      --primary: 15, 75%, 28%;
-      --primary-foreground: 210 40% 98%;
-
-      --secondary: 34, 100%, 49%;
-      --secondary-foreground: 34, 100%, 49%;
-
-      --muted: 34, 100%, 49%;
-      --muted-foreground: 16, 29%, 62%;
-
-      --accent: 16, 29%, 62%;
-      --accent-foreground: 34, 100%, 49%;
-
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 222.2 84% 4.9%;
-
+      --background: 210, 100%, 50%; /* Bright blue */
+      --foreground: 210, 100%, 50%; /* Bright blue */
+  
+      --card: 210, 50%, 95%; /* Light blue */
+      --card-foreground: 210, 75%, 40%; /* Medium blue */
+  
+      --popover: 210, 50%, 95%; /* Light blue */
+      --popover-foreground: 210, 75%, 40%; /* Medium blue */
+  
+      --primary: 210, 75%, 40%; /* Medium blue */
+      --primary-foreground: 210, 40%, 98%; /* Near white */
+  
+      --secondary: 210, 100%, 50%; /* Bright blue */
+      --secondary-foreground: 210, 100%, 50%; /* Bright blue */
+  
+      --muted: 210, 100%, 50%; /* Bright blue */
+      --muted-foreground: 210, 50%, 75%; /* Light blue */
+  
+      --accent: 210, 50%, 75%; /* Light blue */
+      --accent-foreground: 210, 100%, 50%; /* Bright blue */
+  
+      --destructive: 0, 84.2%, 60.2%; /* Keeping the red for destructive */
+      --destructive-foreground: 210, 40%, 98%; /* Near white */
+  
+      --border: 210, 31.8%, 91.4%; /* Light blue */
+      --input: 210, 31.8%, 91.4%; /* Light blue */
+      --ring: 210, 84%, 40%; /* Medium blue */
+  
       --radius: 0.5rem;
     }
-
+  
     .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-
-      --popover: 222.2 84% 4.9%;
-      --popover-foreground: 210 40% 98%;
-
-      --primary: 210 40% 98%;
-      --primary-foreground: 222.2 47.4% 11.2%;
-
-      --secondary: 217.2 32.6% 17.5%;
-      --secondary-foreground: 210 40% 98%;
-
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-
-      --accent: 217.2 32.6% 17.5%;
-      --accent-foreground: 210 40% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 217.2 32.6% 17.5%;
-      --input: 217.2 32.6% 17.5%;
-      --ring: 212.7 26.8% 83.9%;
+      --background: 210, 84%, 20%; /* Dark blue */
+      --foreground: 210, 40%, 98%; /* Near white */
+  
+      --card: 210, 84%, 20%; /* Dark blue */
+      --card-foreground: 210, 40%, 98%; /* Near white */
+  
+      --popover: 210, 84%, 20%; /* Dark blue */
+      --popover-foreground: 210, 40%, 98%; /* Near white */
+  
+      --primary: 210, 40%, 98%; /* Near white */
+      --primary-foreground: 210, 47.4%, 40%; /* Medium blue */
+  
+      --secondary: 210, 32.6%, 25%; /* Darker blue */
+      --secondary-foreground: 210, 40%, 98%; /* Near white */
+  
+      --muted: 210, 32.6%, 25%; /* Darker blue */
+      --muted-foreground: 210, 20.2%, 65.1%; /* Light gray blue */
+  
+      --accent: 210, 32.6%, 25%; /* Darker blue */
+      --accent-foreground: 210, 40%, 98%; /* Near white */
+  
+      --destructive: 0, 62.8%, 30.6%; /* Keeping the red for destructive */
+      --destructive-foreground: 210, 40%, 98%; /* Near white */
+  
+      --border: 210, 32.6%, 25%; /* Darker blue */
+      --input: 210, 32.6%, 25%; /* Darker blue */
+      --ring: 210, 26.8%, 83.9%; /* Light blue */
     }
   }
+  
 
   /* @layer base {
     * {
@@ -87,10 +88,10 @@
     }
   
     .leftsidebar {
-      @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-light-3 dark:border-r-dark-4 dark:bg-dark-2 bg-orange-600 pb-5 pt-28 max-md:hidden;
+      @apply sticky left-0 top-0 z-20 flex h-screen w-fit flex-col justify-between overflow-auto border-r border-r-light-3 dark:border-r-dark-4 dark:bg-dark-2 bg-blue-600 pb-5 pt-28 max-md:hidden;
     }
     .leftsidebar1 {
-      @apply sticky left-0 top-0 z-40 flex h-screen max-md:hidden flex-col justify-between overflow-auto border-r border-r-gray-300 dark:border-r-dark-4 dark:bg-dark-2 bg-orange-900 pb-5 pt-8 w-24 items-center overflow-x-hidden;
+      @apply sticky left-0 top-0 z-40 flex h-screen max-md:hidden flex-col justify-between overflow-auto border-r border-r-gray-300 dark:border-r-dark-4 dark:bg-dark-2 bg-blue-700 pb-5 pt-8 w-24 items-center overflow-x-hidden;
     }
   
     .rightsidebar {
@@ -144,7 +145,7 @@
       }
   
       .btn-dark{
-          @apply whitespace-nowrap bg-orange-500 text-white rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80;
+          @apply whitespace-nowrap bg-blue-500 text-white rounded-full py-3 px-6 text-xl capitalize hover:bg-opacity-80;
       }
   
       .btn-light{

@@ -114,3 +114,20 @@ export const calculatePercentageChange = (
 };
 
 
+export function calculatePercentageChange1(countToday: number, countYesterday: number) {
+  if (countYesterday === 0) {
+    // Handle the case where countYesterday is 0 to avoid division by zero
+    return countToday > 0 ? 100 : 0;
+  }
+
+  const difference = countToday - countYesterday;
+  const percentageChange = (difference / countYesterday) * 100;
+
+  return percentageChange;
+}
+
+// Example usage:
+// const countToday = 120;
+// const countYesterday = 100;
+// const percentageChange = calculatePercentageChange(countToday, countYesterday);
+// console.log(`Percentage change: ${percentageChange}%`);

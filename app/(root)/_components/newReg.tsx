@@ -77,7 +77,7 @@ export default async function NewReg({
           </CardHeader>
           <CardFooter>
             <Button asChild>
-              <Link href={"/register"}>Register New Student</Link>
+              <Link  href={"/register"}>Register New Student</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -85,7 +85,7 @@ export default async function NewReg({
           <CardHeader className="pb-2">
             <CardDescription className="w-full flex items-center justify-between">
               Total Enrollments
-              <BarChartHorizontal className="text-orange-900" />
+              <BarChartHorizontal className="text-blue-900" />
             </CardDescription>
             <CardTitle className="text-4xl">{total}</CardTitle>
           </CardHeader>
@@ -99,7 +99,7 @@ export default async function NewReg({
           <CardHeader className="pb-2">
             <CardDescription className="w-full flex items-center justify-between">
               Past Enrollments
-              <AreaChart className="text-orange-900" />
+              <AreaChart className="text-blue-900" />
             </CardDescription>
             <CardTitle className="text-4xl">{studentsYesterday}</CardTitle>
           </CardHeader>
@@ -113,7 +113,7 @@ export default async function NewReg({
           <CardHeader className="pb-2">
             <CardDescription className="w-full flex items-center justify-between">
               Recent Enrollments
-              <User className="text-orange-900" />
+              <User className="text-blue-900" />
             </CardDescription>
             <CardTitle className="text-4xl">{recent}</CardTitle>
           </CardHeader>
@@ -131,7 +131,7 @@ export default async function NewReg({
           <CardHeader className="pb-2">
             <CardDescription className="w-full flex items-center justify-between">
               Verified Enrollments
-              <UserCheck2 className="text-orange-900" />
+              <UserCheck2 className="text-blue-900" />
             </CardDescription>
             <CardTitle className="text-4xl">{verified}</CardTitle>
           </CardHeader>

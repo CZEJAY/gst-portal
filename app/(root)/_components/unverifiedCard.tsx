@@ -43,7 +43,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
             </CardDescription>
           </CardHeader>
           <CardFooter>
-            <p className="text-4xl text-orange-900">{unverified}</p>
+            <p className="text-4xl">{unverified}</p>
           </CardFooter>
         </Card>
       </AlertDialogTrigger>
@@ -51,7 +51,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
       <AlertDialogContent className="bg-light-2 max-h-[500px] overflow-auto min-w-[980px]">
       <DataTable searchKey="matricNumber" columns={columns} data={data} />
       <AlertDialogFooter>
-          <AlertDialogCancel className="bg-orange-900 border-none text-white">Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="border-none text-white">Cancel</AlertDialogCancel>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

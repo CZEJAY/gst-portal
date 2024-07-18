@@ -73,7 +73,7 @@ export default function SideComponent() {
   const [updatedStudent, setUpdatedStudent] = useState<Partial<students>>({});
   const router = useRouter()
   const {data} = useSession()
-  const isAdmin = data?.user?.name === "caleb"
+  const isAdmin = data?.user?.name === process.env.ADMIN_NAME
   const handleEdit = (field: keyof Student) => {
     setIsEditing((prev) => ({ ...prev, [field]: true }));
   };
@@ -130,13 +130,14 @@ export default function SideComponent() {
                     new Date(selectedStudent?.student?.createdAt),
                     "MMMM do, yyyy, hh:mm:ss a"
                   )}`
-                : null}
+                : ""}
             </CardDescription>
           </div>
           {selectedStudent ? (
             <Link
-              className="bg-orange-900 text-white ml-auto p-2 px-3 rounded-md"
+              className="bg-blue-900 text-white ml-auto p-2 px-3 rounded-md"
               href={`/print/${selectedStudent?.student?.id}`}
+              target="_blank"
             >
               Print
             </Link>

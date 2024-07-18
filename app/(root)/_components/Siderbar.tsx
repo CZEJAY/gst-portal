@@ -108,7 +108,7 @@ const Siderbar = () => {
                     )}
                   />
                 </TooltipTrigger>
-                <TooltipContent className="bg-orange-500">⌘ x toggle sidebar </TooltipContent>
+                <TooltipContent className="bg-blue-500">⌘ x toggle sidebar </TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>

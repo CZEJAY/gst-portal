@@ -89,7 +89,7 @@ const Modal: React.FC<Props> = ({
         {/* <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
           {timerComponents.length ? timerComponents : <span className="">Time&apos;s up!</span>}
         </p> */}
-        <button onClick={onClick} className="px-4 tracking-wider py-2 bg-blue-900 text-white rounded hover:bg-blue-600">
+        <button onClick={onClick} className="px-4 tracking-wider py-2 border-2 border-blue-500 text-black hover:text-white rounded-lg hover:bg-blue-600">
           Thank You!
         </button>
       </div>

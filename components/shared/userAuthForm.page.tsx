@@ -143,9 +143,9 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
             <DialogTitle>
               <div className="text-center">
                 <h2 className="text-lg tracking-widest font-bold text-black">
-                  Enter Authurization Key
+                  Enter Authorization Key
                 </h2>
-                <p className="text-md font text-blue-500">
+                <p className="text-sm font text-blue-400">
                   Please enter the key below.
                 </p>
               </div>

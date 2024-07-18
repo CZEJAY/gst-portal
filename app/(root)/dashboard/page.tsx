@@ -8,7 +8,7 @@ import { StudentClient } from './_components/client'
 import { StudentColumn } from './_components/columns'
 import {endOfDay, format, startOfDay, subDays} from "date-fns"
 import SideComponent from '../_components/SideComponent'
-import { calculatePercentageChange } from '@/lib/utils'
+import { calculatePercentageChange, calculatePercentageChange1 } from '@/lib/utils'
 
 
 const page = async  () => {
@@ -135,7 +135,7 @@ const page = async  () => {
   const countYesterday = studentsYesterday.length
 
   // Calculate the percentage change
-  const percentageChange = calculatePercentageChange(countToday, countYesterday)
+  const percentageChange = calculatePercentageChange1(countToday, countYesterday)
 
   const formattedData: StudentColumn[] = students.map((item) => ({
     surName: item.surName,
