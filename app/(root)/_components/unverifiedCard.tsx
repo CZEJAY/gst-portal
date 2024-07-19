@@ -39,7 +39,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
               <UserX2 />
             </CardTitle>
             <CardDescription className="max-w-lg text-balance text-sm leading-relaxed">
-              Students pending fingerprint enrollment and verification.
+              Students pending fingerprint enrollment and verification. 
             </CardDescription>
           </CardHeader>
           <CardFooter>

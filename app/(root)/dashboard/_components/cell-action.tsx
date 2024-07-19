@@ -19,6 +19,7 @@ const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
     const {data: session, status} = useSession()
+    const isAdmin = process.env.ADMIN_NAME === session?.user?.name
     const setSelectedStudent = useStudentStore((state) => state.setSelectedStudent)
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = useState(false)
@@ -76,7 +77,7 @@ const CellAction: React.FC<CellActionProps> = ({
                 View
             </DropdownMenuItem>
             {
-              status === "authenticated" && session.user?.name === "caleb" ? (
+              status === "authenticated" && isAdmin ? (
                 <DropdownMenuItem className="" onClick={() => setOpen(true)}>
                 <Trash className='mr-2 h-4 w-4' />
                 Delete

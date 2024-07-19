@@ -41,7 +41,7 @@ export default function Print({StudentData}: {StudentData?: students }) {
         hidden={isPrinting}
         type="button"
         onClick={handlePrint}
-        className="bg-orange-900   font-bold py-2 px-4 rounded text-white"
+        className="bg-blue-900   font-bold py-2 px-4 rounded text-white"
       >
         Print
       </button>
@@ -49,14 +49,14 @@ export default function Print({StudentData}: {StudentData?: students }) {
         hidden={isPrinting}
         type="button"
         onClick={handleClose}
-        className="bg-orange-900   font-bold py-2 px-4 rounded text-white"
+        className="bg-blue-900   font-bold py-2 px-4 rounded text-white"
       >
         Close
       </button>
       
 
       </div>
-      <form className="w-fit  relative px-5 py-3  min-w-[700px] min-h-[400px] border-[4px] border-orange-500">
+      <form className="w-fit  relative px-5 py-3  min-w-[700px] min-h-[400px] border-[4px] border-blue-500">
         <div className="mb-8 relative w-full flex items-center justify-center">
           <div className="mx-auto self-center">
           <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
@@ -130,7 +130,7 @@ export default function Print({StudentData}: {StudentData?: students }) {
               />
             </div>
           </div>
-          <div className="flex justify-center gap-4 mt-4 border-b border-orange-500">
+          <div className="flex justify-center gap-4 mt-4 border-b border-blue-500">
             <p className="italic font-bold text-xl">
               Congratulations! See you on exams day.
             </p>

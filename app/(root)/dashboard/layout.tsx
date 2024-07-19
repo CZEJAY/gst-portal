@@ -13,7 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "UNIUYO GST Dashboard - BIOMETRIC",
+  title: "ADMIN Dashboard - BIOMETRIC",
   description: "BIOMETRIC PORTAL",
   icons: "/uniuyo-logo.png",
 };
