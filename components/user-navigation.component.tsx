@@ -24,29 +24,32 @@ const UserNavigationPanel = () => {
   const { data, status } = useSession();
   const allowedUSers = ["admin@roxxon", "cudoh", "uekwere"];
   return (
-    <div className="bg-white flex flex-col  absolute right-0 border border-grey w-60 overflow-hidden duration-200">
+    <div className="bg-white flex flex-col rounded-md absolute right-0 border border-grey w-60 overflow-hidden duration-200">
+      <div className="text-muted-foreground w-full text-center mx-auto border-b">
+        Account Management
+      </div>
       {allowedUSers.includes(data?.user?.name as string) && (
         <Link
           href={"/dashboard"}
-          className="p-2 font-bold hover:underline text-xl pl-6"
+          className="p-1 hover:bg-gray-400/5 pl-6"
         >
           Dashboard
         </Link>
       )}
-      <Link href={"/qr"} className="text-left font-semibold  hover:underline pl-6 ">
-        Scan QR Code
+      <Link href={"/qr"} className="p-1 text-left hover:bg-gray-400/5 pl-6 ">
+        Scan QR
       </Link>
-      <Link href={"/register"} className="text-left font-semibold  hover:underline pl-6 ">
+      <Link href={"/register"} className="p-1 text-left hover:bg-gray-400/5 pl-6 ">
         Register
       </Link>
       <button
-        className="text-left p-4 border-t hover:bg-grey w-full pl-8 py-4"
+        className="text-left p-2 border-t hover:bg-grey-400/5 w-full pl-8"
         onClick={signOutUser}
       >
-        <h1 className="font-bold text-xl mb-1">Sign Out</h1>
-        <p className="text-dark-grey">
-          {status === "loading" ? "Loading..." : `@${data?.user?.name}`}
-        </p>
+        <h1 className="font-semibold hover:bg-grey mb-1">Log Out</h1>
+        {/* <p className="text-dark-grey">
+          {status === "loading" ? "Loading..." : `${data?.user?.name}`}
+        </p> */}
       </button>
     </div>
   );

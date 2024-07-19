@@ -18,7 +18,7 @@ const UserButton = () => {
   return (
     <div>
       <div
-        className="relative"
+        className="relative rounded-md"
         onClick={handleUserNavPanel}
         onBlur={handleBlur}
       >

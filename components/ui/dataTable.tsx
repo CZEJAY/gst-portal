@@ -11,6 +11,7 @@ import {
   useReactTable,
   ColumnFiltersState,
   getFilteredRowModel,
+  
 } from "@tanstack/react-table";
 
 import {
@@ -22,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -48,6 +50,11 @@ export function DataTable<TData, TValue>({
     },
   });
 
+
+  const handleClick = async (id: string) => {
+    toast.success(id)
+  }
+  
   return (
     <div className="">
       <div className="flex items-center py-4">
@@ -86,6 +93,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   className="hover:bg-gray-400/15 cursor-pointer"
                   key={row.id}
+                  // onClick={() => handleClick(row.originalSubRows)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (

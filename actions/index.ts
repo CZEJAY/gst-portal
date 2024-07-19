@@ -244,8 +244,10 @@ export const GETSTUDENTBYID = async (id: string) => {
 export const GETSTUDENT = async (matricNumber: string) => {
   try {
     const session = await auth()
+
+    const isAdmin = process.env.ADMIN_NAME === session?.user?.name
     
-    const student = session?.user?.name === "caleb" ? await prismadb.students.findUnique({
+    const student = isAdmin ? await prismadb.students.findUnique({
       where: { matricNumber },
       include: {
         registrarRel: true
