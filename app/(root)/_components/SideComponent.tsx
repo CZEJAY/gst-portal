@@ -75,7 +75,7 @@ export default function SideComponent() {
   const [updatedStudent, setUpdatedStudent] = useState<Partial<students>>({});
   const router = useRouter();
   const { data } = useSession();
-  const isAdmin = data?.user?.name === process.env.ADMIN_NAME;
+  const isAdmin = data?.user?.name === "admin@roxxon";
   const handleEdit = (field: keyof Student) => {
     setIsEditing((prev) => ({ ...prev, [field]: true }));
   };
@@ -142,7 +142,12 @@ export default function SideComponent() {
             </CardDescription>
           </div>
           {selectedStudent ? (
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center ml-auto gap-2">
+              {Object.keys(updatedStudent).length > 0 && isAdmin && (
+                <Button onClick={handleSave} className="" >
+                  Save
+                </Button>
+              )}
               <Link
                 className="bg-blue-900 text-white ml-auto p-2 px-3 rounded-md"
                 href={`/print/${selectedStudent?.student?.id}`}
@@ -150,11 +155,6 @@ export default function SideComponent() {
               >
                 Print
               </Link>
-              {Object.keys(updatedStudent).length > 0 && isAdmin && (
-                <Button onClick={handleSave} className="mt-4">
-                  Save
-                </Button>
-              )}
             </div>
           ) : null}
         </CardHeader>
