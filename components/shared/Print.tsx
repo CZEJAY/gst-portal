@@ -4,6 +4,7 @@ import {
   updateFormData,
 } from "@/redux/slices/onboardingStudentsSlice";
 import { students } from "@prisma/client";
+import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -125,7 +126,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
               </p>
             </div>
           </div>
-          <div className="grid gap-4 mt-4 border-b border-blue-500">
+          <div className="grid gap-4 mt-4 border-b pb-4 border-blue-500">
             <h1 className="text-blue-600 text-lg">Application Details</h1>
             <div className="grid grid-cols-2">
               <div className="col-span-1 flex flex-col gap-8">
@@ -150,7 +151,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
                   </p>
                 </div>
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 flex flex-col gap-8">
                 <div className="">
                   <p className="text-sm font-bold">
                     Department
@@ -158,6 +159,19 @@ export default function Print({ StudentData }: { StudentData?: students }) {
                   <p className="text-lg font-bold text-blue-900">
                     {
                       formData?.department || "N/A"
+                    }
+                  </p>
+                </div>
+                <div className="">
+                  <p className="text-sm font-bold">
+                    Application Date
+                  </p>
+                  <p className="text-lg font-bold text-blue-900">
+                    {
+                      format(
+                        new Date(formData.createdAt),
+                        "MMMM do, yyyy, hh:mm:ss a"
+                      ) || "N/A"
                     }
                   </p>
                 </div>
