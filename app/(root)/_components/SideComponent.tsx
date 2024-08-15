@@ -28,7 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { useStudentStore } from "@/context/zustand";
+import { StudentWithRegistrar, useStudentStore } from "@/context/zustand";
 import { format } from "date-fns";
 import Image from "next/image";
 import AlertModal from "@/components/modals/AlertModal";
@@ -49,6 +49,8 @@ export type Student = {
   otherName: string;
   gender: string;
   phone: string;
+  examsDate?: string;
+  courses?: string;
   email: string;
   faculty: string;
   department: string;
@@ -61,7 +63,7 @@ export type Student = {
 };
 
 type SelectedStudent = {
-  student: Student;
+  student: StudentWithRegistrar;
   studentsCount: number;
 };
 
@@ -245,8 +247,8 @@ export default function SideComponent() {
                     <input
                       type="text"
                       value={
-                        updatedStudent.otherName ||
-                        selectedStudent?.student?.otherName
+                        updatedStudent?.otherName ||
+                        selectedStudent?.student?.otherName || "N/A"
                       }
                       onChange={(e) => handleChange(e, "otherName")}
                       onBlur={() =>
@@ -304,7 +306,7 @@ export default function SideComponent() {
                     <input
                       type="text"
                       value={
-                        updatedStudent.email || selectedStudent?.student?.email
+                        updatedStudent.email || selectedStudent?.student?.email || "N/A"
                       }
                       onChange={(e) => handleChange(e, "email")}
                       onBlur={() =>
@@ -321,8 +323,48 @@ export default function SideComponent() {
             </div>
             <Separator className="my-4" />
             <div className="grid gap-3">
-              <div className="font-semibold">School Information</div>
+              <div className="font-semibold">Application Detail</div>
               <dl className="grid gap-3">
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Exams Date</dt>
+                  {isEditing.examsDate ? (
+                    <input
+                      type="text"
+                      value={
+                        updatedStudent.examsDate ||
+                        selectedStudent?.student?.examsDate || ""
+                      }
+                      onChange={(e) => handleChange(e, "examsDate")}
+                      onBlur={() =>
+                        setIsEditing((prev) => ({ ...prev, examsDate: false }))
+                      }
+                    />
+                  ) : (
+                    <dd onClick={() => handleEdit("examsDate")}>
+                      {selectedStudent?.student?.examsDate || "Pending"}
+                    </dd>
+                  )}
+                </div>
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Courses</dt>
+                  {isEditing.courses ? (
+                    <input
+                      type="text"
+                      value={ 
+                        updatedStudent.courses ||
+                        selectedStudent?.student?.courses || ""
+                      }
+                      onChange={(e) => handleChange(e, "courses")}
+                      onBlur={() =>
+                        setIsEditing((prev) => ({ ...prev, courses: false }))
+                      }
+                    />
+                  ) : (
+                    <dd onClick={() => handleEdit("courses")}>
+                      {selectedStudent?.student?.courses || "Pending"}
+                    </dd>
+                  )}
+                </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Faculty</dt>
                   {isEditing.faculty ? (
@@ -352,7 +394,7 @@ export default function SideComponent() {
                         updatedStudent.department ||
                         selectedStudent?.student?.department
                       }
-                      onChange={(e) => handleChange(e, "department")}
+                      onChange={(e) => handleChange(e, "department")} 
                       onBlur={() =>
                         setIsEditing((prev) => ({ ...prev, department: false }))
                       }

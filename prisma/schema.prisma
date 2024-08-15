@@ -27,7 +27,9 @@ model students {
   image        String
   fingerPrint  Bytes? 
   phone        String     
-  email        String?    
+  email        String?
+  examsDate    String?  
+  courses      String?
   faculty      String
   department   String
   level        String
