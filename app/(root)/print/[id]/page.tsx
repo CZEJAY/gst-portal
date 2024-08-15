@@ -3,6 +3,7 @@
 import { GETSTUDENTBYID } from '@/actions'
 import Print from '@/components/shared/Print'
 import React from 'react'
+// import "../../../globals.css"
 
 interface Prop {
     params: {
