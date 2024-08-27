@@ -50,7 +50,8 @@ export default function FormConfirmation() {
         surName: formData?.surName.toUpperCase(),
         firstName: formData?.firstName.toUpperCase(),
         otherName: formData?.otherName?.toUpperCase() as string,
-        courses: formData.courses
+        // @ts-ignore
+        course: formData.courses
       };
       const { error, student } = await CREATESTUDENT({
         data: updatedData,

@@ -31,7 +31,7 @@ const SelectInputCourse: React.FC<SelectInputCourseProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const FDATA = {
       ...formData,
-      level: e.target.value,
+      [name]: e.target.value,
     };
     dispatch(updateFormData(FDATA));
   };

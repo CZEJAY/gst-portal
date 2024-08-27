@@ -42,6 +42,9 @@ const UserNavigationPanel = () => {
       <Link href={"/register"} className="p-1 text-left hover:bg-gray-400/5 pl-6 ">
         Register
       </Link>
+      <Link href={"/print-route"} className="p-1 text-left hover:bg-gray-400/5 pl-6 ">
+        Print
+      </Link>
       <button
         className="text-left p-2 border-t hover:bg-grey-400/5 w-full pl-8"
         onClick={signOutUser}
