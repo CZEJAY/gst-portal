@@ -167,9 +167,13 @@ export default function Print({ StudentData }: { StudentData?: students }) {
                   <p className="text-md font-bold text-blue-900">
                     {/* convert the comma separated strings to an array */}
                     <ol className="">
-                      {formData?.courses.map((value) => (
+                      {formData?.courses && formData?.courses?.length > 0 ? formData?.courses.map((value) => (
                         <li key={value} className="list-item">{value}</li>
-                      ))}
+                      )) :
+                      (
+                        <li className="list-item">Pending</li>
+                      )
+                      }
                     </ol>
                   </p>
                   {/* <div className="text-sm font-bold text-rose-600">All Courses will be taken at the same time.</div> */}
