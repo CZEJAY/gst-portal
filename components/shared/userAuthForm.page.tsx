@@ -35,6 +35,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import Notice from "../notice";
 
 interface UserAuthFormProps {
   type: "sign-in" | "sign-up";
@@ -128,7 +129,10 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
     }
   };
   return (
-    <div className="flex items-center flex-col gap-2 bg-blue-400 justify-center w-full h-screen">
+    <div className="flex relative items-center flex-col gap-2 bg-blue-400 justify-center w-full h-screen">
+      <div className="absolute">
+        <Notice />
+      </div>
       <div className="mx-auto w-24">
         <Image width={200} height={200} alt="logo" src={"/uniuyo-logo.png"} />
       </div>
