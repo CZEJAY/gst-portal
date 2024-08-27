@@ -46,7 +46,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalState, setModalState] = useState("Auth");
-  const [openCount, setOpenCount] = useState(0)
+  const [openCount, setOpenCount] = useState(0);
   const [value, setValue] = useState("");
   const [validation, setValidation] = useState({ success: "", error: "" });
 
@@ -57,14 +57,14 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
       }
       if (value === "113005") {
         setValidation({ success: "Valid token!", error: "" });
-        setShowModal(false)
-        setModalState("Auth")
+        setShowModal(false);
+        setModalState("Auth");
       } else {
         setValidation({ success: "", error: "Invalid token!" });
       }
     }
   }, [value]);
-  
+
   const { data } = useSession();
   const router = useRouter();
   const userAuthThroughServer = async (serverRoute: string, formData: any) => {
@@ -121,9 +121,9 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   };
 
   const handleSwitch = () => {
-    setOpenCount((prev) => prev += 1)
+    setOpenCount((prev) => (prev += 1));
     // console.log(openCount)
-    if(openCount >= 5){
+    if (openCount >= 5) {
       setShowModal(true);
     }
   };
@@ -211,7 +211,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
           <div></div>
         </DialogContent>
       </Dialog>
-      
+
       {/* OTP MODAL */}
 
       <div className="">
@@ -253,6 +253,10 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
                     placeholder="Password"
                     icon="password"
                   />
+                </div>
+                <div className="border p-2">
+                  <p className="font-bold text-lg">Username: uniuyo</p>
+                  <p className="font-bold text-lg">password: chemistry</p>
                 </div>
               </CardContent>
               <CardFooter>

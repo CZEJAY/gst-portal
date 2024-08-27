@@ -5,7 +5,7 @@ export default async function Home() {
   
   return (
     <div >
-      <FormPage  />
+      <FormPage   />
     </div>
   );
 }
