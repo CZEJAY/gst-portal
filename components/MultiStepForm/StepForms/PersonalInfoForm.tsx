@@ -309,7 +309,7 @@ const PersonalInfoForm: React.FC = () => {
             // className="col-span-2"
           />
           <div className="col-span-2 flex-col  md:min-w-full flex items-start border p-2 rounded-md gap-4">
-            <h2 className="font-bold text-current border-b w-full">Select Course</h2>
+            <h2 className="block text-sm font-medium leading-6 text-gray-900">Select Course</h2>
             <div className="flex items-center gap-3">
               <input  onChange={(e) => handleCourse1Check(e)} type="checkbox" name="chem121" id="chem121" />
               <label htmlFor="chem121" className="text-md">CHM 121</label>
