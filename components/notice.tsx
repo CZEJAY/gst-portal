@@ -18,7 +18,7 @@ const Notice = () => {
         </DialogHeader>
         <DialogDescription>
           <div className="p-4 border rounded-md text-white text-xl font-bold tracking-wide text-center bg-red-500">
-            <p>Portal Access will close by 8:15 AM Tonight, 27th August 2024.</p>
+            <p>Portal Access will close by 8:15 PM Tonight, 27th August 2024.</p>
           </div>
         </DialogDescription>
       </DialogContent>
