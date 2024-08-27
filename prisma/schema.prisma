@@ -29,7 +29,7 @@ model students {
   phone        String     
   email        String?
   examsDate    String?  
-  courses      String?
+  courses      String[]
   faculty      String
   department   String
   level        String

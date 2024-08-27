@@ -130,8 +130,7 @@ export default function FormConfirmation() {
               { label: "Level", value: formData?.level },
               { label: "Matric Number", value: formData?.matricNumber },
               { label: "Phone Number", value: formData?.phone },
-              // @ts-ignore
-              { label: "Courses", value: formData?.course },
+              { label: "Courses", value: formData?.courses },
               {
                 label: "Email Address",
                 value: formData?.email?.toLocaleLowerCase(),
@@ -139,7 +138,7 @@ export default function FormConfirmation() {
             ].map((item, index) => (
               <p
                 key={index}
-                className="text-sm font-bold w-full flex items-center border-b"
+                className="text-sm font-bold w-full line-clamp-1 flex items-center border-b"
               >
                 {item.label}:{" "}
                 <span className="font-medium ml-auto line-clamp-1">

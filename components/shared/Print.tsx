@@ -14,10 +14,10 @@ import QRCode from "qrcode";
 export default function Print({ StudentData }: { StudentData?: students }) {
   const reduxFormData = useSelector((store: any) => store.onboarding.formData);
   const [isPrinting, setIsPrinting] = useState(false);
-  const [formData, setFormData] = useState<any>(null);
+  const [formData, setFormData] = useState<students>();
   const [qrUrl, setQrUrl] = useState("");
 
-  console.log(formData)
+  console.log(formData);
 
   const router = useRouter();
 
@@ -39,7 +39,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
             light: "#85C2D3",
             dark: "#85C2D3",
           },
-          type: "image/webp"
+          type: "image/webp",
         }
       );
       setQrUrl(qrCode);
@@ -89,7 +89,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
               className="w-32"
             />
             <h1 className="text-center text-xl font-bold">
-              2nd Semester GST Exams Slip
+              Chemistry Exams Slip
             </h1>
           </div>
           <div className="self-start gap-5 flex items-start">
@@ -152,7 +152,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
               <div className="col-span-1 flex flex-col gap-8">
                 <div className="">
                   <p className="text-sm font-bold">Faculty</p>
-                  <p className="text-md font-bold text-blue-900">
+                  <p className="text-md font-bold text-blue-900 line-clamp-1 pr-2">
                     {formData?.faculty || "N/A"}
                   </p>
                 </div>
@@ -163,13 +163,13 @@ export default function Print({ StudentData }: { StudentData?: students }) {
                   </p>
                 </div>
                 <div className="">
-                  <p className="text-sm font-bold">GST Courses</p>
+                  <p className="text-sm font-bold">Chemistry Courses</p>
                   <p className="text-md font-bold text-blue-900">
                     {/* convert the comma separated strings to an array */}
                     <ol className="">
-                      <li className="list-item">
-                        {formData?.course || "Pending"}
-                      </li>
+                      {formData?.courses.map((value) => (
+                        <li key={value} className="list-item">{value}</li>
+                      ))}
                     </ol>
                   </p>
                   {/* <div className="text-sm font-bold text-rose-600">All Courses will be taken at the same time.</div> */}
