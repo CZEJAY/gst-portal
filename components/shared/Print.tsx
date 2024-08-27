@@ -17,6 +17,8 @@ export default function Print({ StudentData }: { StudentData?: students }) {
   const [formData, setFormData] = useState<any>(null);
   const [qrUrl, setQrUrl] = useState("");
 
+  console.log(formData)
+
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -166,7 +168,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
                     {/* convert the comma separated strings to an array */}
                     <ol className="">
                       <li className="list-item">
-                        {formData?.courses || "Pending"}
+                        {formData?.course || "Pending"}
                       </li>
                     </ol>
                   </p>

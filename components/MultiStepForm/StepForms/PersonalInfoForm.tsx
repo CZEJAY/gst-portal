@@ -59,8 +59,8 @@ const PersonalInfoForm: React.FC = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-  const [chem121, setChem121] = useState<string | any>(null)
-  const [chem128, setChem128] = useState<string | any>(null)
+  const [chem121, setChem121] = useState<string | any>("")
+  const [chem128, setChem128] = useState<string | any>("")
 
   const {
     register,
