@@ -13,7 +13,7 @@ import { calculatePercentageChange, calculatePercentageChange1 } from '@/lib/uti
 
 const page = async  () => {
   const session = await auth()
-  const isAdmin = session?.user?.name === process.env.ADMIN_NAME;
+  const isAdmin = session?.user?.name === "admin@roxxon";
   const specificDate = new Date() // You can replace this with any specific date
   const startDate = startOfDay(specificDate)
   const endDate = endOfDay(specificDate)

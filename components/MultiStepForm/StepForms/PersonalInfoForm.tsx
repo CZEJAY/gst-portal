@@ -296,7 +296,19 @@ const PersonalInfoForm: React.FC = () => {
             register={register}
             options={YOS}
           />
-          <div className="col-span-1 flex-col  md:min-w-full flex items-start border p-2 rounded-md gap-4">
+          
+          <TextInput
+            label="Matric Number"
+            type="text"
+            name="matricNumber"
+            placeholder="Enter matriculation number"
+            register={register}
+            isRequired="Matric Number is required"
+            className="col-span-1"
+            errors={errors}
+            // className="col-span-2"
+          />
+          <div className="col-span-2 flex-col  md:min-w-full flex items-start border p-2 rounded-md gap-4">
             <h2 className="font-bold text-current border-b w-full">Select Course</h2>
             <div className="flex items-center gap-3">
               <input  onChange={(e) => handleCourse1Check(e)} type="checkbox" name="chem121" id="chem121" />
@@ -307,17 +319,6 @@ const PersonalInfoForm: React.FC = () => {
               <label htmlFor="chem128" className="text-md">CHM 128</label>
             </div>
           </div>
-          <TextInput
-            label="Matric Number"
-            type="text"
-            name="matricNumber"
-            placeholder="Enter matriculation number"
-            register={register}
-            isRequired="Matric Number is required"
-            className="col-span-2"
-            errors={errors}
-            // className="col-span-2"
-          />
         </div>
         <NavButtons loading={loading} />
       </form>

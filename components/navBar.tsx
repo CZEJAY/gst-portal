@@ -2,11 +2,12 @@ import React from "react";
 import Link from "next/link";
 import UserButton from "./UserButton";
 import { auth } from "@/auth";
+import Notice from "./notice";
 const NavBar = async () => {
   const session = await auth()
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar relative">
         <Link href={"/"} className="flex-none w-20">
           <img src={"/uniuyo-logo.png"} alt="logo" className="" />
         </Link>
@@ -32,6 +33,7 @@ const NavBar = async () => {
             </>
           )}
         </div>
+        <Notice />
       </nav>
     </>
   );
