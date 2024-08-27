@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,21 @@ import { Toaster, toast } from "sonner";
 import SelectInput from "../../FormInputs/SelectInput";
 import SelectInputCourse from "../../FormInputs/SelectInputCourse";
 
-import { YOS, course, facultiesAndDepartment, gender } from "../../../constants";
-import { setCurrentStep, updateFormData } from "../../../redux/slices/onboardingStudentsSlice";
-import { ValidationError, validateEmail, validateMatricNumber } from "../../../lib/utils";
+import {
+  YOS,
+  course,
+  facultiesAndDepartment,
+  gender,
+} from "../../../constants";
+import {
+  setCurrentStep,
+  updateFormData,
+} from "../../../redux/slices/onboardingStudentsSlice";
+import {
+  ValidationError,
+  validateEmail,
+  validateMatricNumber,
+} from "../../../lib/utils";
 import TextInput from "@/components/FormInputs/TextInput";
 import NavButtons from "@/components/FormInputs/NavButtons";
 import { CHECKEXISTENCE, CHECKMATRICNUMBER, CHECKPHONE } from "@/actions";
@@ -39,13 +51,16 @@ export type FormDataType = {
   phone?: string;
   matricNumber?: string;
   [key: string]: any; // Add index signature for dynamic keys
-}
+};
 
 const PersonalInfoForm: React.FC = () => {
   const currentStep = useSelector((store: any) => store.onboarding.currentStep);
   const formData = useSelector((store: any) => store.onboarding.formData);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+
+  const [chem121, setChem121] = useState<string | any>(null)
+  const [chem128, setChem128] = useState<string | any>(null)
 
   const {
     register,
@@ -71,7 +86,6 @@ const PersonalInfoForm: React.FC = () => {
         });
         return;
       }
-      
 
       if (
         !formValues.matricNumber ||
@@ -89,13 +103,16 @@ const PersonalInfoForm: React.FC = () => {
         return;
       }
 
-      const {message} = await CHECKEXISTENCE(data.matricNumber as string)
+      
+      
+      const { message } = await CHECKEXISTENCE(data.matricNumber as string);
 
       if (message) {
         toast.success(message);
         const FData = {
           ...data,
           ...formData,
+          course: [chem121, chem128],
         };
         dispatch(updateFormData(FData));
         dispatch(setCurrentStep(currentStep + 1));
@@ -103,7 +120,7 @@ const PersonalInfoForm: React.FC = () => {
     } catch (error: any) {
       if (error) {
         toast.error(error.message);
-      } 
+      }
     } finally {
       setLoading(false);
     }
@@ -111,7 +128,19 @@ const PersonalInfoForm: React.FC = () => {
 
   const formValues = watch();
 
-  const [departments, setDepartments] = useState<string[]>([formData.department || ""]);
+  const handleCourse1Check = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const chem121 = e.target.id == "chem121" && e.target.checked ? "CHM 121" : null
+    setChem121(String(chem121))
+   
+  }
+  const handleCourse2Check = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const chem128 = e.target.id == "chem128" && e.target.checked ? "CHM 128" : null
+    setChem128(String(chem128))
+  }
+
+  const [departments, setDepartments] = useState<string[]>([
+    formData.department || "",
+  ]);
 
   useEffect(() => {
     if (formValues.faculty) {
@@ -132,12 +161,12 @@ const PersonalInfoForm: React.FC = () => {
     const timeOut = setTimeout(async () => {
       if (formValues.phone && formValues.phone.length === 11) {
         try {
-          const {message, error} = await CHECKPHONE(formValues.phone)
+          const { message, error } = await CHECKPHONE(formValues.phone);
           if (message) {
             toast.success(message);
             clearErrors("phone");
           }
-          if(error){
+          if (error) {
             setError("phone", {
               message: error,
             });
@@ -159,18 +188,20 @@ const PersonalInfoForm: React.FC = () => {
             toast.error("Please enter a valid matric number.");
             return;
           }
-          const {message, error} = await CHECKMATRICNUMBER(formValues.matricNumber)
+          const { message, error } = await CHECKMATRICNUMBER(
+            formValues.matricNumber
+          );
           if (message) {
             toast.success(message);
             clearErrors("matricNumber");
           }
-          if(error){
+          if (error) {
             setError("matricNumber", {
               message: error,
             });
           }
         } catch (error: any) {
-          toast.error("Something went wrong!")
+          toast.error("Something went wrong!");
         }
       }
     }, 3000);
@@ -188,7 +219,10 @@ const PersonalInfoForm: React.FC = () => {
       <div className="absolute">
         <Toaster position="top-center" />
       </div>
-      <form className=" md:px-12 px-2 py-4" onSubmit={handleSubmit(processData)}>
+      <form
+        className=" md:px-12 px-2 py-4"
+        onSubmit={handleSubmit(processData)}
+      >
         <div className="mb-8">
           <h5 className="text-md md:text-3xl font-bold text-gray-900">
             Personal info
@@ -262,6 +296,17 @@ const PersonalInfoForm: React.FC = () => {
             register={register}
             options={YOS}
           />
+          <div className="col-span-1 flex-col  md:min-w-full flex items-start border p-2 rounded-md gap-4">
+            <h2 className="font-bold text-current border-b w-full">Select Course</h2>
+            <div className="flex items-center gap-3">
+              <input  onChange={(e) => handleCourse1Check(e)} type="checkbox" name="chem121" id="chem121" />
+              <label htmlFor="chem121" className="text-md">CHM 121</label>
+            </div>
+            <div className="flex items-center gap-3">
+              <input  onChange={(e) => handleCourse2Check(e)} type="checkbox" name="chem128" id="chem128" />
+              <label htmlFor="chem128" className="text-md">CHM 128</label>
+            </div>
+          </div>
           <TextInput
             label="Matric Number"
             type="text"
@@ -269,6 +314,7 @@ const PersonalInfoForm: React.FC = () => {
             placeholder="Enter matriculation number"
             register={register}
             isRequired="Matric Number is required"
+            className="col-span-2"
             errors={errors}
             // className="col-span-2"
           />

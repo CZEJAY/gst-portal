@@ -50,6 +50,7 @@ export default function FormConfirmation() {
         surName: formData?.surName.toUpperCase(),
         firstName: formData?.firstName.toUpperCase(),
         otherName: formData?.otherName?.toUpperCase() as string,
+        courses: formData.courses
       };
       const { error, student } = await CREATESTUDENT({
         data: updatedData,
@@ -130,6 +131,8 @@ export default function FormConfirmation() {
               { label: "Level", value: formData?.level },
               { label: "Matric Number", value: formData?.matricNumber },
               { label: "Phone Number", value: formData?.phone },
+              // @ts-ignore
+              { label: "Courses", value: formData?.course },
               {
                 label: "Email Address",
                 value: formData?.email?.toLocaleLowerCase(),

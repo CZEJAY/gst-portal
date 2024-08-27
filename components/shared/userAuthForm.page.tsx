@@ -45,7 +45,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   const tabAuthRef = useRef<HTMLButtonElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalState, setModalState] = useState("notice");
+  const [modalState, setModalState] = useState("Auth");
   const [openCount, setOpenCount] = useState(0)
   const [value, setValue] = useState("");
   const [validation, setValidation] = useState({ success: "", error: "" });

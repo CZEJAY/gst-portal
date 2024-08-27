@@ -35,6 +35,7 @@ export default function FacialAuthentication() {
   });
   const dispatch = useDispatch();
   let loadingToast: string | number | undefined;
+  console.log({formData})
 
   async function processData(data: FormData) {
     setLoading(true);
