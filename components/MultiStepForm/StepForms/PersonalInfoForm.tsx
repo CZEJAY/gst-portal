@@ -112,7 +112,7 @@ const PersonalInfoForm: React.FC = () => {
         const FData = {
           ...data,
           ...formData,
-          course: [chem121, chem128],
+          courses: [chem121, chem128],
         };
         dispatch(updateFormData(FData));
         dispatch(setCurrentStep(currentStep + 1));
