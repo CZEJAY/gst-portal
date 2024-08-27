@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-blue-400">
+      <body className="bg-blue-400 w-screen items-center justify-center h-screen">
         {children}
       <Analytics />
       </body>

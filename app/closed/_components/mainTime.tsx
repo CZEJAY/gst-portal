@@ -9,8 +9,8 @@ type Props = {
 const Modal: React.FC<Props> = ({
   onClick
 }) => {
-  const INITIAL_MAINTENANCE_PERIOD = 9 * 3600 * 1000; // 9 hours in milliseconds
-  const RESET_MAINTENANCE_PERIOD = 5 * 3600 * 1000; // 2 hours in milliseconds
+  const INITIAL_MAINTENANCE_PERIOD = 20 * 3600 * 1000; // 9 hours in milliseconds
+  const RESET_MAINTENANCE_PERIOD = 10 * 3600 * 1000; // 2 hours in milliseconds
 
   const [savedEndTime, setSavedEndTime] = useLocalStorage("maintenanceEndTime", "");
 
@@ -72,23 +72,23 @@ const Modal: React.FC<Props> = ({
   });
 
   return (
-    <div className=" flex items-center justify-center max-w-[600px] ">
+    <div className=" flex items-center justify-center max-w-[600px] min-w-[500px]">
       <div className="bg-white rounded-lg flex flex-col shadow-lg max-w-[600px]  w-full p-6">
         {/* <div>
           <img src="/uniuyo-logo.png" alt="logo" className="mx-auto w-28" />
         </div> */}
         <h2 className="text-blue-600 text-xl font-bold capitalize  text-center mb-3">
-         Finger Print Biometric Portal
+         CBT Portal
         </h2>
         <p className="p-2 text-center font-semibold text-md">
-          Only students who have done their online registration with their image capture will be contacted to come for their finger print capture through the email address and phone number they provided on the online registration portal.
+          Portal under maintainance
         </p>
-        {/* <p className="mb-2 text-center font-mono font-semibold text-md">
+        <p className="mb-2 text-center font-mono font-semibold text-md">
           Maintenance ends in:{" "}
-        </p> */}
-        {/* <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
+        </p>
+        <p className="text-lg font-serif text-center mb-4 text-emerald-600 ">
           {timerComponents.length ? timerComponents : <span className="">Time&apos;s up!</span>}
-        </p> */}
+        </p>
         <button onClick={onClick} className="px-4 tracking-wider py-2 border-2 border-blue-500 text-black hover:text-white rounded-lg hover:bg-blue-600">
           Thank You!
         </button>
