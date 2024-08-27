@@ -182,7 +182,7 @@ export default function Print({ StudentData }: { StudentData?: students }) {
               <div className="col-span-1 flex flex-col gap-8">
                 <div className="">
                   <p className="text-sm font-bold">Department</p>
-                  <p className="text-md font-bold text-blue-900">
+                  <p className="text-md line-clamp-1 font-bold text-blue-900">
                     {formData?.department || "N/A"}
                   </p>
                 </div>
