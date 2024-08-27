@@ -15,7 +15,7 @@ export default function FormPage() {
     },
     {
       stepNumber: 3,
-      title: "Submit and Confirmation",
+      title: "Confirm and Submit",
     },
   ];
   return (

@@ -1,10 +1,14 @@
+"use client"
 import React from "react";
 import Link from "next/link";
 import UserButton from "./UserButton";
-import { auth } from "@/auth";
 import Notice from "./notice";
-const NavBar = async () => {
-  const session = await auth()
+import MatricModal from "./shared/MatricModal";
+import { useSession } from "next-auth/react";
+import { useMatricModal } from "@/hooks/useMatricModal";
+const NavBar = () => {
+  const {data: session} = useSession()
+  const {isOpen, onClose, onOpen} = useMatricModal()
   return (
     <>
       <nav className="navbar relative">
@@ -34,6 +38,11 @@ const NavBar = async () => {
           )}
         </div>
         <Notice />
+        <MatricModal
+          isOpen={isOpen}
+          onChange={onClose}
+          OnSuccess={() => {}}
+        />
       </nav>
     </>
   );
