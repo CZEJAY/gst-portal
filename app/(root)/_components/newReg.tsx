@@ -52,18 +52,23 @@ export default async function NewReg({
     }
   });
   
-  const formattedData: StudentColumn[] = studentsWithoutFingerprint.map((item) => ({
-    surName: item.surName,
-    firstName: item.firstName,
-    otherName: item.otherName as string,
-    gender: item.gender,
-    faculty: item.faculty,
-    department: item.department,
-    level: item.level,
-    matricNumber: item.matricNumber,
-    phone: item.phone as string,
-    createdAt: format(item.createdAt, "MMMM do, yyyy")
-  }))
+  const formattedData: StudentColumn[] = studentsWithoutFingerprint.map((item) => {
+    const formattedCourse = item.courses.map((value) => value).join(", ")
+    return {
+      surName: item.surName,
+      firstName: item.firstName,
+      otherName: item.otherName as string,
+      // courses: item.courses,
+      courses: formattedCourse,
+      faculty: item.faculty,
+      // email: item.email?.toLocaleLowerCase(),
+      department: item.department,
+      // level: item.level,
+      matricNumber: item.matricNumber,
+      phone: item.phone as string,
+      // createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    }
+  });
   
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
