@@ -86,7 +86,13 @@ export default function SideComponent() {
     e: ChangeEvent<HTMLInputElement>,
     field: keyof Student
   ) => {
-    setUpdatedStudent((prev) => ({ ...prev, [field]: e.target.value }));
+    if(field === "courses"){
+      // Convert comma separated string to array
+      const courses = e.target.value.split(",").map((course) => course.trim());
+      setUpdatedStudent((prev) => ({ ...prev, [field]: courses }));
+    }else{
+      setUpdatedStudent((prev) => ({ ...prev, [field]: e.target.value }));
+    }
   };
 
   const handleSave = async () => {
@@ -361,7 +367,7 @@ export default function SideComponent() {
                     />
                   ) : (
                     <dd onClick={() => handleEdit("courses")}>
-                      {selectedStudent?.student?.courses || "Pending"}
+                      {selectedStudent?.student?.courses[0] !== "," ? selectedStudent?.student?.courses.map((value) => value).join(", ") : "Pending"}
                     </dd>
                   )}
                 </div>

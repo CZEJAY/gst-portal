@@ -180,7 +180,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
             {errors[name]?.message as string}
           </span>
         )}
-        {suggestions.length > 0 && (
+        {/* {suggestions.length > 0 && (
           <ul className="absolute z-10 mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
             {suggestions.map((suggestion, index) => (
               <li
@@ -203,7 +203,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
               </li>
             ))}
           </ul>
-        )}
+        )} */}
       </div>
     </div>
   );

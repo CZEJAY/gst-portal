@@ -1,5 +1,5 @@
 import React from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 interface SelectInputProps {
   label: string;
@@ -8,6 +8,8 @@ interface SelectInputProps {
   className?: string;
   options: string[];
   multiple?: boolean;
+  disabled?:  boolean;
+  errors: FieldErrors;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({
@@ -17,6 +19,8 @@ const SelectInput: React.FC<SelectInputProps> = ({
   className = "col-span-1 overflow-hidden",
   options = [],
   multiple = false,
+  disabled,
+  errors
 }) => {
   return (
     <div className={className}>
@@ -26,6 +30,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
       <div className="mt-2 ">
         <select
           {...register(name)}
+          disabled={disabled}
           id={name}
           multiple={multiple}
           name={name}
@@ -37,6 +42,9 @@ const SelectInput: React.FC<SelectInputProps> = ({
             </option>
           ))}
         </select>
+        {errors[name] && (
+          <span className="text-sm text-red-600">{errors[name]?.message as string}</span>
+        )}
       </div>
     </div>
   );

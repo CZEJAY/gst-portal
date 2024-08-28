@@ -1,32 +1,29 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { Toaster, toast } from "sonner";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { Toaster, toast } from 'sonner';
 
-import SelectInput from "../../FormInputs/SelectInput";
-import SelectInputCourse from "../../FormInputs/SelectInputCourse";
-
-import {
-  YOS,
-  course,
-  facultiesAndDepartment,
-  gender,
-} from "../../../constants";
 import {
   setCurrentStep,
   updateFormData,
-} from "../../../redux/slices/onboardingStudentsSlice";
+} from '../../../redux/slices/onboardingStudentsSlice';
+
+import SelectInput from '../../FormInputs/SelectInput';
+import SelectInputCourse from '../../FormInputs/SelectInputCourse';
 import {
-  ValidationError,
+  YOS,
+  facultiesAndDepartment,
+  gender,
+} from '../../../constants';
+import {
   validateEmail,
   validateMatricNumber,
-} from "../../../lib/utils";
-import TextInput from "@/components/FormInputs/TextInput";
-import NavButtons from "@/components/FormInputs/NavButtons";
-import { CHECKEXISTENCE, CHECKMATRICNUMBER, CHECKPHONE } from "@/actions";
-import EmailInput from "@/components/FormInputs/emailInput";
+} from '../../../lib/utils';
+import TextInput from '@/components/FormInputs/TextInput';
+import NavButtons from '@/components/FormInputs/NavButtons';
+import { CHECKEXISTENCE, CHECKMATRICNUMBER, CHECKPHONE } from '@/actions';
+import EmailInput from '@/components/FormInputs/emailInput';
+import { addCourse, removeCourse } from '@/redux/slices/courseSlice';
 
 export interface FormData {
   surName?: string;
@@ -38,33 +35,24 @@ export interface FormData {
   level?: string;
   phone?: string;
   matricNumber?: string;
-  [key: string]: any; // Add index signature for dynamic keys
+  email?: string;
+  [key: string]: any;
 }
-export type FormDataType = {
-  surName?: string;
-  firstName?: string;
-  otherName?: string;
-  gender?: string;
-  faculty?: string;
-  department?: string;
-  level?: string;
-  phone?: string;
-  matricNumber?: string;
-  [key: string]: any; // Add index signature for dynamic keys
-};
 
 const PersonalInfoForm: React.FC = () => {
-  const currentStep = useSelector((store: any) => store.onboarding.currentStep);
-  const formData = useSelector((store: any) => store.onboarding.formData);
   const dispatch = useDispatch();
+  const currentStep = useSelector(
+    (state: any) => state.onboarding.currentStep
+  );
+  const formData = useSelector(
+    (state: any) => state.onboarding.formData
+  );
+  const [selectedCourses, setSelectedCourses] = useState(formData.courses || [])
   const [loading, setLoading] = useState(false);
-
-  const [chem121, setChem121] = useState<string | any>("")
-  const [chem128, setChem128] = useState<string | any>("")
+  const [departments, setDepartments] = useState<string[]>([]);
 
   const {
     register,
-    reset,
     watch,
     handleSubmit,
     formState: { errors },
@@ -76,143 +64,141 @@ const PersonalInfoForm: React.FC = () => {
     },
   });
 
+  const formValues = watch();
+
+  useEffect(() => {
+    if (formValues.faculty) {
+      const facultyData = facultiesAndDepartment.find(
+        (item) => item.faculty === formValues.faculty
+      );
+      setDepartments(facultyData ? facultyData.departments : []);
+    }
+  }, [formValues.faculty]);
+
+  useEffect(() => {
+    const validatePhone = setTimeout(async () => {
+      if (formValues.phone && formValues.phone.length === 11) {
+        try {
+          const { message, error } = await CHECKPHONE(formValues.phone);
+          if (message) {
+            toast.success(message);
+            clearErrors('phone');
+          }
+          if (error) {
+            setError('phone', {
+              message: error,
+            });
+          }
+        } catch (error: any) {
+          toast.error('Something went wrong while validating phone number.');
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(validatePhone);
+  }, [formValues.phone, clearErrors, setError]);
+
+  useEffect(() => {
+    const validateMatric = setTimeout(async () => {
+      if (formValues.matricNumber) {
+        try {
+          const matricNumber = formValues.matricNumber.toUpperCase();
+          if (!validateMatricNumber(matricNumber)) {
+            setError('matricNumber', {
+              message: 'Please enter a valid matric number.',
+            });
+            return;
+          }
+          const { message, error } = await CHECKMATRICNUMBER(matricNumber);
+          if (message) {
+            toast.success(message);
+            clearErrors('matricNumber');
+          }
+          if (error) {
+            setError('matricNumber', {
+              message: error,
+            });
+          }
+        } catch (error: any) {
+          toast.error('Something went wrong while validating matric number.');
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(validateMatric);
+  }, [formValues.matricNumber, clearErrors, setError]);
+
+  const handleCourseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target;
+    if (checked) {
+      if (!selectedCourses.includes(id)) {
+        setSelectedCourses((prev: string[]) => [...prev, id]);
+      }
+    } else {
+      setSelectedCourses((prev: string[]) => prev.filter((courseId) => courseId !== id));
+    }
+  };
+
+
   const processData = async (data: FormData) => {
     try {
       setLoading(true);
 
-      if (!validateMatricNumber(formValues.matricNumber || "")) {
-        setError("matricNumber", {
-          message: "Please enter a valid matric number.",
-        });
-        return;
-      }
+      
 
       if (
-        !formValues.matricNumber ||
-        !formValues.firstName ||
-        !formValues.surName ||
-        !formValues.gender ||
-        !formValues.level ||
-        !formValues.faculty ||
-        !formValues.phone ||
-        !formValues.department
+        !validateMatricNumber(data.matricNumber || '') ||
+        !data.matricNumber ||
+        !data.firstName ||
+        !data.surName ||
+        !data.gender ||
+        data.level === "Select Level" || data.gender === "Gender" ||
+        !data.level ||
+        !data.faculty ||
+        !data.phone ||
+        !data.department ||
+        !data.email ||
+        selectedCourses.length === 0
       ) {
-        toast.error("Please Fill in all the fields.", {
-          position: "top-center",
-        });
+        if(data.level === "Select Level" || data.gender === "Gender"){
+          setError("level", {
+            message: "Please select a level"
+          })
+          setError("gender", {
+            message: "Please select a Gender"
+        })
+        return
+      }
+        toast.error(
+          'Please fill in all required fields and select at least one course.',
+          {
+            position: 'top-center',
+          }
+        );
         return;
       }
 
-      
-      
       const { message } = await CHECKEXISTENCE(data.matricNumber as string);
 
       if (message) {
         toast.success(message);
         const FData = {
           ...data,
-          ...formData,
-          courses: [chem121, chem128],
+          courses: selectedCourses,
         };
         dispatch(updateFormData(FData));
         dispatch(setCurrentStep(currentStep + 1));
       }
     } catch (error: any) {
-      if (error) {
-        toast.error(error.message);
-      }
+      toast.error(
+        error.message || 'An error occurred while processing your data.'
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const formValues = watch();
-
-  const handleCourse1Check = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const chem121 = e.target.id == "chem121" && e.target.checked ? "CHM 121" : null
-    setChem121(String(chem121))
-   
-  }
-  const handleCourse2Check = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const chem128 = e.target.id == "chem128" && e.target.checked ? "CHM 128" : null
-    setChem128(String(chem128))
-  }
-
-  const [departments, setDepartments] = useState<string[]>([
-    formData.department || "",
-  ]);
-
-  useEffect(() => {
-    if (formValues.faculty) {
-      setDepartments([
-        `${
-          formValues.faculty === "Select Faculty"
-            ? "Please select a faculty to populate."
-            : `Select Department in ${formValues.faculty}`
-        }`,
-        ...(facultiesAndDepartment.find(
-          (item) => item.faculty === formValues.faculty
-        )?.departments || []),
-      ]);
-    }
-  }, [formValues.faculty]);
-
-  useEffect(() => {
-    const timeOut = setTimeout(async () => {
-      if (formValues.phone && formValues.phone.length === 11) {
-        try {
-          const { message, error } = await CHECKPHONE(formValues.phone);
-          if (message) {
-            toast.success(message);
-            clearErrors("phone");
-          }
-          if (error) {
-            setError("phone", {
-              message: error,
-            });
-          }
-        } catch (error: any) {
-          toast.error("Something went wrong");
-        }
-      }
-    }, 3000);
-
-    return () => clearTimeout(timeOut);
-  }, [formValues.phone]);
-
-  useEffect(() => {
-    const timeOut = setTimeout(async () => {
-      if (formValues.matricNumber) {
-        try {
-          if (!validateMatricNumber(formValues.matricNumber.toUpperCase())) {
-            toast.error("Please enter a valid matric number.");
-            return;
-          }
-          const { message, error } = await CHECKMATRICNUMBER(
-            formValues.matricNumber
-          );
-          if (message) {
-            toast.success(message);
-            clearErrors("matricNumber");
-          }
-          if (error) {
-            setError("matricNumber", {
-              message: error,
-            });
-          }
-        } catch (error: any) {
-          toast.error("Something went wrong!");
-        }
-      }
-    }, 3000);
-
-    return () => clearTimeout(timeOut);
-  }, [formValues.matricNumber]);
-
-  const faculties = [
-    "Select Faculty",
-    ...facultiesAndDepartment.map((item) => item.faculty),
-  ];
+  const faculties = facultiesAndDepartment.map((item) => item.faculty);
 
   return (
     <>
@@ -220,18 +206,18 @@ const PersonalInfoForm: React.FC = () => {
         <Toaster position="top-center" />
       </div>
       <form
-        className=" md:px-12 px-2 py-4"
+        className="md:px-12 px-4 py-6"
         onSubmit={handleSubmit(processData)}
       >
         <div className="mb-8">
-          <h5 className="text-md md:text-3xl font-bold text-gray-900">
-            Personal info
+          <h5 className="text-2xl font-bold text-gray-900">
+            Personal Information
           </h5>
-          <p className="text-sm md:text-lg font-semibold">
-            Please fill every field in the form below.
+          <p className="text-md text-gray-600">
+            Please fill in all required fields below.
           </p>
         </div>
-        <div className="grid gap-4 grid-cols-2 ">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
           <TextInput
             label="Surname"
             name="surName"
@@ -249,22 +235,23 @@ const PersonalInfoForm: React.FC = () => {
             isUpper
           />
           <TextInput
-            label="Other Name?"
+            label="Other Name"
             name="otherName"
             register={register}
             errors={errors}
             isUpper
           />
           <SelectInputCourse
-            label="Select your Gender"
+            label="Gender"
             name="gender"
             register={register}
+            errors={errors}
             options={gender}
           />
           <TextInput
             label="Phone Number"
             name="phone"
-            type="number"
+            type="tel"
             register={register}
             isRequired="Phone Number is required"
             errors={errors}
@@ -274,53 +261,82 @@ const PersonalInfoForm: React.FC = () => {
           <EmailInput
             name="email"
             register={register}
-            isRequired="Email Adress is required"
+            isRequired="Email Address is required"
             errors={errors}
-            defaultValue={formData.email}
           />
           <SelectInput
             label="Faculty"
             name="faculty"
             register={register}
             options={faculties}
+            errors={errors}
           />
           <SelectInput
             label="Department"
             name="department"
             register={register}
-            options={departments || []}
+            options={departments}
+            disabled={!formValues.faculty}
+            errors={errors}
           />
           <SelectInputCourse
-            label="Year of study"
+            label="Year of Study"
             name="level"
             register={register}
             options={YOS}
+            errors={errors}
           />
-          
           <TextInput
             label="Matric Number"
-            type="text"
             name="matricNumber"
-            placeholder="Enter matriculation number"
             register={register}
             isRequired="Matric Number is required"
-            className="col-span-1"
             errors={errors}
-            // className="col-span-2"
+            isUpper
           />
-          <div className="col-span-2 flex-col  md:min-w-full flex items-start border p-2 rounded-md gap-4">
-            <h2 className="block text-sm font-medium leading-6 text-gray-900">Select Course</h2>
-            <div className="flex items-center gap-3">
-              <input  onChange={(e) => handleCourse1Check(e)} type="checkbox" name="chem121" id="chem121" />
-              <label htmlFor="chem121" className="text-md">CHM 121</label>
-            </div>
-            <div className="flex items-center gap-3">
-              <input  onChange={(e) => handleCourse2Check(e)} type="checkbox" name="chem128" id="chem128" />
-              <label htmlFor="chem128" className="text-md">CHM 128</label>
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex flex-col border p-4 rounded-md">
+              <h2 className="text-sm font-medium text-gray-900 mb-2">
+                Select Courses
+              </h2>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="CHM 121"
+                    checked={selectedCourses.includes('CHM 121')}
+                    onChange={handleCourseChange}
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label htmlFor="CHM 121" className="ml-2 text-sm text-gray-700">
+                    CHM 121
+                  </label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="CHM 128"
+                    checked={selectedCourses.includes('CHM 128')}
+                    onChange={handleCourseChange}
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <label htmlFor="CHM 128" className="ml-2 text-sm text-gray-700">
+                    CHM 128
+                  </label>
+                </div>
+                {/* Add more courses as needed */}
+              </div>
+              {selectedCourses.length === 0 && (
+                <p className="text-sm text-red-500 mt-2">
+                  Please select at least one course.
+                </p>
+              )}
             </div>
           </div>
         </div>
-        <NavButtons loading={loading} />
+        <div className="mt-8 flex justify-end">
+          <NavButtons loading={loading} />
+        </div>
       </form>
     </>
   );

@@ -8,12 +8,12 @@ export type StudentColumn = {
     firstName: string;
     otherName: string;
     faculty: string;
-    gender: string;
     department: string;
     matricNumber: string;
-    level: string;
     phone?: string;
-    createdAt: string;
+    // level: string;
+    courses: string;
+    // createdAt: string;
 }
 
 export const columns: ColumnDef<StudentColumn>[] = [
@@ -42,19 +42,20 @@ export const columns: ColumnDef<StudentColumn>[] = [
         header: "Matric"
     },
     {
-        accessorKey: "level",
-        header: "Level"
+        accessorKey: "courses",
+        header: "Courses"
     },
     {
         accessorKey: "phone",
         header: "Phone"
     },
-    {
-        accessorKey: "createdAt",
-        header: "Date"
-    },
+    // {
+    //     accessorKey: "createdAt",
+    //     header: "Date"
+    // },
     {
         id: "action",
+        header: () => <span>Actions</span>,
         cell: ({ row }) => <CellAction data={row.original}/>
       }
 ]

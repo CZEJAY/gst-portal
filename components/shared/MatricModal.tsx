@@ -42,19 +42,19 @@ const MatricModal: React.FC<SuccessModalProps> = ({
       setValidation({error: "", success: ""})
       if (validateMatricNumber(value)) {
         const data = await GETSTUDENT(value);
-        console.log(data);
         if (data.student) {
           setValidation({
             success: `${data.student.firstName} data fetched! Redirecting...`,
             error: "",
           });
           setTimeout(() => {
-            router.push("/print/" + data.student.id);
+            router.push("/print/" + data.student.id, );
           }, 3000);
         } else {
           setValidation({
             success: "",
-            error: "Student not found",
+            error: "Matric Number does not exist",
+
           });
         }
       } else {

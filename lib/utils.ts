@@ -126,8 +126,8 @@ export function calculatePercentageChange1(countToday: number, countYesterday: n
   return percentageChange;
 }
 
-// Example usage:
-// const countToday = 120;
-// const countYesterday = 100;
-// const percentageChange = calculatePercentageChange(countToday, countYesterday);
-// console.log(`Percentage change: ${percentageChange}%`);
+export const ConvertToCvs = (data: any[]) => {
+  const headers  = Object.keys(data[0]).join(",") +'\n';
+  const rows = data.map((item: any) => Object.values(item).join(",") + '\n')
+  return  headers + rows;
+}

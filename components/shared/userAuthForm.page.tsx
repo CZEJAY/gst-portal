@@ -36,6 +36,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import Notice from "../notice";
+import { Button } from "../ui/button";
 
 interface UserAuthFormProps {
   type: "sign-in" | "sign-up";
@@ -49,6 +50,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
   const [modalState, setModalState] = useState("Auth");
   const [openCount, setOpenCount] = useState(0);
   const [value, setValue] = useState("");
+  const [autoFillValue, setAutoFillValue] = useState({username: "", password: ""});
   const [validation, setValidation] = useState({ success: "", error: "" });
 
   useEffect(() => {
@@ -128,10 +130,14 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
       setShowModal(true);
     }
   };
+
+  const handleAutoFill = () => {
+    setAutoFillValue({password:  "chemistry", username: "uniuyo"});
+  }
   return (
     <div className="flex relative items-center flex-col gap-2 bg-blue-400 justify-center w-full h-screen">
       <div className="absolute">
-        <Notice />
+        {/* <Notice /> */}
       </div>
       <div className="mx-auto w-24">
         <Image width={200} height={200} alt="logo" src={"/uniuyo-logo.png"} />
@@ -246,6 +252,7 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
                     type="text"
                     placeholder="Username"
                     icon="username"
+                    value={autoFillValue.username}
                   />
                 </div>
                 <div className="space-y-1">
@@ -256,11 +263,11 @@ const UserAuthForm: React.FC<UserAuthFormProps> = ({ type }) => {
                     type="password"
                     placeholder="Password"
                     icon="password"
+                    value={autoFillValue.password}
                   />
                 </div>
                 <div className="border p-2">
-                  <p className="font-bold text-lg">Username: uniuyo</p>
-                  <p className="font-bold text-lg">password: chemistry</p>
+                  <Button onClick={handleAutoFill} className="w-full">Auto  Login</Button>
                 </div>
               </CardContent>
               <CardFooter>

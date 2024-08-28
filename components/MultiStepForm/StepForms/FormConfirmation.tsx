@@ -130,7 +130,8 @@ export default function FormConfirmation() {
               { label: "Level", value: formData?.level },
               { label: "Matric Number", value: formData?.matricNumber },
               { label: "Phone Number", value: formData?.phone },
-              { label: "Courses", value: formData?.courses },
+              { label: "Courses", value: formData?.courses.map((val) =>  val).join(", ") },
+
               {
                 label: "Email Address",
                 value: formData?.email?.toLocaleLowerCase(),

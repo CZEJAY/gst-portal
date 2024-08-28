@@ -172,7 +172,7 @@ export default function FacialAuthentication() {
           </p>
         </div>
         {/* Add notice here */}
-        <div className="mb-4 p-2 text-center text-white bg-gray-900/50 rounded-md">
+        <div className="mb-4 p-2 text-center text-white bg-black rounded-md">
           <p>Ensure to capture a clear picture with a white background.</p>
           <p>Failure to comply will result to data deletion.</p>
 
