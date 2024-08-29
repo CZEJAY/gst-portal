@@ -2,12 +2,14 @@ import Quiz from "@/components/shared/Quiz";
 import React from "react";
 import TestPageLayout from "../_components/TestPageLayout";
 
-const page = ({ courseId }: { courseId: string }) => {
+const CoursePage = ({ params }: { params: {
+  courseId: string
+} }) => {
   return (
     <TestPageLayout>
-      <Quiz courseId={courseId} />
+      <Quiz courseId={params.courseId} />
     </TestPageLayout>
   );
 };
 
-export default page;
+export default CoursePage;

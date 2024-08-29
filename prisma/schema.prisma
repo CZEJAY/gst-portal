@@ -49,6 +49,15 @@ model students {
   updatedAt           DateTime           @updatedAt()
   AssessmentCourses   AssessmentCourses? @relation(fields: [assessmentCoursesId], references: [id])
   assessmentCoursesId String?            @db.ObjectId
+  Results              Result[]
+}
+
+model Result {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  student   students @relation(fields: [studentId], references: [id])
+  studentId String   @db.ObjectId
+  course    String
+  score     String
 }
 
 model registrars {
