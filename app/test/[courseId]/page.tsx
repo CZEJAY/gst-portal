@@ -2,12 +2,10 @@ import Quiz from "@/components/shared/Quiz";
 import React from "react";
 import TestPageLayout from "../_components/TestPageLayout";
 
-const page = ({start}:{
-  start:string
-} ) => {
+const page = ({ courseId }: { courseId: string }) => {
   return (
     <TestPageLayout>
-      <Quiz courseId={start}  />
+      <Quiz courseId={courseId} />
     </TestPageLayout>
   );
 };
