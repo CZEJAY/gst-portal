@@ -29,8 +29,8 @@ export default auth((req) => {
     const isAdmin = userName === process.env.ADMIN_NAME;
 
     if (isPublicRoute) {
-        return Response.redirect(new URL("/closed", nextUrl));
-        // return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+        // return Response.redirect(new URL("/closed", nextUrl));
+        return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
 
     if (isApiRoute) {
@@ -38,29 +38,26 @@ export default auth((req) => {
     }
 
     // if (isOpen) {
-    //     if (isLoggedIn) {
-    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    //     }
-    //     return null
+    //     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     // }
 
     if (isAuthRoute) {
         if (isLoggedIn) {
-            return Response.redirect(new URL("/closed", nextUrl));
-            // return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+            // return Response.redirect(new URL("/closed", nextUrl));
+            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
         }
         return null;
     }
 
-    if (!isLoggedIn && !isPublicRoute) {
-        let callbackUrl = nextUrl.pathname;
-        if (nextUrl.search) {
-            callbackUrl += nextUrl.search;
-        }
-        const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+    // if (!isLoggedIn && !isPublicRoute) {
+    //     let callbackUrl = nextUrl.pathname;
+    //     if (nextUrl.search) {
+    //         callbackUrl += nextUrl.search;
+    //     }
+    //     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
 
-        return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
-    }
+    //     return Response.redirect(new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl));
+    // }
 
     
 

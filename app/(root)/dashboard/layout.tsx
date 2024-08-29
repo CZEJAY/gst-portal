@@ -39,7 +39,6 @@ export default function RootLayout({
                   <div className="w-full ">{children}</div>
                 </section>
                 {/* <RightSideBar /> */}
-                <SideComponent />
               </main>
             </Providers>
         </SessionProviderLayout>

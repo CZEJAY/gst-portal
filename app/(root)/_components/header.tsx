@@ -8,7 +8,7 @@ const Header =  () => {
   const { data } = useSession()
   return (
     <nav className="topbar1">
-      <div className="hidden lg:flex text-blue-800 dark:text-light-1 text-xl font-semibold font-['Plus Jakarta Sans'] leading-7">
+      <div className="hidden lg:flex text-black dark:text-light-1 text-xl font-semibold font-['Plus Jakarta Sans'] leading-7">
         <h1 className="text-2xl">Dashboard</h1>
       </div>
 

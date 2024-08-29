@@ -183,6 +183,7 @@ export default function FacialAuthentication() {
           width={200}
           height={200}
         />
+        <div className="relative">
         <div className="relative w-[200px] h-[200px] mx-auto overflow-hidden rounded-full">
           <video
             ref={videoRef}
@@ -190,9 +191,12 @@ export default function FacialAuthentication() {
             className="object-cover w-full h-full transform scale-125"
           />
         </div>
-        {/* {imageURL && (
-          <Image width={200} height={200} src={imageURL} alt="CaptImage" className="h-[150px] w-[200px] mt-9 mx-auto object-cover bg-center" />
-        )} */}
+        <div className="w-full items-center justify-center flex mt-2">
+          {imageURL && (
+          <h2 className="font-bold  text-xs text-emerald-400 p-2 border rounded-md w-fit text-center uppercase">Image Captured</h2>
+        )}
+        </div>
+        </div>
         <button
           onClick={isCapturing ? handleCapture : handleClick}
           type="button"

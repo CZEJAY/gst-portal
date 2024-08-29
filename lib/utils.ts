@@ -131,3 +131,20 @@ export const ConvertToCvs = (data: any[]) => {
   const rows = data.map((item: any) => Object.values(item).join(",") + '\n')
   return  headers + rows;
 }
+
+
+export function getCurrentHour(): string {
+  const now = new Date();         // Get the current date and time
+  let hour = now.getHours();      // Extract the current hour
+  const minutes = now.getMinutes(); // Extract the current minutes
+
+  const ampm = hour >= 12 ? 'PM' : 'AM'; // Determine AM or PM
+
+  hour = hour % 12;               // Convert to 12-hour format
+  hour = hour ? hour : 12;        // Handle the case where hour is 0 (midnight)
+
+  const hourStr = hour.toString().padStart(2, '0');
+  const minutesStr = minutes.toString().padStart(2, '0');
+
+  return `${hourStr}:${minutesStr} ${ampm}`;
+}

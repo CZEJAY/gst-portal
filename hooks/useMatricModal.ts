@@ -16,4 +16,9 @@ export const useVariationModal = create<useStoreModalStore>((set) => ({
     onOpen: () => set({ isOpen: true }),
     onClose: () => set({ isOpen: false }),
 }));
+export const useAssessmentModal = create<useStoreModalStore>((set) => ({
+    isOpen: false,
+    onOpen: () => set({ isOpen: true }),
+    onClose: () => set({ isOpen: false }),
+}));
  

@@ -217,7 +217,7 @@ const PersonalInfoForm: React.FC = () => {
             Please fill in all required fields below.
           </p>
         </div>
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
+        <div className="grid gap-6 grid-cols-2">
           <TextInput
             label="Surname"
             name="surName"
@@ -258,11 +258,14 @@ const PersonalInfoForm: React.FC = () => {
             formValues={formValues}
             isPhone
           />
-          <EmailInput
+          <TextInput
+            label="Email"
             name="email"
+            type="email"
             register={register}
             isRequired="Email Address is required"
             errors={errors}
+            formValues={formValues}
           />
           <SelectInput
             label="Faculty"
@@ -294,7 +297,7 @@ const PersonalInfoForm: React.FC = () => {
             errors={errors}
             isUpper
           />
-          <div className="col-span-1 md:col-span-2">
+          <div className="col-span-2">
             <div className="flex flex-col border p-4 rounded-md">
               <h2 className="text-sm font-medium text-gray-900 mb-2">
                 Select Courses

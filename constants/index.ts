@@ -1,4 +1,4 @@
-import { DivideCircleIcon, Fingerprint, Info, LayoutDashboard, List, Package, UserSquare2, UsersRoundIcon } from "lucide-react";
+import { ActivitySquare, DivideCircleIcon, FileQuestion, Fingerprint, Info, LayoutDashboard, List, Monitor, Package, UserSquare2, UsersRoundIcon } from "lucide-react";
 
 export const Links = [
   {
@@ -6,6 +6,22 @@ export const Links = [
     pathname: "/dashboard",
     label: "Dashboard",
   },
+  {
+    icon: ActivitySquare,
+    pathname: "/dashboard/assessments",
+    label: "Assessments",
+  },
+  {
+    icon: Monitor,
+    pathname: "/dashboard/monitor",
+    label: "Monitor",
+  },
+  {
+    icon: FileQuestion,
+    pathname: "/dashboard/questions",
+    label: "Questions",
+  },
+  
 ] as const;
 
 
@@ -260,3 +276,23 @@ export const gender = [
         ]
     },
 ];
+
+
+export const tree = [
+    {
+        name: "App",
+        children: [
+            {
+                name: "Faculty",
+            }
+        ]
+    },
+    {
+        name: "Api",
+        children: [
+            {name: "Routes",  children: [
+                {name: "Faculty",}
+            ]},
+        ]
+    }
+]

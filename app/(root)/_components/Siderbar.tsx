@@ -43,10 +43,10 @@ const Siderbar = () => {
         isOpen && "w-60 transition-all duration-300"
       )}
     >
-      <div className="flex items-center pl-1">
+      <div className="flex items-center  pl-1">
         <div className="">
           <div className="flex w-32 items-center justify-center rounded-full z-40">
-            <Image alt="logo" src={"/uniuyo-logo.png"} height={50} width={60} />
+            <Bolt size={30} />
           </div>
         </div>
       </div>
@@ -64,20 +64,20 @@ const Siderbar = () => {
               key={index}
               href={pathname}
               className={clsx(
-                "relative text-light-1 w-full pl-10 flex items-center gap-9 cursor-pointer hover:dark:text-light-1 hover:text-orange-500 transition-all duration-200",
-                isActive && "text-light-1 dark:bg-dark-1 bg-light-1 py-3"
+                "relative text-dark-1 w-full pl-10 flex items-center gap-9 cursor-pointer hover:dark:text-light-1  transition-all duration-200",
+                isActive && "text-white dark:bg-dark-1 bg-blue-500 py-3"
               )}
             >
               <div className="">
                 <Icon
-                  className={clsx(isActive && "text-dark-1")}
+                  className={clsx(isActive && "text-light-1")}
                 />
               </div>
               <div className="">
                 <span
                   className={clsx(
                     "transition-all duration-400 hidden font-normal text-lg",
-                    isActive && "text-dark-1",
+                    isActive && "text-light-1",
                     isOpen && "opacity-100 !flex"
                   )}
                 >
@@ -85,7 +85,7 @@ const Siderbar = () => {
                 </span>
               </div>
               {isActive && (
-                <span className="absolute h-7 w-1 bg-black right-0 top-[11.5px] rounded-tl rounded-bl transition-all duration-300"></span>
+                <span className="absolute h-7 w-1 bg-light-1 right-0 top-[11.5px] rounded-tl rounded-bl transition-all duration-300"></span>
               )}
             </Link>
           );
@@ -94,7 +94,7 @@ const Siderbar = () => {
         
       </div>
 
-      <div className="flex gap-6 flex-col text-light-1 w-full pl-10">
+      <div className="flex gap-6 flex-col text-dark-1 w-full pl-10">
         <div className="flex items-center gap-9">
           <div className="">
             <TooltipProvider>
@@ -123,7 +123,7 @@ const Siderbar = () => {
             </span>
           )}
         </div>
-        <div className="flex items-center gap-9">
+        <Link href={"/dashboard/settings"} className="flex items-center gap-9">
           <div className="">
             <Settings
               className={clsx(
@@ -142,7 +142,7 @@ const Siderbar = () => {
               Settings
             </span>
           )}
-        </div>
+        </Link>
       </div>
     </div>
   );

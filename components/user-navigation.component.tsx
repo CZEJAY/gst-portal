@@ -17,7 +17,7 @@ import { Alert } from "./ui/alert";
 import { AlertDialogTrigger } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 import MatricModal from "./shared/MatricModal";
-import { useMatricModal } from "@/hooks/useMatricModal";
+import { useMatricModal, useVariationModal } from "@/hooks/useMatricModal";
 
 // setAppElement("#root");
 
@@ -29,6 +29,7 @@ const UserNavigationPanel = () => {
   };
   const { data, status } = useSession();
   const { onOpen } = useMatricModal()
+  const { onOpen: openVariation } = useVariationModal()
   const allowedUSers = ["admin@roxxon", "cudoh", "uekwere"];
   return (
     <>
@@ -54,6 +55,7 @@ const UserNavigationPanel = () => {
           Register
         </Link>
         <div onClick={onOpen} className="p-1 text-left hover:bg-gray-400/5 pl-6">Print</div>
+        <div onClick={openVariation} className="p-1 text-left hover:bg-gray-400/5 pl-6">Check Date</div>
 
         <button
           className="text-left p-2 border-t hover:bg-grey-400/5 w-full pl-8"

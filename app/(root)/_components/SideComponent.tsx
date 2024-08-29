@@ -132,7 +132,7 @@ export default function SideComponent() {
         onConfirm={() => onDelete()}
       /> */}
 
-      <Card className="overflow-hidden max-h-[950px] mr-5 mt-28 min-w-[500px]">
+      <Card className="overflow-hidden max-h-[950px] bg-white text-black mr-5 mt-28 min-w-[500px]">
         <CardHeader className="flex flex-row items-start bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
@@ -157,7 +157,7 @@ export default function SideComponent() {
                 </Button>
               )}
               <Link
-                className="bg-blue-900 text-white ml-auto p-2 px-3 rounded-md"
+                className="bg-zinc-900 text-white ml-auto p-2 px-3 rounded-md"
                 href={`/print/${selectedStudent?.student?.id}`}
                 target="_blank"
               >
@@ -352,7 +352,7 @@ export default function SideComponent() {
                   )}
                 </div>
                 <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Courses</dt>
+                  <dt className="text-muted-foreground" onClick={() => handleEdit("courses")}>Courses</dt>
                   {isEditing.courses ? (
                     <input
                       type="text"
@@ -367,7 +367,7 @@ export default function SideComponent() {
                     />
                   ) : (
                     <dd onClick={() => handleEdit("courses")}>
-                      {selectedStudent?.student?.courses[0] !== "," ? selectedStudent?.student?.courses.map((value) => value).join(", ") : "Pending"}
+                      {selectedStudent?.student?.courses[0] !== ", " ? selectedStudent?.student?.courses.map((value) => value).join(", ") : "Pending"}
                     </dd>
                   )}
                 </div>

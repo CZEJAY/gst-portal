@@ -30,7 +30,7 @@ const UnverifiedCard = ({ unverified, data }: { unverified: number, data: Studen
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Card
-          className="sm:col-span-2  hover:scale-105 cursor-pointer duration-200 transition-all"
+          className="sm:col-span-2 bg-white text-black hover:scale-105 cursor-pointer duration-200 transition-all"
           x-chunk="dashboard-05-chunk-0"
         >
           <CardHeader className="pb-3">

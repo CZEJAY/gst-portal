@@ -147,7 +147,7 @@ const page = async () => {
   );
 
   const formattedData: StudentColumn[] = students.map((item) => {
-    const formattedCourse = item.courses.map((value) => value).join(", ")
+    const formattedCourse = item.courses.map((value) => value).join(" ");
     return {
       surName: item.surName,
       firstName: item.firstName,
@@ -161,10 +161,10 @@ const page = async () => {
       matricNumber: item.matricNumber,
       phone: item.phone as string,
       // createdAt: format(item.createdAt, "MMMM do, yyyy"),
-    }
+    };
   });
   return (
-    <main className="grid relative flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 ">
+    <main className="grid relative flex-1 items-center  gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 ">
       <NewReg
         verified={studentsWithFingerprint.length}
         unverified={studentsWithoutFingerprint.length}
@@ -173,13 +173,15 @@ const page = async () => {
         total={students.length}
         recent={countToday}
       />
-      <div className="static top-0 right-0">{/* <SideComponent /> */}</div>
-      <div className="col-span-2 relative">
-        <div className="absolute right-0  flex items-center gap-2">
-        <ExportBtn data={formattedData} />
-        <ExportToExcel data={formattedData} />
+      <div className="col-span-1 relative ">
+        <div className="absolute right-0  flex items-center top-4 gap-2">
+          <ExportBtn data={formattedData} />
+          <ExportToExcel data={formattedData} />
         </div>
         <StudentClient data={formattedData} />
+      </div>
+      <div className="col-span-1 self-baseline">
+        <SideComponent />
       </div>
     </main>
   );
