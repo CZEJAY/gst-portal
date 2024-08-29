@@ -61,7 +61,7 @@ const AssessmentModal: React.FC<SuccessModalProps> = ({
         <DialogContent className="sm:max-w-[625px]">
           <DialogHeader>
             <DialogTitle>Create Course</DialogTitle>
-            <DialogDescription>Click save when you're done.</DialogDescription>
+            <DialogDescription>Click save when you&apos;re done.</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="flex flex-col gap-4">

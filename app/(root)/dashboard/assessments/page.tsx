@@ -10,7 +10,7 @@ const Assessments = () => {
         </h1>
         <p className="text-sm font-medium">
           To begin, please select an assessment from the tree menu, if non
-          exist, click on the "Add Assessment" button top right to create a new
+          exist, click on the &apos;Add Assessment&apos; button top right to create a new
           one.
         </p>
       </div>

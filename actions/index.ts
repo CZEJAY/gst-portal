@@ -604,7 +604,7 @@ export const GETQUESTBYID = async (id: string, ptd:string) => {
   }
 }
 
-export const SUBMITTEST = async (answers: Answers, courseCode: string, studentId: string) => {
+export const SUBMITTEST = async (score: string, courseCode: string, studentId: string) => {
   try {
     const questions = await prismadb.question.findMany()
     let score = 0;

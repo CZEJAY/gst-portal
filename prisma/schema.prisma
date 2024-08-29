@@ -35,14 +35,15 @@ model students {
   level              String
   assessmentPassword String?
   submitted          String?
+  Score              String?
   matricNumber       String     @unique
   registrar          String     @db.ObjectId
   registrarRel       registrars @relation(fields: [registrar], references: [id])
   isLoggedin         Boolean?   @default(false)
   isCHM121Done       Boolean?   @default(false)
   isCHM128Done       Boolean?   @default(false)
-  score121             Int?
-  score128             Int?
+  score121           Int?
+  score128           Int?
 
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt()

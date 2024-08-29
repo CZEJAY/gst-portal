@@ -85,8 +85,10 @@ const Quiz = ({ courseId }: { courseId: string }) => {
     try {
         console.log(answers)
       setLoading(true);
-      const res = await SUBMITTEST(answers, General.name, id);
+      const scores = `${General.name}  ${calculateScore(answers)}`
+      const res = await SUBMITTEST(scores, General.name, id);
       console.log(General.name);
+      
       if (res.id) {
         toast.success("Answers submited successfully! Logging Out...");
         setTimeout(() => {
