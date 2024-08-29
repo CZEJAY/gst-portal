@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import QuizHeader from "./QuizHeader";
 import QuizCard from "./QuizCard";
 import { useCandidateAuth } from "@/context/CandidateAuthContext";
-import { GETQUESTBYID, GETSERVERQS, SUBMITTEST } from "@/actions";
+import { GETQUESTBYID, SUBMITTEST } from "@/actions";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
@@ -38,8 +38,9 @@ const Quiz = ({ courseId }: { courseId: string }) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<Answers>({});
   const [General, setGenera] = useState<any>();
+  const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState(0);
+  const [scoreSummary, setScoreSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(900);
   const [timerIntervalId, setTimerIntervalId] = useState<NodeJS.Timeout | null>(
@@ -48,12 +49,8 @@ const Quiz = ({ courseId }: { courseId: string }) => {
   const [status, setStatus] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const { id, image, logout, candidateName } = useCandidateAuth();
-  useEffect(() => {
-    // fetch("/quiz.json")
-    //   .then((response) => response.json())
-    //   .then((data) => setQuestions(data))
-    //   .catch((error) => console.error("Error fetching quiz data:", error));
 
+  useEffect(() => {
     const getServerQuestion = async () => {
       try {
         setLoading(true);
@@ -74,6 +71,32 @@ const Quiz = ({ courseId }: { courseId: string }) => {
     getServerQuestion();
   }, []);
 
+  useEffect(() => {
+    // Timer logic
+    const startTimer = () => {
+      const intervalId = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer <= 0) {
+            clearInterval(intervalId);
+            handleSubmit(); // Auto-submit when the timer ends
+            return 0;
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+
+      setTimerIntervalId(intervalId);
+    };
+
+    startTimer();
+
+    return () => {
+      if (timerIntervalId) {
+        clearInterval(timerIntervalId);
+      }
+    };
+  }, []);
+
   const handleAnswerSelect = (questionId: number, selectedOption: string) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -83,41 +106,49 @@ const Quiz = ({ courseId }: { courseId: string }) => {
 
   const handleSubmit = async () => {
     try {
-      console.log(answers);
       setLoading(true);
       const scores = calculateScore(answers);
-      const converted = String(scores);
-      const res = await SUBMITTEST(converted, General.name, id);
-      console.log(General.name);
+
+      // Calculate percentage
+      const percentage = ((scores / questions.length) * 100).toFixed(2);
+
+      // Set score summary
+      const summary = `${scores} out of ${questions.length} (${percentage}%)`;
+
+
+      const res = await SUBMITTEST(summary, General.name, id);
 
       if (res.id) {
-        toast.success("Answers submited successfully! Logging Out...");
+        toast.success("Answers submitted successfully! Logging Out...");
         setTimeout(() => {
           logout();
-        });
+        }, 3000);
       }
     } catch (error: any) {
       console.error("Error submitting quiz:", error.message);
+      toast.error("Submission failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const calculateScore = (userAnswers: Answers): number => {
+    console.log(userAnswers)
     return questions.reduce(
       (score, question, index) =>
-        userAnswers[index + 1] === question.answer ? score + 1 : score,
+        userAnswers[question.id] === question.answer ? score + 1 : score,
       0
     );
   };
 
   const restartQuiz = () => {
     setAnswers({});
-    setScore(0);
+    setCorrectAnswersCount(0);
     setCurrentIndex(0);
     setShowResult(false);
     setLoading(false);
     setTimer(60);
+    setScoreSummary("");
   };
 
   const handleNext = () => {
@@ -140,7 +171,7 @@ const Quiz = ({ courseId }: { courseId: string }) => {
         {/* Question section */}
         <div className="md:w-[70%] w-full">
           <div>
-            {questions && questions.length > 0 && (
+            {questions && questions.length > 0 && !showResult && (
               <QuizCard
                 item={questions[currentIndex]}
                 index={currentIndex}
@@ -151,7 +182,7 @@ const Quiz = ({ courseId }: { courseId: string }) => {
               />
             )}
             <div className="flex w-full items-center justify-between">
-              {currentIndex > 0 && (
+              {currentIndex > 0 && !showResult && (
                 <button
                   onClick={handlePrev}
                   className="text-blue-300 px-2 py-2 border rounded"
@@ -161,7 +192,7 @@ const Quiz = ({ courseId }: { courseId: string }) => {
               )}
               <button
                 onClick={
-                  currentIndex >= questions.length - 1
+                  currentIndex >= questions.length - 1 && !showResult
                     ? handleSubmit
                     : handleNext
                 }
@@ -174,20 +205,15 @@ const Quiz = ({ courseId }: { courseId: string }) => {
           </div>
         </div>
 
-        {/* Result section */}
-        {/* <div className="md:w-[30%] w-full p-4">
-          {showResult && (
-            
-          )}
 
-          </div> */}
+        {/* Candidate Info Section */}
         <div>
           <div className="h-[220px] w-[220px] mx-auto mt-8 flex flex-col justify-center items-center border-2 rounded-tr-[50%] rounded-bl-[50%]">
             <img alt="img" src={image} className="rounded-md h-32 " />
             <h1 className="text-sm font-bold my-2">{candidateName}</h1>
           </div>
         </div>
-        {/* {loading && <Loading />} */}
+
       </div>
     </section>
   );

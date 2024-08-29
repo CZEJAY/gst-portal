@@ -58,6 +58,7 @@ model Result {
   studentId String   @db.ObjectId
   course    String
   score     String
+  correctAnswer String
 }
 
 model registrars {
