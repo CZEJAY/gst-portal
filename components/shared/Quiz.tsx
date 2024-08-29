@@ -83,12 +83,13 @@ const Quiz = ({ courseId }: { courseId: string }) => {
 
   const handleSubmit = async () => {
     try {
-        console.log(answers)
+      console.log(answers);
       setLoading(true);
-      const scores = `${General.name}  ${calculateScore(answers)}`
-      const res = await SUBMITTEST(scores, General.name, id);
+      const scores = calculateScore(answers);
+      const converted = String(scores);
+      const res = await SUBMITTEST(converted, General.name, id);
       console.log(General.name);
-      
+
       if (res.id) {
         toast.success("Answers submited successfully! Logging Out...");
         setTimeout(() => {

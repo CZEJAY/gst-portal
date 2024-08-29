@@ -413,26 +413,24 @@ export const ADDTOSCHEDULE = async (
     });
     const courses = await prismadb.assessmentCourses.findFirst({
       where: {
-        id:  courseId,
-
+        id: courseId,
       },
       include: {
-        participants: true
-      }
-    })
+        participants: true,
+      },
+    });
 
-    const pIds = courses?.participants.map(value => ({id:  value.id}))
+    const pIds = courses?.participants.map((value) => ({ id: value.id }));
     // @ts-ignore
-    const updatedList = [...pIds, {id: sudentId}]
+    const updatedList = [...pIds, { id: sudentId }];
 
-    
     const data = await prismadb.assessmentCourses.update({
       where: {
         id: courseId,
       },
       data: {
         participants: {
-          connect: updatedList.map(value => ({...value}))
+          connect: updatedList.map((value) => ({ ...value })),
         },
       },
     });
@@ -555,92 +553,90 @@ export const CHECKLOGINSTATE = async (id: string) => {
 
 export const GETSERVERQS = async (id: string) => {
   try {
-   
-    const  questions = await prismadb.assessmentCourses.findMany({
+    const questions = await prismadb.assessmentCourses.findMany({
       where: {
         participants: {
           some: {
             id,
-          }
-        }
+          },
+        },
       },
       include: {
-        Questions: true
-      }
-    })
+        Questions: true,
+      },
+    });
     return questions;
   } catch (error: any) {
     console.log("Could not get server questions", error);
-    throw  error;
-
+    throw error;
   }
-}
-export const GETQUESTBYID = async (id: string, ptd:string) => {
+};
+export const GETQUESTBYID = async (id: string, ptd: string) => {
   try {
-  
-    const  assessment = await prismadb.assessmentCourses.findFirst({
+    const assessment = await prismadb.assessmentCourses.findFirst({
       where: {
         id,
         participants: {
           some: {
             id: ptd,
-          }
-        }
+          },
+        },
       },
       include: {
-        Questions: true
-      }
-    })
-    const randomizedQuestions = assessment?.Questions.sort(() => Math.random() - 0.5);
+        Questions: true,
+      },
+    });
+    const randomizedQuestions = assessment?.Questions.sort(
+      () => Math.random() - 0.5
+    );
 
     return {
       ...assessment,
-      Questions: randomizedQuestions
+      Questions: randomizedQuestions,
     };
   } catch (error: any) {
     console.log("Could not get server questions", error);
-    throw  error;
-
+    throw error;
   }
-}
+};
 
-export const SUBMITTEST = async (score: string, courseCode: string, studentId: string) => {
+export const SUBMITTEST = async (
+  score: string,
+  courseCode: string,
+  studentId: string
+) => {
   try {
-    const questions = await prismadb.question.findMany()
-    let score = 0;
+    const questions = await prismadb.question.findMany();
+    // let score = 0;
 
-    questions.forEach((question) =>{
-      // @ts-ignore
-      const  answer = answers[question.id];
-      if (answer === question.answer) {
-        score += 1
-      }
-    })
-    
-    const chm121 = courseCode === "CHM 121"
-    const chm128 = courseCode === "CHM 128"
+    // questions.forEach((question) =>{
+    //   // @ts-ignore
+    //   const  answer = answers[question.id];
+    //   if (answer === question.answer) {
+    //     score += 1
+    //   }
+    // })
+    const chm121 = courseCode === "CHM 121";
+    const chm128 = courseCode === "CHM 128";
 
-    const  student = await prismadb.students.update({
-      where: {
-        id:  studentId
-      },
+    const result = await prismadb.result.create({
       data: {
-        score121: chm121 ? score : 0,
-        score128: chm121 ? score : 0,
-        isCHM121Done:chm121,
-        isCHM128Done:chm128
-      }
-    })
-    return student;
+        course: courseCode,
+        score,
+        student: {
+          connect: {
+            id: studentId,
+          },
+        },
+      },
+    });
+
+    return result;
   } catch (error: any) {
     console.log("Could not submit test", error);
     throw error;
   }
-}
-
-
-
-
+};
 
 // export  async function handler() {
 
