@@ -52,7 +52,7 @@ const Mainmenu = () => {
               student?.isCHM128Done && item.name === "CHM128";
 
             return (
-              <div className="p-5 relative py-9 border w-[400px] rounded-md flex shadow-xl bg-transparent backdrop-blur-md">
+              <div key={index} className="p-5 relative py-9 border w-[400px] rounded-md flex shadow-xl bg-transparent backdrop-blur-md">
                 {is121Disabled && (
                   <div className="absolute inset-3 flex-col bg-emerald-500 flex items-center justify-center p-2 rounded">
                     <h2 className="text-white">{item.name} CBT</h2>
