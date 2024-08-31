@@ -8,8 +8,9 @@ import AlertModal from '@/components/modals/AlertModal'
 import { StudentColumn } from './columns'
 import { toast } from 'sonner'
 import { useStudentStore } from '@/context/zustand'
-import { DELETESTUDENT, GETSTUDENT } from '@/actions'
+import { DELETE_FROM_ASSESSMENT, DELETESTUDENT, GETSTUDENT } from '@/actions'
 import { useSession } from 'next-auth/react'
+import { ExitIcon } from '@radix-ui/react-icons'
 
 interface CellActionProps {
     data: StudentColumn
@@ -53,6 +54,17 @@ const CellAction: React.FC<CellActionProps> = ({
           console.error('Failed to fetch student data:', error)
         }
       }
+
+      const handleRemoveAssessment = async (matricNumber: string, id: string) => {
+        try {
+          const  res = await DELETE_FROM_ASSESSMENT(matricNumber, id)
+          if(res?.id){
+            toast.success("Assessment removed")
+          }
+        } catch (error: any) {
+          toast.error(error.message)
+        }
+      }
       
   return (
     <>
@@ -61,7 +73,7 @@ const CellAction: React.FC<CellActionProps> = ({
         <DropdownMenuTrigger asChild>
             <Button 
              variant={"ghost"}
-             className='h-8 w-8 p-1 hover:bg-gray-400/15'
+             className='h-8 w-8 p-1 '
             >
                 <span className='sr-only'>open menu</span>
                 <MoreHorizontal className='h-4 w-4' />
@@ -76,6 +88,11 @@ const CellAction: React.FC<CellActionProps> = ({
             <DropdownMenuItem className="" onClick={() => handleViewClick(data.matricNumber)}>
                 <View className='mr-2 h-4 w-4' />
                 View
+            </DropdownMenuItem>
+            <DropdownMenuItem className="" onClick={() => handleRemoveAssessment(data.matricNumber,  data.assessmentId as string)}>
+
+                <ExitIcon className='mr-2 h-4 w-4' />
+                Remove
             </DropdownMenuItem>
             {
               isAdmin ? (

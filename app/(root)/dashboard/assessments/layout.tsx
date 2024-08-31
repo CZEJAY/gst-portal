@@ -17,10 +17,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const assessments = await GETALLASST()
-  return (
-    <BluePrint assess={assessments}>
-        {children}
-    </BluePrint>
-  );
+  const assessments = await GETALLASST();
+  return <BluePrint assess={assessments}>{children}</BluePrint>;
 }

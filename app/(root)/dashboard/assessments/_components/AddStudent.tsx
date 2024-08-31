@@ -15,6 +15,8 @@ const AddStudent = ({ data }: { data: any }) => {
   const [validation, setValidation] = useState({ success: "", error: "" });
   const [student, setStudent] = useState<students | null>();
 
+  console.log(data)
+
   const handlePrint = async () => {
     try {
       setLoading(true);
@@ -27,7 +29,7 @@ const AddStudent = ({ data }: { data: any }) => {
             error: "",
           });
           setStudent(data.student);
-          student && setAPass(student.phone);
+          setAPass(data.student.phone);
         } else {
           setValidation({
             success: "",
@@ -118,7 +120,7 @@ const AddStudent = ({ data }: { data: any }) => {
                 <div className="flex gap-2">
                   <Input
                     value={aPass}
-                    onChange={(value) => setValue(value.target.value)}
+                    onChange={(value) => setAPass(value.target.value)}
                     className="caret-blue-800 text-black"
                   />
                   <Button onClick={handleAdd}>

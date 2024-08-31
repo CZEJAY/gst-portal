@@ -15,7 +15,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ item, index, answers, handleAnswerS
   return (
     <div className="m-3 py-3 px-4 shadow-sm border border-gray-200 rounded">
       <div className="flex items-center rounded text-xs p-2 cursor-pointer">
-        <span className="h-8 w-8 bg-blue-600 rounded-full flex justify-center items-center text-green-800 mr-3">
+        <span className="h-8 w-8 bg-blue-600 rounded-full flex justify-center items-center text-white mr-3">
           {index + 1}
         </span>
         <p>{item.question || ""}</p>

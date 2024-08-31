@@ -38,6 +38,7 @@ model students {
   Score              String?
   matricNumber       String     @unique
   registrar          String     @db.ObjectId
+  assessmentIds      String[]   @db.ObjectId
   registrarRel       registrars @relation(fields: [registrar], references: [id])
   isLoggedin         Boolean?   @default(false)
   isCHM121Done       Boolean?   @default(false)
@@ -45,19 +46,18 @@ model students {
   score121           Int?
   score128           Int?
 
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt()
-  AssessmentCourses   AssessmentCourses? @relation(fields: [assessmentCoursesId], references: [id])
-  assessmentCoursesId String?            @db.ObjectId
-  Results              Result[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt()
+  AssessmentCourses AssessmentCourses[] @relation(fields: [assessmentIds], references: [id])
+  Results           Result[]
 }
 
 model Result {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  student   students @relation(fields: [studentId], references: [id])
-  studentId String   @db.ObjectId
-  course    String
-  score     String
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  student       students @relation(fields: [studentId], references: [id])
+  studentId     String   @db.ObjectId
+  course        String
+  score         String
   correctAnswer String
 }
 
@@ -84,14 +84,19 @@ model Assessments {
 }
 
 model AssessmentCourses {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  participants  students[]
-  updatedAt     DateTime     @updatedAt()
-  createdAt     DateTime     @default(now())
-  Assessments   Assessments? @relation(fields: [assessmentsId], references: [id])
-  assessmentsId String?      @db.ObjectId
-  Questions     Question[]
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  participants   students[]   @relation(fields: [participantsId], references: [id])
+  updatedAt      DateTime?    @updatedAt()
+  createdAt      DateTime?    @default(now())
+  Assessments    Assessments? @relation(fields: [assessmentsId], references: [id])
+  assessmentsId  String?      @db.ObjectId
+  Questions      Question[]
+  examTime       String?
+  instructions   String?
+  description    String?
+  studentsId     String?      @db.ObjectId
+  participantsId String[]     @db.ObjectId
 }
 
 model Question {
@@ -101,4 +106,6 @@ model Question {
   answer              String
   course              AssessmentCourses @relation(fields: [assessmentCoursesId], references: [id])
   assessmentCoursesId String            @db.ObjectId
+  updatedAt DateTime?           @updatedAt()
+  createdAt DateTime?           @default(now())
 }

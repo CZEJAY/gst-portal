@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../../../globals.css";
-import { GETALLASST } from "@/actions";
+import { GET_ALL_COURSE, GETALLASST } from "@/actions";
 import { QuestionBluePrint } from "../assessments/_components/QuestionBluePrint";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,9 +17,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const assessments = await GETALLASST()
+  const assessments = await GET_ALL_COURSE()
+  const formatted = assessments.map(val => ({
+    id: val.id,
+    name:  val.name,
+    children: val.name
+  }))
   return (
-    <QuestionBluePrint assess={assessments}>
+    // @ts-ignore
+    <QuestionBluePrint assess={formatted}>
         {children}
     </QuestionBluePrint>
   );

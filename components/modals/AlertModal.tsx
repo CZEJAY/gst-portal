@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Modal } from "../ui/modal";
+import { Loader } from "lucide-react";
 
 interface AlertModalProps {
   isOpen: boolean;
@@ -36,11 +37,13 @@ const AlertModal: React.FC<AlertModalProps> = ({
 
     >
         <div className="pt-6 space-x-6 flex items-center justify-end w-full">
-            <Button className="bg-transparent text-black" disabled={loading} onClick={onClose}>
+            <Button variant={"outline"} disabled={loading} onClick={onClose}>
                 Cancel
             </Button>
             <Button variant={"destructive"} disabled={loading} onClick={onConfirm}>
-                Continue
+                {
+                  loading && <Loader className="animate-spin" />
+                }Continue
             </Button>
         </div>
 

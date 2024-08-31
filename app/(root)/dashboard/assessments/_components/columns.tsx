@@ -11,7 +11,7 @@ export type StudentColumn = {
     department: string;
     matricNumber: string;
     phone?: string;
-    // level: string;
+    assessmentId?: string;
     courses: string;
     // createdAt: string;
 }

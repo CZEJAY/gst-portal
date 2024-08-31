@@ -3,6 +3,7 @@ export const metadata = {
 };
 import { CandidateAuthProvider } from "@/context/CandidateAuthContext";
 import "../globals.css";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -12,7 +13,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CandidateAuthProvider>{children}</CandidateAuthProvider>
+        <CandidateAuthProvider>
+          {children}
+          <div className="absolute">
+            <Toaster />
+          </div>
+        </CandidateAuthProvider>
       </body>
     </html>
   );

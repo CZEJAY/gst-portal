@@ -2,6 +2,7 @@ import { GETCOURSEANDPARTICIPANT } from "@/actions";
 import React from "react";
 import CourseComp from "../_components/CourseComp";
 import { StudentColumn } from "../_components/columns";
+import Error from "@/components/shared/Error";
 
 const page = async ({
   params,
@@ -10,27 +11,35 @@ const page = async ({
     courseID: string;
   };
 }) => {
-    const data = await GETCOURSEANDPARTICIPANT(params.courseID)
-    // @ts-ignore
-    const formattedData: StudentColumn[] = data?.participants.map((item) => {
-        const formattedCourse = item.courses.map((value) => value).join(" ");
-        return {
+  try {
+    const data = await GETCOURSEANDPARTICIPANT(params.courseID);
+    // console.log("Server DTO ==", data);
+
+    // Format the data for the page
+    if(data){
+      const formattedData: StudentColumn[] = data?.participants.map((item) => {
+        const f_d = {
           surName: item.surName,
           firstName: item.firstName,
           otherName: item.otherName as string,
-          // courses: item.courses,
-          courses: formattedCourse,
+          courses: item.courses.map((item) => item).join(" "),
           faculty: item.faculty,
-          // email: item.email?.toLocaleLowerCase(),
           department: item.department,
-          // level: item.level,
           matricNumber: item.matricNumber,
-          phone: item.phone as string,
-          // createdAt: format(item.createdAt, "MMMM do, yyyy"),
+          phone: item.phone,
+          assessmentId: data.id
         };
+        return f_d;
       });
-  return <CourseComp formattedData={formattedData} data={data}/>
-
+      return <CourseComp formattedData={formattedData} data={data} />;
+    }
+  } catch (error) {
+    console.error("Error fetching course and participant data:", error);
+    // You might want to render an error component or return null
+    return (
+      <Error />
+    );
+  }
 };
 
 export default page;

@@ -53,7 +53,7 @@ export function BluePrint({
             className="grid gap-4 text-md  text-muted-foreground"
             x-chunk="dashboard-04-chunk-0"
           >
-            <TreeMenu data={assess} />
+            <TreeMenu link="/dashboard/assessments" data={assess} />
           </nav>
           <div className="grid gap-6 rounded bg-white p-5">{children}</div>
         </div>

@@ -15,11 +15,13 @@ import Link from "next/link";
 
 const Item = ({
   item,
+  link,
 }: {
   item: {
     name: string;
     children: any[];
   };
+  link: string;
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -45,16 +47,22 @@ const Item = ({
         )}
       </button>
       {item.children && (
-        <div className={`sub-menu `}>
-          {item.children.length ? (
-            item.children.map((child: any) => (
-                // <Item key={child.name} item={child} />
-                <div key={child.name} className="flex flex-col  items-start">
-                    <Link href={`/dashboard/assessments/${child.id}`} >{child.name}</Link>
-                </div>
+        <div className={` `}>
+          {Array.isArray(item.children) ? (
+            item?.children?.map((child: any) => (
+              // <Item key={child.name} item={child} />
+              <div
+                key={child.name}
+                className={`flex flex-col  items-start ${
+                  isOpen ? "sub-menu" : "hidden"
+                }`}
+              >
+                <Link href={`${link}/${child.id}`}>{child.name}</Link>
+              </div>
             ))
           ) : (
-            <Empty />
+            // @ts-ignore
+            <Empty n_item={{id: item.id, name: item.name}} link={link} isOpen={isOpen} />
           )}
         </div>
       )}
@@ -62,8 +70,28 @@ const Item = ({
   );
 };
 
-const Empty = () => (
-  <button className="italic text-sm opacity-50">- Empty -</button>
+const Empty = ({
+  n_item,
+  link,
+  isOpen,
+}: {
+  n_item?: {id: string, name: string};
+  link?: string;
+  isOpen?: boolean;
+}) => (
+  <div className="">
+    {n_item ? (
+      <div
+        className={`flex flex-col  items-start ${
+          isOpen ? "sub-menu" : "hidden"
+        }`}
+      >
+        <Link href={`${link}/q/${n_item.name.replaceAll(" ", "-").toLowerCase()}/${n_item.id}`}>{n_item.name}</Link>
+      </div>
+    ) : (
+      <button className="italic text-sm opacity-50">- Empty -</button>
+    )}
+  </div>
 );
 
 export default Item;

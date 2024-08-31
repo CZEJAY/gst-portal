@@ -27,10 +27,13 @@ import { CalendarIcon, Loader2 } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { CREATEASSESSMENT } from "@/actions";
 import { toast } from "sonner";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { AssessmentCourses } from "@prisma/client";
+export type SelectedCorses = {
+  id: string;
+};
 const formSchema = z.object({
-  assessmentname: z.string().min(2, {
+  name: z.string().min(2, {
     message: "Assessment name must be at least 2 characters.",
   }),
   chm121: z.boolean({}).default(false).optional(),
@@ -45,26 +48,30 @@ const formSchema = z.object({
   endTime: z.string(),
 });
 
-export const AssessmentForm = () => {
+export const AssessmentForm = ({
+  courses,
+}: {
+  courses: AssessmentCourses[];
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      assessmentname: "",
-      chm121: false,
-      chm128: false,
+      name: "",
       startDate: new Date(),
       endDate: new Date(),
       startTime: getCurrentHour(),
       endTime: "",
     },
   });
+  
   const [loading, setIsLoading] = useState(false);
+  const [selectedCourses, setCourses] = useState<SelectedCorses[]>([]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     try {
       setIsLoading(true);
-      const response = await CREATEASSESSMENT(values);
+      const response = await CREATEASSESSMENT(values, selectedCourses);
       if (response.name) {
         toast.success(
           `Assessment (${response.name}) Was created successfully.`
@@ -78,12 +85,23 @@ export const AssessmentForm = () => {
     }
   }
 
+  const handleSelectCourse = (courseid: SelectedCorses) => {
+    const check = selectedCourses.some((val) => val.id === courseid.id);
+    if (check) {
+      setCourses((prev) => prev.filter((course) => course.id !== courseid.id));
+    } else {
+      setCourses((prev) => [...prev, courseid]);
+    }
+  };
+
+
+  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="assessmentname"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Assessment</FormLabel>
@@ -94,47 +112,33 @@ export const AssessmentForm = () => {
             </FormItem>
           )}
         />
-        <div className="flex items-center gap-3 w-full justify-between">
-          <FormField
-            control={form.control}
-            name="chm121"
-            render={({ field }) => (
-              <FormItem className="flex flex-row flex-grow items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>CHM 121</FormLabel>
-                  <FormDescription>
-                    Add CHM 121 to this Assessment
-                  </FormDescription>
-                </div>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="chm128"
-            render={({ field }) => (
-              <FormItem className="flex flex-row flex-grow items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>CHM 128</FormLabel>
-                  <FormDescription>
-                    Add CHM 128 to this Assessment
-                  </FormDescription>
-                </div>
-              </FormItem>
-            )}
-          />
+        <div className="flex items-center gap-3 flex-wrap w-full justify-between">
+          {courses.map((item) => {
+            return (
+              <FormField
+                key={item.id}
+                name={item.id}
+                render={({ field }) => (
+                  <FormItem className="flex flex-row flex-grow items-start space-x-3 space-y-0 rounded-md border p-4 shadow">
+                    <Checkbox
+                      checked={selectedCourses.some(
+                        (val) => val.id === item.id
+                      )}
+                      onCheckedChange={() =>
+                        handleSelectCourse({ id: item.id })
+                      }
+                    />
+                    <div className="space-y-1 leading-none">
+                      <FormLabel htmlFor={item.id}>{item.name}</FormLabel>
+                      <FormDescription>
+                        Add {item.name} to this Assessment
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            );
+          })}
         </div>
         <div className="flex w-full items-center gap-3 justify-between">
           <FormField
@@ -183,7 +187,7 @@ export const AssessmentForm = () => {
             name="endDate"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Start Date</FormLabel>
+                <FormLabel>End Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>

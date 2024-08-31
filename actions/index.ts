@@ -1,5 +1,6 @@
 "use server";
 
+import { SelectedCorses } from "@/app/(root)/dashboard/assessments/_components/AssementForm";
 import { auth, signIn, signOut } from "@/auth";
 import { FormData } from "@/components/MultiStepForm/StepForms/PersonalInfoForm";
 import { Answers } from "@/components/shared/Quiz";
@@ -319,30 +320,23 @@ export const UPDATESTUDENT = async ({
   }
 };
 
-export const CREATEASSESSMENT = async (data1: Partial<Assessments>) => {
+export const CREATEASSESSMENT = async (
+  data1: Partial<Assessments>,
+  courses: SelectedCorses[]
+) => {
   try {
-    // @ts-ignore
-    const chm121Id = data1.chm121 ? "66cf8a72ace84cb73667f401" : null;
-    // @ts-ignore
-    delete data1.chm121;
-    // @ts-ignore
-    const chm128Id = data1.chm128 ? "66cf8c8eace84cb73667f403" : null;
-    // @ts-ignore
-    delete data1.chm128;
-    // @ts-ignore
-    const name = data1.assessmentname;
-    // @ts-ignore
-    delete data1.assessmentname;
-    const formatted = {
-      ...data1,
-      name,
-      children: {
-        connect: [{ id: chm121Id }, { id: chm128Id }],
-      },
-    };
     const response = await prismadb.assessments.create({
-      // @ts-ignore
-      data: formatted,
+      data: {
+        ...data1,
+        name: data1.name as string,
+        startDate: data1.startDate as Date,
+        endDate: data1.startDate as Date,
+        startTime: data1.startTime as string,
+        endTime: data1.endTime as string,
+        children: {
+          connect: courses,
+        },
+      },
     });
     revalidatePath("/dashboard/assessments/");
     console.log(response);
@@ -356,6 +350,7 @@ export const CREATECOURSE = async (data: Partial<AssessmentCourses>) => {
   try {
     const course = await prismadb.assessmentCourses.create({
       data: {
+        ...data,
         name: data.name as string,
       },
     });
@@ -381,7 +376,7 @@ export const GETALLASST = async () => {
 };
 export const GETCOURSEANDPARTICIPANT = async (id: string) => {
   try {
-    const course = await prismadb.assessmentCourses.findUnique({
+    const course = await prismadb.assessmentCourses.findFirst({
       where: {
         id,
       },
@@ -420,9 +415,7 @@ export const ADDTOSCHEDULE = async (
       },
     });
 
-    const pIds = courses?.participants.map((value) => ({ id: value.id }));
     // @ts-ignore
-    const updatedList = [...pIds, { id: sudentId }];
 
     const data = await prismadb.assessmentCourses.update({
       where: {
@@ -430,7 +423,9 @@ export const ADDTOSCHEDULE = async (
       },
       data: {
         participants: {
-          connect: updatedList.map((value) => ({ ...value })),
+          connect: {
+            id: sudentId,
+          },
         },
       },
     });
@@ -561,14 +556,22 @@ export const GETSERVERQS = async (id: string) => {
           },
         },
       },
+
       include: {
         Questions: true,
       },
     });
-    return questions;
+    if(!questions){
+      return {
+        error:  "No questions found",
+      }
+    }
+    return {questions};
   } catch (error: any) {
     console.log("Could not get server questions", error);
-    throw error;
+    return {
+      error:  "Could not get server questions",
+    }
   }
 };
 export const GETQUESTBYID = async (id: string, ptd: string) => {
@@ -587,8 +590,15 @@ export const GETQUESTBYID = async (id: string, ptd: string) => {
       },
     });
     const randomizedQuestions = assessment?.Questions.sort(
-      () => Math.random() - 0.5
+      () => Math.random() - 1.5
     );
+
+    const randomizedAnswers = assessment?.Questions.map((question) => {
+      return {
+        ...question,
+        options: question.options.sort(() => Math.random() - 1),
+      };
+    });
 
     return {
       ...assessment,
@@ -603,7 +613,8 @@ export const GETQUESTBYID = async (id: string, ptd: string) => {
 export const SUBMITTEST = async (
   score: string,
   courseCode: string,
-  studentId: string
+  studentId: string,
+  correctAnswer: string
 ) => {
   try {
     const questions = await prismadb.question.findMany();
@@ -623,6 +634,7 @@ export const SUBMITTEST = async (
       data: {
         course: courseCode,
         score,
+        correctAnswer,
         student: {
           connect: {
             id: studentId,
@@ -638,31 +650,122 @@ export const SUBMITTEST = async (
   }
 };
 
-// export  async function handler() {
+export const GET_ALL_QESTIONS = async () => {
+  try {
+    const questions = await prismadb.question.findMany({
+      include: {
+        course: true,
+      },
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+    return questions;
+  } catch (err: any) {
+    console.log("Could not get all questions", err);
+    throw err;
+  }
+};
+export const GET_ALL_COURSE = async () => {
+  try {
+    const courses = await prismadb.assessmentCourses.findMany({
+      orderBy: {
+        updatedAt: "desc",
+      },
+    });
+    return courses;
+  } catch (err: any) {
+    console.log("Could not get all course", err);
+    throw err;
+  }
+};
 
-//     try {
-//       // Here, you'd process the answers, e.g., check correctness, calculate score
-//       // Assuming you have a questions table in your database
+export const UPDATE_QUESTION = async (
+  question: Partial<Question>,
+  id: string
+) => {
+  try {
+    const result = await prismadb.question.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...question,
+      },
+    });
 
-//       const questions = await prismadb.questions.findMany();
-//       let score = 0;
+    revalidatePath("/dashboad/questions");
+    return result;
+  } catch (error: any) {
+    console.log("Could not update question", error);
+    throw error;
+  }
+};
 
-//       questions.forEach((question) => {
-//         const userAnswer = answers[question.id];
-//         if (userAnswer === question.correctAnswer) {
-//           score += 1;
-//         }
-//       });
+export const DELETE_QUESTION = async (id: string) => {
+  try {
+    const result = await prismadb.question.delete({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("/dashboad/questions");
+    return result;
+  } catch (error: any) {
+    console.log("Could not delete question", error);
+  }
+};
 
-//       // Optionally, save the result in the database
-//       await prismadb.results.create({
-//         data: {
-//           score,
-//           // Other data like userId, quizId, etc.
-//         },
-//       });
+export const DELETE_FROM_ASSESSMENT = async (
+  matricNumber: string,
+  id: string
+) => {
+  try {
+    const student = await prismadb.students.findUnique({
+      where: {
+        matricNumber: matricNumber,
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (student) {
+      const assessment = await prismadb.assessmentCourses.findFirst({
+        where: {
+          id,
+          participants: {
+            some: {
+              id: student.id,
+            },
+          },
+        },
+        select: {
+          participants: true,
+        },
+      });
+      if (assessment) {
+        const participant = assessment.participants.find(
+          (participant) => participant.id === student.id
+        );
 
-//     } catch (error) {
-//       console.error('Error processing quiz submission:', error);
-//     }
-// }
+        const result = await prismadb.assessmentCourses.update({
+          where: {
+            id: id,
+          },
+          data: {
+            participants: {
+              delete: {
+                id: participant!.id,
+              },
+            },
+          },
+        });
+        revalidatePath("/dashboard/assessments/")
+        return result;
+      }
+    }
+  } catch (error: any) {
+    console.error(error);
+    throw new Error(error.message);
+  }
+};
