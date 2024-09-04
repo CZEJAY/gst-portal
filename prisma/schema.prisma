@@ -100,12 +100,13 @@ model AssessmentCourses {
 }
 
 model Question {
-  id                  String            @id @default(auto()) @map("_id") @db.ObjectId
-  question            String
-  options             String[]
-  answer              String
-  course              AssessmentCourses @relation(fields: [assessmentCoursesId], references: [id])
-  assessmentCoursesId String            @db.ObjectId
-  updatedAt DateTime?           @updatedAt()
-  createdAt DateTime?           @default(now())
+  id       String            @id @default(auto()) @map("_id") @db.ObjectId
+  question String
+  options  String[]
+  answer   String
+  course   AssessmentCourses @relation(fields: [assessmentCoursesId], references: [id], onDelete: Cascade)
+
+  assessmentCoursesId String    @db.ObjectId
+  updatedAt           DateTime? @updatedAt()
+  createdAt           DateTime? @default(now())
 }

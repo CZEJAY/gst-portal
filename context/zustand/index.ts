@@ -16,6 +16,16 @@ interface IStore {
   toggleIsOpen: () => void;
 }
 
+interface IActiveRoute {
+  activeName:  string;
+  setActiveRoute:  (activeName: string) => void;
+}
+
+export const useActiveRoute = create<IActiveRoute>((set) => ({
+  activeName:  "",
+  setActiveRoute: (activeName: string) => set({ activeName }),
+}))
+
 export const useTrigger = create<IStore>((set) => ({
   isOpen: false,
   setIsOpen: () => set({ isOpen: true }),

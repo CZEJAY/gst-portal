@@ -4,14 +4,16 @@ import "../globals.css";
 import Providers from "@/redux/Providers";
 import { DeviceProvider } from "@/context/deviceContext";
 import { SessionProviderLayout } from "@/context/SessionProvider";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import ReactQueryProvider from "@/context/ReactQueryProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "UNIUYO CBT - BIOMETRIC",
   description: "BIOMETRIC PORTAL",
-  icons: "/uniuyo-logo.png"
+  icons: "/uniuyo-logo.png",
 };
 
 export default function RootLayout({
@@ -23,9 +25,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <SessionProviderLayout>
-            <Providers>{children}</Providers>
+          <Providers>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </Providers>
         </SessionProviderLayout>
-      <Analytics />
+        <Toaster />
+        <Analytics />
       </body>
     </html>
   );

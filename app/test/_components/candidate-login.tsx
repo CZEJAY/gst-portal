@@ -2,8 +2,10 @@
 import { LOGINCANDIDATE } from "@/actions";
 import { Input } from "@/components/ui/input";
 import { useCandidateAuth } from "@/context/CandidateAuthContext";
+import { Loader } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const CandidateLogin: React.FC = () => {
   const [matric, setMatric] = useState("");
@@ -11,12 +13,16 @@ const CandidateLogin: React.FC = () => {
   const [validation, setValidation] = useState({ success: "", error: "" });
   const [loading, setLoading] = useState(false);
 
-  const { login } = useCandidateAuth();
+  const { login, id } = useCandidateAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
+      setValidation({
+        success: "",
+        error: "",
+      })
       const { error, student } = await LOGINCANDIDATE(matric, password);
       if (error) {
         setValidation({
@@ -26,7 +32,7 @@ const CandidateLogin: React.FC = () => {
       }
       if (student) {
         login(
-          `${student.surName} ${student.firstName}`,
+          `${student.surName} ${student.firstName} ${student.otherName}`,
           student.id,
           student.image
         );
@@ -41,6 +47,14 @@ const CandidateLogin: React.FC = () => {
     }
   };
 
+  const router = useRouter()
+
+  // useEffect(() => {
+  //   if(id){
+  //     router.push('/test')
+  //   }
+  // }, [id])
+
   return (
     <form
       onSubmit={handleLogin}
@@ -49,7 +63,8 @@ const CandidateLogin: React.FC = () => {
       <div className="mx-auto w-24">
         <Image width={200} height={200} alt="logo" src={"/uniuyo-logo.png"} />
       </div>
-      <h1 className="font-bold text-2xl tracking-wide">CHEMISTRY CBT</h1>
+      <h1 className="font-bold text-2xl tracking-wide">CBT  Login</h1>
+
       <div className=" w-full shadow-xl border rounded-md p-6  gap-4 flex flex-col ">
         <div>
           <label
@@ -92,8 +107,13 @@ const CandidateLogin: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full gap-2 inline-flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
+          <div className="">
+          {
+          loading && <Loader className="animate-spin" />
+         }
+          </div>
           Login
         </button>
       </div>

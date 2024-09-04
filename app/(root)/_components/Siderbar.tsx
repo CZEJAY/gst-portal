@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
-import { useTrigger } from "@/context/zustand/index";
+import { useActiveRoute, useTrigger } from "@/context/zustand/index";
 import {
   TooltipProvider,
   Tooltip,
@@ -18,12 +18,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const Siderbar = () => {
   const params = usePathname();
   const { toggleIsOpen, isOpen } = useTrigger();
   // console.log(isOpen);
   const [open, setOpen] = React.useState(false);
+  const {activeName, setActiveRoute} = useActiveRoute()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -58,10 +60,12 @@ const Siderbar = () => {
       >
         {Links.map((item, index) => {
           const { icon: Icon, pathname, label } = item;
-          const isActive = params === pathname;
+          const isActive = label === activeName;
           return (
-            <Link
-              key={index}
+            <div
+            key={index}
+            className="bg-none w-full" onClick={() => setActiveRoute(label)}>
+              <Link
               href={pathname}
               className={clsx(
                 "relative text-dark-1 w-full pl-10 flex items-center gap-9 cursor-pointer hover:dark:text-light-1  transition-all duration-200",
@@ -88,6 +92,7 @@ const Siderbar = () => {
                 <span className="absolute h-7 w-1 bg-light-1 right-0 top-[11.5px] rounded-tl rounded-bl transition-all duration-300"></span>
               )}
             </Link>
+            </div>
           );
         })}
 

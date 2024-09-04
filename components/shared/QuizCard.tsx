@@ -18,7 +18,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ item, index, answers, handleAnswerS
         <span className="h-8 w-8 bg-blue-600 rounded-full flex justify-center items-center text-white mr-3">
           {index + 1}
         </span>
-        <p>{item.question || ""}</p>
+        <p className='text-gray-900 font-bold '>{item.question || ""}</p>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-5">
         {item.options.map((option, idx) => (

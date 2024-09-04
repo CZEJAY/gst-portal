@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import QuizHeader from "./QuizHeader";
 import QuizCard from "./QuizCard";
 import { useCandidateAuth } from "@/context/CandidateAuthContext";
-import { GETQUESTBYID, SUBMITTEST } from "@/actions";
+import { CHECK_FOR_ASSESSMENT, GETQUESTBYID, SUBMITTEST } from "@/actions";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import Loader from "./Loader";
+import { useRouter } from "next/navigation";
 
 const Loading: React.FC = () => (
   <div className="h-[220px] w-[220px] absolute inset-0 z-[999] top-1/2 mx-auto mt-8 flex flex-col justify-center items-center border-2 rounded-tr-[50%] rounded-bl-[50%]">
@@ -45,20 +46,25 @@ const Quiz = ({ courseId }: { courseId: string }) => {
   const [loading, setLoading] = useState(false);
   const [loadingPage, setLoadingPage] = useState(false);
   const [timer, setTimer] = useState(900);
-  const [timerClock, setTimerClock] = useState("5 min");
+  const [timerClock, setTimerClock] = useState("");
   const [timerIntervalId, setTimerIntervalId] = useState<NodeJS.Timeout | null>(
     null
   );
   const [status, setStatus] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const { id, image, logout, candidateName } = useCandidateAuth();
+  const router = useRouter()
 
   useEffect(() => {
     const getServerQuestion = async () => {
       try {
         setLoadingPage(true);
-        const data = await GETQUESTBYID(courseId, id);
-
+        if(id){
+          const data = await GETQUESTBYID(courseId, id);
+          const checkAssess = await CHECK_FOR_ASSESSMENT(id,  courseId);
+          if(!checkAssess){
+            router.push("/test")
+          }
         if (data.Questions && data?.Questions?.length > 0) {
           // @ts-ignore
           setQuestions(data.Questions);
@@ -70,6 +76,7 @@ const Quiz = ({ courseId }: { courseId: string }) => {
             setTimer(+stripTime)
           }
           setGenera(data);
+        }
         }
       } catch (error: any) {
         console.error("Error fetching quiz data:", error.message);
@@ -181,7 +188,7 @@ const Quiz = ({ courseId }: { courseId: string }) => {
             <QuizHeader
               course={(General && General.name) || ""}
               quizLength={questions?.length || 0}
-              timer={"1 min"}
+              timer={timerClock}
             />
           )}
 

@@ -1,5 +1,6 @@
 import {
   ActivitySquare,
+  BookCopy,
   DivideCircleIcon,
   FileQuestion,
   Fingerprint,
@@ -27,6 +28,11 @@ export const Links = [
     icon: Monitor,
     pathname: "/dashboard/monitor",
     label: "Monitor",
+  },
+  {
+    icon: BookCopy,
+    pathname: "/dashboard/courses",
+    label: "Courses",
   },
   {
     icon: FileQuestion,
@@ -289,22 +295,12 @@ export const tree = [
 ];
 
 export const defaultExamInstructions = `
-1. **Read all questions carefully** before answering.
-2. **Manage your time wisely**. Allocate time to each section based on the number of questions.
-3. **Answer all questions** to the best of your ability. There is no penalty for incorrect answers unless specified.
-4. **Use the provided space** for your answers. If you need additional space, ask the invigilator for assistance.
-5. **Do not leave the examination room** without permission.
-6. **Keep your work neat and organized**. Ensure that your handwriting is legible.
-7. **Double-check your answers** if time permits, especially in sections requiring calculations.
-8. **Use only approved materials**. Any unauthorized materials or devices will be confiscated and may result in disqualification.
-9. **Follow all instructions** given by the exam invigilator.
-10. **Remain seated and silent** until you are done and submit then exit the venue.
-`;
+Read all questions carefully before selecting your answers. Manage your time wisely by monitoring the countdown timer and allocating time to each section accordingly. Answer all questions to the best of your ability, as there is no penalty for incorrect answers unless specified. Review each answer before moving to the next question, and use the "Review" or "Flag" option for questions you want to revisit. Do not leave the exam platform without submitting your answers; ensure you click "Submit" before the time expires. Keep your workspace clear, using only approved materials, as any unauthorized devices or materials may lead to disqualification. Ensure your answers are properly saved, and verify that your selections are recorded before moving to the next question. Follow all on-screen instructions and any additional guidelines provided by the exam supervisor. Remain seated and focused until you have completed and submitted your exam. If you experience technical issues, notify the exam supervisor immediately.`;
 
 export const defaultExamDescription = `
-This exam is designed to assess your understanding and knowledge of the subject matter covered in this course. It includes a variety of question types, such as multiple-choice, short answer, and essay questions, to evaluate different levels of comprehension and critical thinking.
+This computer-based exam is designed to assess your understanding and knowledge of the subject matter covered in this course. It includes a variety of question types, such as multiple-choice, short answer, and essay questions, to evaluate different levels of comprehension and critical thinking.
 
 You are expected to demonstrate your grasp of key concepts, apply theoretical knowledge to practical scenarios, and showcase your ability to analyze and synthesize information. The exam will cover topics discussed during lectures, readings, and any additional materials provided throughout the course.
 
-Please ensure that you have reviewed all relevant content before beginning the exam. Good luck!
+Before starting, please ensure that you have thoroughly reviewed all relevant content. Good luck!
 `;

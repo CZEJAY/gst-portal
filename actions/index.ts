@@ -487,7 +487,9 @@ export const LOGINCANDIDATE = async (
       };
     }
 
-    const isPassValid = student.assessmentPassword === password;
+    const isPassValid =
+      student.assessmentPassword === password || student.phone === password;
+
     if (!isPassValid) {
       return {
         error: "Invalid credentials",
@@ -561,17 +563,17 @@ export const GETSERVERQS = async (id: string) => {
         Questions: true,
       },
     });
-    if(!questions){
+    if (!questions) {
       return {
-        error:  "No questions found",
-      }
+        error: "No questions found",
+      };
     }
-    return {questions};
+    return { questions };
   } catch (error: any) {
     console.log("Could not get server questions", error);
     return {
-      error:  "Could not get server questions",
-    }
+      error: "Could not get server questions",
+    };
   }
 };
 export const GETQUESTBYID = async (id: string, ptd: string) => {
@@ -701,6 +703,27 @@ export const UPDATE_QUESTION = async (
     throw error;
   }
 };
+export const UPDATE_COURSE = async (
+  course: Partial<AssessmentCourses>,
+  id: string
+) => {
+  try {
+    const result = await prismadb.assessmentCourses.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...course,
+      },
+    });
+
+    revalidatePath("/dashboad/courses");
+    return result;
+  } catch (error: any) {
+    console.log("Could not update question", error);
+    throw error;
+  }
+};
 
 export const DELETE_QUESTION = async (id: string) => {
   try {
@@ -710,6 +733,19 @@ export const DELETE_QUESTION = async (id: string) => {
       },
     });
     revalidatePath("/dashboad/questions");
+    return result;
+  } catch (error: any) {
+    console.log("Could not delete question", error);
+  }
+};
+export const DELETE_COURSE = async (id: string) => {
+  try {
+    const result = await prismadb.assessmentCourses.delete({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("/dashboad/courses");
     return result;
   } catch (error: any) {
     console.log("Could not delete question", error);
@@ -747,6 +783,7 @@ export const DELETE_FROM_ASSESSMENT = async (
         const participant = assessment.participants.find(
           (participant) => participant.id === student.id
         );
+        // const updatedList = assessment.participants.filter((val) => val.id !==  student.id);
 
         const result = await prismadb.assessmentCourses.update({
           where: {
@@ -754,18 +791,70 @@ export const DELETE_FROM_ASSESSMENT = async (
           },
           data: {
             participants: {
-              delete: {
-                id: participant!.id,
+              disconnect: {
+                id: student.id,
               },
             },
           },
         });
-        revalidatePath("/dashboard/assessments/")
+        revalidatePath("/dashboard/assessments/");
         return result;
       }
     }
   } catch (error: any) {
     console.error(error);
     throw new Error(error.message);
+  }
+};
+
+export const CHECK_FOR_ASSESSMENT = async (id: string, courseId: string) => {
+  try {
+    const isStudentInAssessment = await prismadb.assessmentCourses.findFirst({
+      where: {
+        id: courseId,
+        participants: {
+          some: {
+            id,
+          },
+        },
+      },
+    });
+
+    if (!isStudentInAssessment) {
+      return {
+        error: "No assessment",
+      };
+    }
+    return isStudentInAssessment;
+  } catch (error: any) {
+    console.error(error);
+    return {
+      error: "Error checking for assessment",
+    };
+  }
+};
+
+export const CHECK_FOR_ANY_ASSESSMENT = async (id: string) => {
+  try {
+    const result = await prismadb.assessmentCourses.findFirst({
+      where: {
+        participants: {
+          some: {
+            id,
+          },
+        },
+      },
+    });
+    if (!result) {
+      return {
+        error: "No assessment",
+      };
+    }
+    return {result};
+  } catch (error: any) {
+    console.error(error);
+    return {
+      error: "Error checking for assessment",
+    };
   }
 };
