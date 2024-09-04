@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   icons: "/uniuyo-logo.png",
 };
 
+export const fetchCache = 'force-no-store';
+
 export default function RootLayout({
   children,
 }: Readonly<{
