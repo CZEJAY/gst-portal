@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "BIOMETRIC PORTAL",
   icons: "/uniuyo-logo.png",
 };
-
+export const fetchCache = 'force-no-store';
 export default async function RootLayout({
   children,
 }: Readonly<{
