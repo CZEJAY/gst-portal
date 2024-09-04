@@ -34,7 +34,7 @@ const UserNavigationPanel = () => {
 
   // Function to handle revalidation
   const handleRevalidate = () => {
-    router.refresh(); // This will revalidate the page by refreshing it
+    router.replace("/dashboard"); // This will revalidate the page by refreshing it
   };
   return (
     <>
